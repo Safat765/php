@@ -1,0 +1,14 @@
+.logout-btn{
+    position: absolute;
+    top: 15%;
+    right: 5%;
+}
+
+.welcome{
+    text-align: center;
+}
+.crud{
+    position: absolute;
+    top: 15%;
+    left: 5%;
+}
