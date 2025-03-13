@@ -1,7 +1,7 @@
 <?php
     session_start();
     include '../../../Msg/message.php';
-    include '../../Model/departmentModel.php';
+    include '../../Model/result.php';
 ?>
 
 <!doctype html>
@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Department List
+                        <h4>Result List
                             <a href="../dashboardView.php" class="btn btn-outline-danger float-end">BACK</a>
                         </h4>
                     </div>
@@ -28,9 +28,9 @@
                         <table class="table table-bordered table-striped mx-auto text-center">
                             <thead>
                                 <tr>
-                                    <th>Department ID</th>
-                                    <th>Name</th>
-                                    <th>Created By</th>
+                                    <th>Result ID</th>
+                                    <th>Student ID</th>
+                                    <th>Final CGPA</th>
                                     <th>Action</th>
                                 </tr>
                             </thead> 
@@ -42,13 +42,13 @@
                                         foreach ($result as $data) {
                                             ?>
                                             <tr>
-                                                <td><?php echo $data['department_id'] ?></td>
-                                                <td><?php echo $data['name'] ?></td>
-                                                <td><?php echo $data['created_by'] ?></td>
+                                                <td><?php echo $data['result_id '] ?></td>
+                                                <td><?php echo $data['student_id'] ?></td>
+                                                <td><?php echo $data['final_cgpa'] ?></td>
                                                 <td>
                                                     <div>
-                                                        <form action="../../Controller/departmentController.php" method="post">
-                                                            <input type="hidden" name="department_id" value="<?php echo $data['department_id']; ?>">
+                                                        <form action="../../Controller/resultController.php" method="post">
+                                                            <input type="hidden" name="result_id" value="<?php echo $data['result_id']; ?>">
                                                             <button type="submit" name="edit_Call" class="btn btn-success btn-sm">Edit</button>
 
                                                             <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>

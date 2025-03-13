@@ -113,11 +113,11 @@
         
         return $stmt->get_result();
     } 
-    function updateUser($user_id, $username, $email, $password, $status, $phone_number, $updated_at){
+    function updateUser($user_id, $email, $password, $status, $phone_number, $updated_at){
         $con = dbConnection();
-        $sql = "UPDATE `users` SET `username`= ?,`email`= ?,`password`= ?,`status`= ?,`phone_number`= ?,`updated_at`= ? WHERE `user_id` = $user_id";
+        $sql = "UPDATE `users` SET `email`= ?,`password`= ?,`status`= ?,`phone_number`= ?,`updated_at`= ? WHERE `user_id` = $user_id";
         $stmt = $con->prepare($sql);
-        $stmt->bind_param("sssiss", $username, $email, $password, $status, $phone_number, $updated_at);
+        $stmt->bind_param("ssiss", $email, $password, $status, $phone_number, $updated_at);
 
         $stmt->execute();
         $result = $stmt->get_result();
@@ -128,13 +128,9 @@
     function remove($uID){
         $con = dbConnection();
         $sql = "DELETE FROM `users` WHERE `user_id` = $uID";
+        $result = mysqli_query($con, $sql);
 
-        if (mysqli_query($con, $sql)){
-            header('Location: ../View/dashboardView.php');
-        }else{
-            echo "Product not found";
-            exit;
-        }
+        return $result;
     }
 
 

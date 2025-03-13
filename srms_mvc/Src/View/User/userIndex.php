@@ -1,58 +1,116 @@
-<!DOCTYPE html>
+<?php
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    include '../../../Msg/message.php';
+    include '../../../Src/Model/userModel.php';
+?>
+
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <button><a href="../View/dashboardView.php">Back</a></button>
-    <br><br>
-    
-    <table border="1">
-        <tr>
-            <th>User ID</th>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Password</th>
-            <th>User Type</th>
-            <th>Status</th>
-            <th>Registration Number</th>
-            <th>Phone Number</th>
-            <th>Created At</th>
-            <th>Updated At</th>
-            <th>Action</th>
-        </tr>
-        <?php
-        if (isset($result) && $result->num_rows > 0):
-            while ($user = $result->fetch_assoc()): ?>
-                <tr>
-                    <td><?php echo $user['user_id']; ?></td>
-                    <td><?php echo $user['username']; ?></td>
-                    <td><?php echo $user['email']; ?></td>
-                    <td><?php echo $user['password']; ?></td>
-                    <td><?php echo $user['user_type']; ?></td>
-                    <td><?php echo $user['status']; ?></td>
-                    <td><?php echo $user['registration_number']; ?></td>
-                    <td><?php echo $user['phone_number']; ?></td>
-                    <td><?php echo $user['created_at']; ?></td>
-                    <td><?php echo $user['updated_at']; ?></td>
-                    <td>
-                        <form action="../../Src/Controller/adminController.php" method="post">
-                            <input type="hidden" name="id" value="<?php echo $user['user_id']; ?>">
-                            <button type="submit" name="edit">Edit</button>
-                        </form>
-                        <form action="../../Src/Controller/adminController.php" method="post">
-                            <input type="hidden" name="id" value="<?php echo $user['user_id']; ?>">
-                            <button type="submit" name="delete">Delete</button>
-                        </form>
-                    </td>
-                </tr>
-            <?php endwhile; ?>
-        <?php else: ?>
-            <tr><td colspan="10">No users found.</td></tr>
-        <?php endif; ?>
-    </table>
-    <a href="../../../Src/Controller/adminController.php"></a>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../../Public/CSS/toggle.css">
+  </head>
+  <body>
+    <div class="mt-5 p-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>User List
+                            <a href="../dashboardView.php" class="btn btn-outline-danger float-end">BACK</a>
+                        </h4>
+                    </div>
+                    <div class="card-body table-responsive">
+
+                        <table class="table table-bordered table-striped mx-auto text-center">
+                            <thead>
+                                <tr>
+                                    <th>User ID</th>
+                                    <th>Username</th>
+                                    <th>Email</th>
+                                    <th>Password</th>
+                                    <th>User Type</th>
+                                    <th>Status</th>
+                                    <th>Registration Number</th>
+                                    <th>Phone Number</th>
+                                    <th>Created At</th>
+                                    <th>Updated At</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead> 
+                            <tbody>
+                                <?php
+                                    $result = showAll();
+
+                                    if (mysqli_num_rows($result) > 0) {
+                                        foreach ($result as $user) {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $user['user_id']; ?></td>
+                                                <td><?php echo $user['username']; ?></td>
+                                                <td><?php echo $user['email']; ?></td>
+                                                <td><?php echo $user['password']; ?></td>
+                                                <td><?php echo $user['user_type']; ?></td>
+                                                <td><?php echo $user['status']; ?></td>
+                                                <td><?php echo $user['registration_number']; ?></td>
+                                                <td><?php echo $user['phone_number']; ?></td>
+                                                <td><?php echo $user['created_at']; ?></td>
+                                                <td><?php echo $user['updated_at']; ?></td>
+                                                <td>
+                                                    <div>
+                                                        <form action="../../Controller/userController.php" method="post">
+                                                            <input type="hidden" name="id" value="<?php echo $user['user_id']; ?>">
+                                                            <div class="form-group d-flex">
+                                                                <!-- Toggle Button -->                                                                    
+                                                                <div class="p-1">
+                                                                <?php echo $user['user_id']; ?>
+                                                                <?php echo $user['status']; ?>
+                                                                
+                                                                    <form action="" method="post" class="d-inline-block">
+                                                                        <input type="hidden" name="user_id" value="<?php echo $user['user_id']; ?>">
+                                                                        <input type="hidden" name="status" value="<?php echo ($user['status'] == 1) ? 1 : 0; ?>">
+                                                                        <button type="button" class="toggle-btn <?php echo ($user['status'] == 1) ? 'active-btn' : 'inactive-btn'; ?>" 
+                                                                                onclick="toggleStatus(<?php echo $user['user_id']; ?>)">
+                                                                            <?php echo ($user['status'] == 1) ? 'Active' : 'Inactive'; ?>
+                                                                        </button>
+                                                                    </form>
+
+                                                                </div>
+                                                                <!-- Edit Button -->
+                                                                <div class="p-1">
+                                                                    <button type="submit" name="edit_Call" class="btn btn-success btn-sm">Edit</button>
+                                                                </div>
+                                                                <!-- Delete Button -->
+                                                                <div class="p-1">
+                                                                    <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <?php
+                                        }
+                                    } else {
+                                        echo "<tr><td colspan='10'>No users found.</td></tr>";
+                                    }
+                                ?>
+                                <tr></tr>
+                            </tbody>           
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="../../../Public/JS/toggle.js"></script>
+  </body>
 </html>

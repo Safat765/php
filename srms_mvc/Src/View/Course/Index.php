@@ -1,7 +1,7 @@
 <?php
     session_start();
     include '../../../Msg/message.php';
-    include '../../Model/departmentModel.php';
+    include '../../Model/course.php';
 ?>
 
 <!doctype html>
@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Department List
+                        <h4>Course List
                             <a href="../dashboardView.php" class="btn btn-outline-danger float-end">BACK</a>
                         </h4>
                     </div>
@@ -28,8 +28,10 @@
                         <table class="table table-bordered table-striped mx-auto text-center">
                             <thead>
                                 <tr>
-                                    <th>Department ID</th>
+                                    <th>Course ID</th>
                                     <th>Name</th>
+                                    <th>Status</th>
+                                    <th>Credit</th>
                                     <th>Created By</th>
                                     <th>Action</th>
                                 </tr>
@@ -42,13 +44,15 @@
                                         foreach ($result as $data) {
                                             ?>
                                             <tr>
-                                                <td><?php echo $data['department_id'] ?></td>
+                                                <td><?php echo $data['course_id'] ?></td>
                                                 <td><?php echo $data['name'] ?></td>
+                                                <td><?php echo $data['status'] ?></td>
+                                                <td><?php echo $data['credit'] ?></td>
                                                 <td><?php echo $data['created_by'] ?></td>
                                                 <td>
                                                     <div>
-                                                        <form action="../../Controller/departmentController.php" method="post">
-                                                            <input type="hidden" name="department_id" value="<?php echo $data['department_id']; ?>">
+                                                        <form action="../../Controller/courseController.php" method="post">
+                                                            <input type="hidden" name="course_id" value="<?php echo $data['course_id']; ?>">
                                                             <button type="submit" name="edit_Call" class="btn btn-success btn-sm">Edit</button>
 
                                                             <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>

@@ -17,11 +17,11 @@
         $d_name = $department_name;        
 
         if (empty($d_name)){
-            $_SESSION['create_dep_msg'] = "username required!";
+            $_SESSION['dep_nameErrMsg'] = "Department Name required!";
             $isValid = false;
         }
         else{
-            $_SESSION['create_dep_msg'] = "";
+            $_SESSION['dep_nameErrMsg'] = "";
         }
 
         if ($isValid === true){ 
@@ -29,16 +29,16 @@
             $result = check_depertment_model($department_name);
             if ($result == 0) {
                 department_Create_cntrl($department_name);
-                $_SESSION['create_dep_msg'] = "Depertment Created Successfully";
+                $_SESSION['create_dep_msg'] = " Depertment Created Successfully";
                 header ('Location: ../View/Department/departmentCreate.php');
                 exit(0);
             } else {            
-                $_SESSION['create_dep_msg'] = "This Depertment has already been Created before";
+                $_SESSION['create_dep_msg'] = " This Depertment has already been Created before";
                 header ('Location: ../View/Department/departmentCreate.php');
                 exit(0);
             }
         } else {
-            $_SESSION['create_dep_msg'] = "Fill up the field first";
+            $_SESSION['create_dep_msg'] = " Fill up the field first";
             header ('Location: ../View/Department/departmentCreate.php');
             exit;
         }
@@ -63,6 +63,18 @@
         }
         
     }
+    function back_TO_dashboard(){
+        if (isset($_SESSION['dep_nameErrMsg'])) {
+            
+            unset($_SESSION['dep_nameErrMsg']);
+
+            header ('Location: ../View/dashboardView.php');
+            exit;
+        } else {            
+            header ('Location: ../View/dashboardView.php');
+            exit;
+        }
+    }
 
 
 
@@ -80,6 +92,12 @@
         if (isset($_POST['delete'])) {
             delete($_POST['department_id']);
         }
+        if (isset($_POST['back_dashboard'])) {
+            back_TO_dashboard();
+        }
+    } else{
+        echo "File is not working in post";
+        exit;
     }
 
 

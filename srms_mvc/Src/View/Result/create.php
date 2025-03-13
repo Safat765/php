@@ -17,9 +17,9 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Department add
+                        <h4>Add Result
                             <div>
-                                <form action="../../Controller/departmentController.php" method="post">
+                                <form action="../../Controller/resultController.php" method="post">
                                     <button type="submit" name="back_dashboard" class="btn btn-danger float-end">BACK</button>
                                 </form>
                             </div>
@@ -27,18 +27,22 @@
                     </div>
                     <div class="card-body">
 
-                        <form action="../../Controller/departmentController.php" method="post">
-                            
+                        <form action="../../Controller/resultController.php" method="post">
                             <div class="mb-3">
-                                <label for="dep_name">Department Name:</label>
-                                <input type="text" id="dep_name" name="dep_name" class="form-control">
+                                <label for="student_id">Student ID:</label>
+                                <input type="text" id="student_id" name="student_id" class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['dep_nameErrMsg']) ? $_SESSION['dep_nameErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['student_idErrMsg']) ? $_SESSION['student_idErrMsg'] : ""; ?></p>
+                            </div>
+                            <div class="mb-3">
+                                <label for="final_cgpa">Final CGPA:</label>
+                                <input type="text" id="final_cgpa" name="final_cgpa" class="form-control">
+                                <br>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['final_cgpaErrMsg']) ? $_SESSION['final_cgpaErrMsg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <button type="submit" name="create" class="btn btn-primary">CREATE</button>
                             </div>
-
                         </form>
                     </div>
                 </div>

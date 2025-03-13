@@ -3,7 +3,7 @@
         session_start();
     }
     include '../../../Msg/message.php';
-    include '../../Model/userModel.php';
+    include '../../Model/course.php';
 ?>
 
 
@@ -27,43 +27,31 @@
                     </div>
                     <div class="card-body">
                     <?php
-                        $result = showUpdateUserDate($_SESSION['user_id']);
+                        $result = showUpdateUserDate($_SESSION['course_id']);
 
                             if (mysqli_num_rows($result) > 0) {
                                 foreach ($result as $data) {
                                     ?>
-                                        <form action="../../Controller/userController.php" method="post">
+                                        <form action="../../Controller/courseController.php" method="post">
 
                                             <div class="mb-3">
-                                            <input type="hidden" id="user_id" name="user_id" value="<?php echo $data['user_id']; ?>">
+                                            <input type="hidden" id="course_id" name="course_id" value="<?php echo $data['course_id']; ?>">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="username">Username:</label>
-                                                <input type="text" id="username" name="username" class="form-control" value="<?php echo $data['username']?>" disabled>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="email">Email:</label>
-                                                <input type="text" id="email" name="email" class="form-control" value="<?php echo $data['email']?>">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="password">Password:</label>
-                                                <input type="text" id="password" name="password" class="form-control" value="<?php echo $data['password']?>">
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="user_type">User Type:</label>
-                                                <input type="text" id="user_type" name="user_type" class="form-control" value="<?php echo $data['user_type']?>">
+                                                <label for="name">Name:</label>
+                                                <input type="text" id="name" name="name" class="form-control" value="<?php echo $data['name']?>" disabled>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="status">Status:</label>
                                                 <input type="text" id="status" name="status" class="form-control" value="<?php echo $data['status']?>">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="registration_number">Registration Number:</label>
-                                                <input type="text" id="registration_number" name="registration_number" class="form-control" value="<?php echo $data['registration_number']?>" disabled>
+                                                <label for="credit">Credit:</label>
+                                                <input type="text" id="credit" name="credit" class="form-control" value="<?php echo $data['credit']?>">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="phone_number">Phone Number:</label>
-                                                <input type="text" id="phone_number" name="phone_number" class="form-control" value="<?php echo $data['phone_number']?>">
+                                                <label for="created_by">Created By:</label>
+                                                <input type="text" id="created_by" name="created_by" class="form-control" value="<?php echo $data['created_by']?>">
                                             </div>
                                             <div class="mb-3">
                                                 <button type="submit" name="confirmUpdate" class="btn btn-primary">Confirm Edit</button>

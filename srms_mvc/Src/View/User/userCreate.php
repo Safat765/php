@@ -1,6 +1,8 @@
 <?php
     session_start();
+    include '../../../Msg/message.php';
 ?>
+
 
 <!doctype html>
 <html lang="en">
@@ -17,9 +19,8 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Add User
-                            <!-- <a href="../dashboardView.php" class="btn btn-danger float-end">BACK</a> -->
                             <div>
-                                <form action="../../Controller/adminController.php" method="post">
+                                <form action="../../Controller/userController.php" method="post">
                                     <button type="submit" name="back_dashboard" class="btn btn-danger float-end">BACK</button>
                                 </form>
                             </div>
@@ -27,24 +28,24 @@
                     </div>
                     <div class="card-body">
 
-                        <form action="../../Controller/adminController.php" method="POST">            
+                        <form action="../../Controller/userController.php" method="POST">            
                             <div class="mb-3">
                                 <label for="username">Username:</label>
                                 <input type="text" id="username" name="username"  class="form-control">
                                 <br>
-                                <span class="alert alert-danger" role="alert"><?php  echo isset($_SESSION['usernameErrMsg1']) ? $_SESSION['usernameErrMsg1'] : ""; ?></span>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['usernameErrMsg1']) ? $_SESSION['usernameErrMsg1'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="email">Email:</label>
                                 <input type="text" id="email" name="email"  class="form-control">
                                 <br>
-                                <span class="alert alert-danger" role="alert"><?php  echo isset($_SESSION['emailErrMsg']) ? $_SESSION['emailErrMsg'] : ""; ?></span>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['emailErrMsg']) ? $_SESSION['emailErrMsg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="password">Password:</label>
                                 <input type="text" id="password" name="password"  class="form-control">
                                 <br>
-                                <span class="alert alert-danger" role="alert"><?php  echo isset($_SESSION['passwordErrMsg1']) ? $_SESSION['passwordErrMsg1'] : ""; ?></span>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['passwordErrMsg1']) ? $_SESSION['passwordErrMsg1'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="user_type">User Type:</label>
@@ -55,7 +56,7 @@
                                     <option value="3">Student</option>
                                 </select>
                                 <br>
-                                <span class="alert alert-danger" role="alert"><?php  echo isset($_SESSION['user_typeErrMsg']) ? $_SESSION['user_typeErrMsg'] : ""; ?></span>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['user_typeErrMsg']) ? $_SESSION['user_typeErrMsg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">   
                                 <label for="status">Status:</label>             
@@ -65,22 +66,22 @@
                                     <option value="active">Active</option>
                                 </select>
                                 <br>
-                                <span class="alert alert-danger" role="alert"><?php  echo isset($_SESSION['statusErrMsg']) ? $_SESSION['statusErrMsg'] : ""; ?></span>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['statusErrMsg']) ? $_SESSION['statusErrMsg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="registration_number">Registration Number:</label>
                                 <input type="text" id="registration_number" name="registration_number"  class="form-control">
                                 <br>
-                                <span class="alert alert-danger" role="alert"><?php  echo isset($_SESSION['registration_numberErrMsg']) ? $_SESSION['registration_numberErrMsg'] : ""; ?></span>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['registration_numberErrMsg']) ? $_SESSION['registration_numberErrMsg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="phone_number">Phone Number:</label>
                                 <input type="text" id="phone_number" name="phone_number"  class="form-control">
                                 <br>
-                                <span class="alert alert-danger" role="alert"><?php  echo isset($_SESSION['phone_numberErrMsg']) ? $_SESSION['phone_numberErrMsg'] : ""; ?></span>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['phone_numberErrMsg']) ? $_SESSION['phone_numberErrMsg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
-                                <button type="submit" name="addUser" class="btn btn-primary">Create</button>
+                                <button type="submit" name="createUser" class="btn btn-primary">Create</button>
                             </div>
                             
                         </form>

@@ -3,7 +3,7 @@
         session_start();
     }
     include '../../../Msg/message.php';
-    include '../../Model/userModel.php';
+    include '../../Model/course.php';
 ?>
 
 
@@ -27,43 +27,37 @@
                     </div>
                     <div class="card-body">
                     <?php
-                        $result = showUpdateUserDate($_SESSION['user_id']);
+                        $result = showUpdateUserDate($_SESSION['course_id']);
 
                             if (mysqli_num_rows($result) > 0) {
                                 foreach ($result as $data) {
                                     ?>
-                                        <form action="../../Controller/userController.php" method="post">
+                                        <form action="../../Controller/courseController.php" method="post">
 
                                             <div class="mb-3">
-                                            <input type="hidden" id="user_id" name="user_id" value="<?php echo $data['user_id']; ?>">
+                                                <input type="hidden" id="marks_id" name="marks_id" value="<?php echo $data['marks_id']; ?>">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="username">Username:</label>
-                                                <input type="text" id="username" name="username" class="form-control" value="<?php echo $data['username']?>" disabled>
+                                                <label for="student_id">Student ID:</label>
+                                                <input type="text" id="student_id" name="student_id" class="form-control" value="<?php echo $data['student_id']; ?>">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="email">Email:</label>
-                                                <input type="text" id="email" name="email" class="form-control" value="<?php echo $data['email']?>">
+                                                <label for="exam_id">Exam ID:</label>
+                                                <input type="text" id="exam_id" name="exam_id" class="form-control" value="<?php echo $data['exam_id']; ?>">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="password">Password:</label>
-                                                <input type="text" id="password" name="password" class="form-control" value="<?php echo $data['password']?>">
+                                                <label for="course_id">Course ID:</label>
+                                                <input type="text" id="course_id" name="course_id" class="form-control" value="<?php echo $data['course_id']; ?>">
                                             </div>
                                             <div class="mb-3">
-                                                <label for="user_type">User Type:</label>
-                                                <input type="text" id="user_type" name="user_type" class="form-control" value="<?php echo $data['user_type']?>">
+                                                <label for="marks">Marks:</label>
+                                                <input type="text" id="marks" name="marks" class="form-control" value="<?php echo $data['marks']; ?>">
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="status">Status:</label>
-                                                <input type="text" id="status" name="status" class="form-control" value="<?php echo $data['status']?>">
+                                                <label for="semester">Semester:</label>
+                                                <input type="text" id="semester" name="semester" class="form-control" value="<?php echo $data['semester']; ?>">
                                             </div>
-                                            <div class="mb-3">
-                                                <label for="registration_number">Registration Number:</label>
-                                                <input type="text" id="registration_number" name="registration_number" class="form-control" value="<?php echo $data['registration_number']?>" disabled>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label for="phone_number">Phone Number:</label>
-                                                <input type="text" id="phone_number" name="phone_number" class="form-control" value="<?php echo $data['phone_number']?>">
+                                                <label for="gpa">GPA:</label>
+                                                <input type="text" id="gpa" name="gpa" class="form-control" value="<?php echo $data['gpa']; ?>">
                                             </div>
                                             <div class="mb-3">
                                                 <button type="submit" name="confirmUpdate" class="btn btn-primary">Confirm Edit</button>
