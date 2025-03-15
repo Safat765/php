@@ -2,20 +2,20 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }    
-    function dbConnection(){
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $database = "assignment_srms";
+    // function dbConnection(){
+    //     $servername = "localhost";
+    //     $username = "root";
+    //     $password = "";
+    //     $database = "assignment_srms";
 
-        $con = mysqli_connect($servername, $username, $password, $database);
+    //     $con = mysqli_connect($servername, $username, $password, $database);
 
-        if (!$con){
-            die("Error detected ". mysqli_connect_error(). "<br>");
-        }
+    //     if (!$con){
+    //         die("Error detected ". mysqli_connect_error(). "<br>");
+    //     }
 
-        return $con;
-    }
+    //     return $con;
+    // }
 
     // Depertment
 
@@ -53,7 +53,7 @@
         return $result;
     }
 
-    function delete($dID){
+    function delete_dep($dID){
         $con = dbConnection();
         $sql = "DELETE FROM `department` WHERE `department_id` = $dID";
 
@@ -76,6 +76,13 @@
         $con = dbConnection();
         $sql = "UPDATE `department` SET `name`='$department_name',`created_by`='$created_by' WHERE `department_id` = $dID";
         $result = mysqli_query($con, $sql);
+    }    
+    function show_dep_List(){
+        $con = dbConnection();
+        $sql = "SELECT * FROM `department`";
+        $result = mysqli_query($con, $sql);
+
+        return $result;
     }
 
 

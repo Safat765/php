@@ -90,7 +90,7 @@
             update_depertment($_POST['dep_name'], $_POST['dep_created_by']);
         }
         if (isset($_POST['delete'])) {
-            delete($_POST['department_id']);
+            delete_dep($_POST['department_id']);
         }
         if (isset($_POST['back_dashboard'])) {
             back_TO_dashboard();

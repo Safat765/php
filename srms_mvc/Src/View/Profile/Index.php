@@ -1,7 +1,7 @@
 <?php
     session_start();
     include '../../../Msg/message.php';
-    include '../../Model/result.php';
+    include '../../Model/profile.php';
 ?>
 
 <!doctype html>
@@ -31,27 +31,41 @@
                                     <th>First Name</th>
                                     <th>Middle Name</th>
                                     <th>Last Name</th>
+                                    <th>Registration Number</th>
+                                    <th>department</th>
+                                    <th>session</th>
+                                    <th>User ID</th>
                                     <th>Action</th>
                                 </tr>
                             </thead> 
                             <tbody>
                                 <?php
-                                    $result = show_List();
+                                    $result = profileModel::show_List();
 
                                     if (mysqli_num_rows($result) > 0) {
                                         foreach ($result as $data) {
                                             ?>
                                             <tr>
                                                 <td><?php echo $data['first_name'] ?></td>
-                                                <td><?php echo $data['middle_name '] ?></td>
+                                                <td><?php echo $data['middle_name'] ?></td>
                                                 <td><?php echo $data['last_name'] ?></td>
+                                                <td><?php echo $data['registration_number'] ?></td>
+                                                <td><?php echo $data['department'] ?></td>
+                                                <td><?php echo $data['session'] ?></td>
+                                                <td><?php echo $data['user_id'] ?></td>
                                                 <td>
                                                     <div>
-                                                        <form action="../../Controller/resultController.php" method="post">
+                                                        <form action="../../Controller/profile.php" method="post">
                                                             <input type="hidden" name="user_id" value="<?php echo $data['user_id']; ?>">
                                                             <button type="submit" name="edit_Call" class="btn btn-success btn-sm">Edit</button>
 
-                                                            <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
+                                                            <?php 
+                                                                if ($_SESSION['user_id'] == 1) {
+                                                            ?>
+                                                                    <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
+                                                            <?php
+                                                                }
+                                                            ?>                                                            
                                                         </form>
                                                     </div>
                                                 </td>

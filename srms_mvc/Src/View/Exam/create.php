@@ -1,6 +1,9 @@
 <?php
     session_start();
     include '../../../Msg/message.php';
+    include '../../Model/course.php';
+    include '../../Model/userModel.php';
+    include '../../Model/departmentModel.php';
 ?>
 
 <!doctype html>
@@ -19,19 +22,32 @@
                     <div class="card-header">
                         <h4>Add Exam
                             <div>
-                                <form action="../../Controller/examController.php" method="post">
-                                    <button type="submit" name="back_dashboard" class="btn btn-danger float-end">BACK</button>
+                                <form action="../../Controller/exam.php" method="post">
+                                    <button type="submit" name="back_TO_dashboard" class="btn btn-danger float-end">BACK</button>
                                 </form>
                             </div>
                         </h4>
                     </div>
                     <div class="card-body">
 
-                        <form action="../../Controller/examController.php" method="post">
+                        <form action="../../Controller/exam.php" method="post">
                             
                             <div class="mb-3">
-                                <label for="course_id">Course ID:</label>
-                                <input type="text" id="course_id" name="course_id" class="form-control">
+                            <label for="course_id">Course ID:</label>
+                            <br>
+                            <select name='course_id' id='course_id' class='form-select' aria-label='Default select example'>
+                                <option value='' disabled selected>Select the user</option>
+                                <?php
+                                    $result = CourseModel::show_List();
+                                    if (mysqli_num_rows($result) > 0) {
+                                        foreach ($result as $data) {                                           
+                                ?>                                            
+                                            <option value="<?php echo $data['course_id'];?>"><?php echo $data['name'];?></option>                                            
+                                <?php
+                                        }
+                                    }
+                                ?>
+                                </select>
                                 <br>
                                 <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['course_idErrMsg']) ? $_SESSION['course_idErrMsg'] : ""; ?></p>
                             </div>
@@ -43,7 +59,20 @@
                             </div>
                             <div class="mb-3">
                                 <label for="department_id">Department ID:</label>
-                                <input type="text" id="department_id" name="department_id" class="form-control">
+                                <br>
+                                <select name='department_id' id='department_id' class='form-select' aria-label='Default select example'>
+                                    <option value='' disabled selected>Select department</option>
+                                    <?php
+                                        $result = show_dep_List();
+                                        if (mysqli_num_rows($result) > 0) {
+                                            foreach ($result as $data) {                                           
+                                    ?>                                            
+                                                <option value="<?php echo $data['department_id'];?>"><?php echo $data['name'];?></option>                                                
+                                    <?php
+                                            }
+                                        }
+                                    ?>
+                                </select>
                                 <br>
                                 <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['department_idErrMsg']) ? $_SESSION['department_idErrMsg'] : ""; ?></p>
                             </div>
@@ -78,8 +107,21 @@
                                 <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['marksErrMsg']) ? $_SESSION['marksErrMsg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
-                                <label for="instructor_id">Instructor ID:</label>
-                                <input type="text" id="instructor_id" name="instructor_id" class="form-control">
+                                <label for="instructor_id">Instructor :</label>
+                                <br>
+                                <select name='instructor_id' id='instructor_id' class='form-select' aria-label='Default select example'>
+                                    <option value='' disabled selected>Select Instructor</option>
+                                <?php
+                                    $result = show_instructor_list(2);
+                                    if (mysqli_num_rows($result) > 0) {
+                                        foreach ($result as $data) {                                           
+                                ?>                                            
+                                            <option value="<?php echo $data['user_id'];?>"><?php echo $data['username'];?></option>                                            
+                                <?php
+                                        }
+                                    }
+                                ?>
+                                </select>
                                 <br>
                                 <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['instructor_idErrMsg']) ? $_SESSION['instructor_idErrMsg'] : ""; ?></p>
                             </div>

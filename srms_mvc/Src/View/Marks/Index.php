@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Course List
+                        <h4>Marks List
                             <a href="../dashboardView.php" class="btn btn-outline-danger float-end">BACK</a>
                         </h4>
                     </div>
@@ -35,39 +35,51 @@
                                     <th>Marks</th>
                                     <th>Semester</th>
                                     <th>GPA</th>
+                                    <?php 
+                                        if ($_SESSION['user_type'] == 1) {
+                                    ?>
                                     <th>Action</th>
+                                    <?php
+                                        }
+                                    ?>
                                 </tr>
                             </thead> 
                             <tbody>
                                 <?php
-                                    $result = show_List();
+                                    $result = MarksModel::show_List();
 
                                     if (mysqli_num_rows($result) > 0) {
                                         foreach ($result as $data) {
                                             ?>
                                             <tr>
-                                                <td><?php echo $data['marks_id '] ?></td>
+                                                <td><?php echo $data['marks_id'] ?></td>
                                                 <td><?php echo $data['student_id'] ?></td>
                                                 <td><?php echo $data['exam_id'] ?></td>
                                                 <td><?php echo $data['course_id'] ?></td>
                                                 <td><?php echo $data['marks'] ?></td>
                                                 <td><?php echo $data['semester'] ?></td>
                                                 <td><?php echo $data['gpa'] ?></td>
+                                                <?php 
+                                                    if ($_SESSION['user_type'] == 1) {
+                                                ?>
                                                 <td>
                                                     <div>
-                                                        <form action="../../Controller/marksController.php" method="post">
-                                                            <input type="hidden" name="course_id" value="<?php echo $data['course_id']; ?>">
+                                                        <form action="../../Controller/marks.php" method="post">
+                                                            <input type="hidden" name="marks_id" value="<?php echo $data['marks_id']; ?>">
                                                             <button type="submit" name="edit_Call" class="btn btn-success btn-sm">Edit</button>
 
                                                             <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
                                                         </form>
                                                     </div>
                                                 </td>
+                                                <?php
+                                                    }
+                                                ?>
                                             </tr>
                                             <?php
                                         }
                                     } else {
-                                        echo "<tr><td colspan='4'>No users found.</td></tr>";
+                                        echo "<tr><td colspan='7'>No users found.</td></tr>";
                                     }
                                 ?>
                                 <tr></tr>

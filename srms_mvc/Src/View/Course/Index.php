@@ -33,12 +33,18 @@
                                     <th>Status</th>
                                     <th>Credit</th>
                                     <th>Created By</th>
+                                    <?php 
+                                        if ($_SESSION['user_type'] == 1) {
+                                    ?>
                                     <th>Action</th>
+                                    <?php
+                                        }
+                                    ?> 
                                 </tr>
                             </thead> 
                             <tbody>
                                 <?php
-                                    $result = show_List();
+                                    $result = CourseModel::show_List();
 
                                     if (mysqli_num_rows($result) > 0) {
                                         foreach ($result as $data) {
@@ -49,16 +55,22 @@
                                                 <td><?php echo $data['status'] ?></td>
                                                 <td><?php echo $data['credit'] ?></td>
                                                 <td><?php echo $data['created_by'] ?></td>
+                                                <?php 
+                                                    if ($_SESSION['user_type'] == 1) {
+                                                ?>
                                                 <td>
                                                     <div>
-                                                        <form action="../../Controller/courseController.php" method="post">
+                                                        <form action="../../Controller/course.php" method="post">
                                                             <input type="hidden" name="course_id" value="<?php echo $data['course_id']; ?>">
                                                             <button type="submit" name="edit_Call" class="btn btn-success btn-sm">Edit</button>
 
                                                             <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
                                                         </form>
                                                     </div>
-                                                </td>
+                                                </td>                                          
+                                                <?php
+                                                    }
+                                                ?> 
                                             </tr>
                                             <?php
                                         }

@@ -1,7 +1,7 @@
 <?php
     session_start();
     include '../../../Msg/message.php';
-    include '../../Model/result.php';
+    include '../../Model/profile.php';
 ?>
 
 <!doctype html>
@@ -28,50 +28,52 @@
                         <table class="table table-bordered table-striped mx-auto text-center">
                             <thead>
                                 <tr>
-                                    <th>Result ID</th>
-                                    <th>Student ID</th>
-                                    <th>Final CGPA</th>
-                                    <?php 
-                                        if ($_SESSION['user_id'] == 1) {
-                                    ?>
+                                    <th>First Name</th>
+                                    <th>Middle Name</th>
+                                    <th>Last Name</th>
+                                    <th>Registration Number</th>
+                                    <th>department</th>
+                                    <th>session</th>
+                                    <th>User ID</th>
                                     <th>Action</th>
-                                    <?php
-                                        }
-                                    ?>
                                 </tr>
                             </thead> 
                             <tbody>
                                 <?php
-                                    $result = resultModel::show_List();
+                                    $result = profileModel::show_List_profile($_SESSION['user_id']);
 
                                     if (mysqli_num_rows($result) > 0) {
                                         foreach ($result as $data) {
                                             ?>
                                             <tr>
-                                                <td><?php echo $data['results_id'] ?></td>
-                                                <td><?php echo $data['student_id'] ?></td>
-                                                <td><?php echo $data['final_cgpa'] ?></td>
-                                                <?php 
-                                                    if ($_SESSION['user_id'] == 1) {
-                                                ?>
+                                                <td><?php echo $data['first_name'] ?></td>
+                                                <td><?php echo $data['middle_name'] ?></td>
+                                                <td><?php echo $data['last_name'] ?></td>
+                                                <td><?php echo $data['registration_number'] ?></td>
+                                                <td><?php echo $data['department'] ?></td>
+                                                <td><?php echo $data['session'] ?></td>
+                                                <td><?php echo $data['user_id'] ?></td>
                                                 <td>
                                                     <div>
-                                                        <form action="../../Controller/result.php" method="post">
-                                                            <input type="hidden" name="result_id" value="<?php echo $data['results_id']; ?>">
-                                                            <!-- <button type="submit" name="edit_Call" class="btn btn-success btn-sm">Edit</button> -->
+                                                        <form action="../../Controller/profile.php" method="post">
+                                                            <input type="hidden" name="user_id" value="<?php echo $data['user_id']; ?>">
+                                                            <button type="submit" name="edit_Call" class="btn btn-success btn-sm">Edit</button>
 
-                                                            <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
+                                                            <?php 
+                                                                if ($_SESSION['user_type'] == 1) {
+                                                            ?>
+                                                                    <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
+                                                            <?php
+                                                                }
+                                                            ?>                                                            
                                                         </form>
                                                     </div>
                                                 </td>
-                                                <?php
-                                                    }
-                                                ?>
                                             </tr>
                                             <?php
                                         }
                                     } else {
-                                        echo "<tr><td colspan='4'>No users found.</td></tr>";
+                                        echo "<tr><td colspan='8'>Your profile has no been updated yet.</td></tr>";
                                     }
                                 ?>
                                 <tr></tr>

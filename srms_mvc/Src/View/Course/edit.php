@@ -21,25 +21,25 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>User add
-                            <a href="userIndex.php" class="btn btn-danger float-end">BACK</a>
+                        <h4>Course edit
+                            <a href="Index.php" class="btn btn-danger float-end">BACK</a>
                         </h4>
                     </div>
                     <div class="card-body">
                     <?php
-                        $result = showUpdateUserDate($_SESSION['course_id']);
+                        $result = CourseModel::showUpdateCourseDate($_SESSION['course_id']);
 
                             if (mysqli_num_rows($result) > 0) {
                                 foreach ($result as $data) {
                                     ?>
-                                        <form action="../../Controller/courseController.php" method="post">
+                                        <form action="../../Controller/course.php" method="post">
 
                                             <div class="mb-3">
                                             <input type="hidden" id="course_id" name="course_id" value="<?php echo $data['course_id']; ?>">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="name">Name:</label>
-                                                <input type="text" id="name" name="name" class="form-control" value="<?php echo $data['name']?>" disabled>
+                                                <input type="text" id="name" name="name" class="form-control" value="<?php echo $data['name']?>" readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="status">Status:</label>

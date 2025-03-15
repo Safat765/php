@@ -21,63 +21,80 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>User add
-                            <a href="userIndex.php" class="btn btn-danger float-end">BACK</a>
+                        <h4>Exam edit  
+                            <a href="Index.php" class="btn btn-danger float-end">BACK</a>
                         </h4>
                     </div>
                     <div class="card-body">
                     <?php
-                        $result = showUpdateUserDate($_SESSION['exam_id']);
+                        $result = examModel::showUpdateUserDate($_SESSION['exam_id']);
 
                             if (mysqli_num_rows($result) > 0) {
                                 foreach ($result as $data) {
                                     ?>
-                                        <form action="../../Controller/courseController.php" method="post">
+                                        <form action="../../Controller/exam.php" method="post">
 
                                             <div class="mb-3">
                                             <input type="hidden" id="exam_id" name="exam_id" value="<?php echo $data['exam_id']; ?>">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="course_id">Course ID:</label>
-                                                <input type="text" id="course_id" name="course_id" class="form-control" value="<?php echo $data['course_id']?>" disabled>
+                                                <input type="text" id="course_id" name="course_id" class="form-control" value="<?php echo $data['course_id']?>" readonly>
+                                                <br>
+                                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['course_idErrMsg']) ? $_SESSION['course_idErrMsg'] : ""; ?></p>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="exam_title">Title:</label>
                                                 <input type="text" id="exam_title" name="exam_title" class="form-control" value="<?php echo $data['exam_title']?>">
+                                                <br>
+                                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['exam_titleErrMsg']) ? $_SESSION['exam_titleErrMsg'] : ""; ?></p>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="department_id">Department ID:</label>
                                                 <input type="text" id="department_id" name="department_id" class="form-control" value="<?php echo $data['department_id']?>">
+                                                <br>
+                                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['department_idErrMsg']) ? $_SESSION['department_idErrMsg'] : ""; ?></p>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="semester">Semester:</label>
-                                                <input type="text" id="semester" name="semester"  class="form-control" value="<?php echo $data['semester']?>">
+                                                <input type="text" id="semester" name="semester"  class="form-control" value="<?php echo $data['semester']?>" readonly>
+                                                <br>
+                                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['semesterErrMsg']) ? $_SESSION['semesterErrMsg'] : ""; ?></p>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="credit">Credit:</label>
                                                 <input type="text" id="credit" name="credit" class="form-control"value="<?php echo $data['credit']?>">
+                                                <br>
+                                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['creditErrMsg']) ? $_SESSION['creditErrMsg'] : ""; ?></p>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="exam_type">Exam Type:</label>
                                                 <select name="exam_type" id="exam_type" class="form-select" aria-label="Default select example">
-                                                    <option value="" disabled selected>Select the exam type</option>
-                                                    <option value="1">Mid</option>
-                                                    <option value="2">Quiz</option>
-                                                    <option value="3">Viva</option>
-                                                    <option value="4">Final</option>
+                                                    <option value="1" <?php echo ($data['exam_type'] == 1) ? 'selected' : ''; ?>>Mid</option>
+                                                    <option value="2" <?php echo ($data['exam_type'] == 2) ? 'selected' : ''; ?>>Quiz</option>
+                                                    <option value="3" <?php echo ($data['exam_type'] == 3) ? 'selected' : ''; ?>>Viva</option>
+                                                    <option value="4" <?php echo ($data['exam_type'] == 4) ? 'selected' : ''; ?>>Final</option>
                                                 </select>
+                                                <br>
+                                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['exam_typeErrMsg']) ? $_SESSION['exam_typeErrMsg'] : ""; ?></p>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="marks">Marks:</label>
                                                 <input type="text" id="marks" name="marks" class="form-control"value="<?php echo $data['marks']?>">
+                                                <br>
+                                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['marksErrMsg']) ? $_SESSION['marksErrMsg'] : ""; ?></p>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="instructor_id">Instructor ID:</label>
-                                                <input type="text" id="instructor_id" name="instructor_id" class="form-control" value="<?php echo $data['instructor_id']?>">
+                                                <input type="text" id="instructor_id" name="instructor_id" class="form-control" value="<?php echo $data['instructor_id']?>" readonly>
+                                                <br>
+                                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['instructor_idErrMsg']) ? $_SESSION['instructor_idErrMsg'] : ""; ?></p>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="course_created_by">Created By:</label>
-                                                <input type="text" id="course_created_by" name="course_created_by" class="form-control" value="<?php echo $data['course_created_by']?>">
+                                                <input type="text" id="course_created_by" name="course_created_by" class="form-control" value="<?php echo $data['created_by']?>">
+                                                <br>
+                                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['course_created_byErrMsg']) ? $_SESSION['course_created_byErrMsg'] : ""; ?></p>
                                             </div>
                                             <div class="mb-3">
                                                 <button type="submit" name="confirmUpdate" class="btn btn-primary">Confirm Edit</button>

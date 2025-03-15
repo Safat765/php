@@ -126,6 +126,9 @@
     <hr>
     <hr>
     <ul class="list-unstyled ps-0">
+          <?php 
+             if ($_SESSION['user_type'] == 1) {
+          ?>
       <li class="mb-1">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
           data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
@@ -150,6 +153,12 @@
           </ul>
         </div>
       </li>
+      <?php
+        }
+      ?>      
+      <?php 
+        if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 2) {
+      ?>
       <li class="mb-1">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
           data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
@@ -158,10 +167,20 @@
         <div class="collapse" id="orders-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <li><a href="../View/Course/Create.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Course</a></li>
+            <?php 
+              if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 2) {
+            ?>
             <li><a href="../View/Course/Index.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">View All Course</a></li>
+            <?php
+              }
+              }
+            ?> 
           </ul>
         </div>
       </li>
+      <?php 
+        if ($_SESSION['user_type'] == 1) {
+      ?>
       <li class="mb-1">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
           data-bs-toggle="collapse" data-bs-target="#exam-collapse" aria-expanded="false">
@@ -174,6 +193,9 @@
           </ul>
         </div>
       </li>
+      <?php 
+        if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 2 || $_SESSION['user_type'] == 3) {
+      ?>
       <li class="mb-1">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
           data-bs-toggle="collapse" data-bs-target="#marks-collapse" aria-expanded="false">
@@ -181,11 +203,24 @@
         </button>
         <div class="collapse" id="marks-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <?php 
+              if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 2) {
+            ?>
             <li><a href="../View/Marks/Create.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Marks</a></li>
+            <?php
+              }
+            ?>
             <li><a href="../View/Marks/Index.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">View All Marks</a></li>
           </ul>
         </div>
       </li>
+      <?php
+        }
+        }
+      ?>
+      <?php 
+        if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 2 || $_SESSION['user_type'] == 3) {
+      ?>
       <li class="mb-1">
         <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
           data-bs-toggle="collapse" data-bs-target="#result-collapse" aria-expanded="false">
@@ -193,11 +228,44 @@
         </button>
         <div class="collapse" id="result-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <?php 
+              if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 2) {
+            ?>
             <li><a href="../View/Result/Create.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Result</a></li>
+            <?php
+              }
+            ?>
+            <?php 
+              if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 3) {
+            ?>
             <li><a href="../View/Result/Index.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">View All Result</a></li>
+            <?php
+              }
+            ?>
           </ul>
         </div>
       </li>
+      <?php
+        }
+      ?>
+      <?php 
+        if ($_SESSION['user_type'] == 1) {
+      ?>
+      <li class="mb-1">
+        <button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+          data-bs-toggle="collapse" data-bs-target="#profile-collapse" aria-expanded="false">
+          Profile
+        </button>
+        <div class="collapse" id="profile-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="../View/Profile/Create.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Profile</a></li>
+            <li><a href="../View/Profile/Index.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">View All Profile</a></li>
+          </ul>
+        </div>
+      </li>
+      <?php
+        }
+      ?>
     </ul>
     <hr><hr>
     <!-- <div class="dropdown">
@@ -245,7 +313,7 @@
                         <i class="bi bi-person-circle"></i> Profile <?php echo $_SESSION['username']; ?>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-light">
-                            <li><a class="dropdown-item" href="../View/Profile/Index.php">View Profile</a></li>
+                            <li><a class="dropdown-item" href="../View/Profile/profile.php">View Profile</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li>
                             <div class="ps-3">
@@ -267,11 +335,11 @@
           <br>
           <?php
               if ($_SESSION['user_type'] === 1) {
-                  echo "Welcome Admin : " . $_SESSION['username'] . "<br>";
+                  echo "Welcome Admin : " . $_SESSION['username'] . "<br>" . "User_id : ". $_SESSION['user_id'] . "<br>";
               } elseif ($_SESSION['user_type'] === 2) {
-                  echo "Welcome Student : " . $_SESSION['username'] . "<br>";
+                  echo "Welcome Student : " . $_SESSION['username'] . "<br>" . "User_id : ". $_SESSION['user_id'] . "<br>";
               } else {
-                  echo "Welcome Instructor : " . $_SESSION['username'] . "<br>";
+                  echo "Welcome Instructor : " . $_SESSION['username'] . "<br>" . "User_id : ". $_SESSION['user_id'] . "<br>";
               }
           ?>
           <br>

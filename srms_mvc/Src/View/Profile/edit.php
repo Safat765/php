@@ -3,7 +3,7 @@
         session_start();
     }
     include '../../../Msg/message.php';
-    include '../../Model/proflie.php';
+    include '../../Model/profile.php';
 ?>
 
 
@@ -22,17 +22,17 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Edit Profile
-                            <a href="userIndex.php" class="btn btn-danger float-end">BACK</a>
+                            <a href="Index.php" class="btn btn-danger float-end">BACK</a>
                         </h4>
                     </div>
                     <div class="card-body">
                     <?php
-                        $result = showUpdateUserDate($_SESSION['last_name']);
+                        $result = profileModel::showUpdateUserDate($_SESSION['profile_user_id']);
 
                             if (mysqli_num_rows($result) > 0) {
                                 foreach ($result as $data) {
                                     ?>
-                                        <form action="../../Controller/proflieController.php" method="post">
+                                        <form action="../../Controller/profile.php" method="post">
 
                                             <div class="mb-3">
                                                 <input type="hidden" id="user_id" name="user_id" value="<?php echo $data['user_id']; ?>">
@@ -48,6 +48,24 @@
                                             <div class="mb-3">
                                                 <label for="last_name">Last Name:</label>
                                                 <input type="text" id="last_name" name="last_name" class="form-control" value="<?php echo $data['last_name']; ?>">
+                                            </div>                                            
+                                            <div class="mb-3">
+                                                <label for="department">Department:</label>
+                                                <select name='department' id='department' class='form-select' aria-label='Default select example' disabled>
+                                                    <option value='' disabled selected>Select the Department</option>
+                                                    <?php
+                                                        $result = profileModel::show_dep_list();
+                                                        if (mysqli_num_rows($result) > 0) {
+                                                            foreach ($result as $data1) {                                           
+                                                    ?>                                            
+                                                                <option value="<?php echo $data1['name'];?>" <?php echo ($data1['name'] == $data['department']) ? 'selected' : ''; ?>>
+                                                                    <?php echo $data1['name']; ?>
+                                                                </option>      
+                                                    <?php
+                                                            }
+                                                        }
+                                                    ?>
+                                                </select>
                                             </div>
                                             <div class="mb-3">
                                                 <button type="submit" name="confirmUpdate" class="btn btn-primary">Confirm Edit</button>

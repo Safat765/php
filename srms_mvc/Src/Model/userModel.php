@@ -132,6 +132,14 @@
 
         return $result;
     }
+    
+    function show_instructor_list($id){
+        $con = dbConnection();
+        $sql = "SELECT * FROM `users` WHERE `user_type` = $id";
+        $result = mysqli_query($con, $sql);
+        
+        return $result;
+    }
 
 
     

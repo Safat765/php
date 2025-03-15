@@ -19,7 +19,7 @@
                     <div class="card-header">
                         <h4>Add Course
                             <div>
-                                <form action="../../Controller/courseController.php" method="post">
+                                <form action="../../Controller/course.php" method="post">
                                     <button type="submit" name="back_dashboard" class="btn btn-danger float-end">BACK</button>
                                 </form>
                             </div>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="card-body">
 
-                        <form action="../../Controller/courseController.php" method="post">
+                        <form action="../../Controller/course.php" method="post">
                             
                             <div class="mb-3">
                                 <label for="course_name">Name:</label>
@@ -37,7 +37,11 @@
                             </div>
                             <div class="mb-3">
                                 <label for="course_status">Status:</label>
-                                <input type="text" id="course_status" name="course_status" class="form-control">
+                                <select name="course_status" id="course_status" class="form-select" aria-label="Default select example">
+                                    <option value="" disabled selected>Select the course status</option>
+                                    <option value="1">Active</option>
+                                    <option value="0">Inactive</option>
+                                </select>
                                 <br>
                                 <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['course_statusErrMsg']) ? $_SESSION['course_statusErrMsg'] : ""; ?></p>
                             </div>
@@ -46,12 +50,6 @@
                                 <input type="text" id="course_credit" name="course_credit" class="form-control">
                                 <br>
                                 <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['course_creditErrMsg']) ? $_SESSION['course_creditErrMsg'] : ""; ?></p>
-                            </div>
-                            <div class="mb-3">
-                                <label for="course_created_by">Created By:</label>
-                                <input type="text" id="course_created_by" name="course_created_by" class="form-control">
-                                <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['course_created_byErrMsg']) ? $_SESSION['course_created_byErrMsg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <button type="submit" name="create" class="btn btn-primary">CREATE</button>

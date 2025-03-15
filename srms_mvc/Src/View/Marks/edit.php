@@ -3,6 +3,8 @@
         session_start();
     }
     include '../../../Msg/message.php';
+    include '../../Model/marks.php';
+    include '../../Model/userModel.php';
     include '../../Model/course.php';
 ?>
 
@@ -22,42 +24,76 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>User add
-                            <a href="userIndex.php" class="btn btn-danger float-end">BACK</a>
+                            <a href="Index.php" class="btn btn-danger float-end">BACK</a>
                         </h4>
                     </div>
                     <div class="card-body">
                     <?php
-                        $result = showUpdateUserDate($_SESSION['course_id']);
+                        $result = MarksModel::showUpdateUserDate($_SESSION['marks_id']);
 
                             if (mysqli_num_rows($result) > 0) {
                                 foreach ($result as $data) {
                                     ?>
-                                        <form action="../../Controller/courseController.php" method="post">
+                                        <form action="../../Controller/marks.php" method="post">
 
                                             <div class="mb-3">
                                                 <input type="hidden" id="marks_id" name="marks_id" value="<?php echo $data['marks_id']; ?>">
                                             </div>
                                             <div class="mb-3">
                                                 <label for="student_id">Student ID:</label>
-                                                <input type="text" id="student_id" name="student_id" class="form-control" value="<?php echo $data['student_id']; ?>">
+                                                <br>                                                 
+                                                <select name='student_id' id='student_id' class='form-select' aria-label='Default select example'>
+                                                    <?php
+                                                        $result = show_instructor_list(3);
+                                                        if (mysqli_num_rows($result) > 0) {
+                                                            foreach ($result as $data1) { 
+                                                    ?>                                            
+                                                                <option value="<?php echo $data1['user_id']; ?>" <?php echo ($data1['user_id'] == $data['student_id']) ? 'selected' : ''; ?>>
+                                                                    <?php echo $data1['username']; ?>
+                                                                </option>
+                                                    <?php
+                                                            }
+                                                        }
+                                                    ?>
+                                                </select>
+                                                <br>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="exam_id">Exam ID:</label>
-                                                <input type="text" id="exam_id" name="exam_id" class="form-control" value="<?php echo $data['exam_id']; ?>">
+                                                <input type="text" id="exam_id" name="exam_id" class="form-control" value="<?php echo $data['exam_id']; ?>" readonly>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="course_id">Course ID:</label>
-                                                <input type="text" id="course_id" name="course_id" class="form-control" value="<?php echo $data['course_id']; ?>">
+                                                <br>
+                                                <select name='course_id' id='course_id' class='form-select' aria-label='Default select example'>
+                                                    <option value='' disabled selected>Select the Course</option>
+                                                    <?php
+                                                        $result = CourseModel::show_List();
+                                                        if (mysqli_num_rows($result) > 0) {
+                                                            foreach ($result as $data1) {                                           
+                                                    ?>                                            
+                                                                <option value="<?php echo $data1['course_id']; ?>" <?php echo ($data1['course_id'] == $data['course_id']) ? 'selected' : ''; ?>>
+                                                                    <?php echo $data1['name']; ?>
+                                                                </option>      
+                                                    <?php
+                                                            }
+                                                        }
+                                                    ?>
+                                                </select>
+                                                <br>
                                             </div>
                                             <div class="mb-3">
                                                 <label for="marks">Marks:</label>
                                                 <input type="text" id="marks" name="marks" class="form-control" value="<?php echo $data['marks']; ?>">
                                             </div>
+                                            <div class="mb-3">
                                                 <label for="semester">Semester:</label>
-                                                <input type="text" id="semester" name="semester" class="form-control" value="<?php echo $data['semester']; ?>">
-                                            </div>
-                                                <label for="gpa">GPA:</label>
-                                                <input type="text" id="gpa" name="gpa" class="form-control" value="<?php echo $data['gpa']; ?>">
+                                                <select name="semester" id="semester" class="form-select" aria-label="Default select example">                                    
+                                                    <option value="" disabled selected>Select the semester</option>
+                                                    <option value="summer" <?php echo ($data['semester'] === "summer") ? 'selected' : ''; ?>>Summer</option>
+                                                    <option value="fall" <?php echo ($data['semester'] === "fall") ? 'selected' : ''; ?>>Fall</option>
+                                                    <option value="spring" <?php echo ($data['semester'] === "spring") ? 'selected' : ''; ?>>Spring</option>
+                                                </select>
                                             </div>
                                             <div class="mb-3">
                                                 <button type="submit" name="confirmUpdate" class="btn btn-primary">Confirm Edit</button>

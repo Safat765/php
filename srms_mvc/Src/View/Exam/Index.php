@@ -19,7 +19,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>Course List
+                        <h4>Exam List
                             <a href="../dashboardView.php" class="btn btn-outline-danger float-end">BACK</a>
                         </h4>
                     </div>
@@ -43,7 +43,7 @@
                             </thead> 
                             <tbody>
                                 <?php
-                                    $result = show_List();
+                                    $result = examModel::show_List();
 
                                     if (mysqli_num_rows($result) > 0) {
                                         foreach ($result as $data) {
@@ -61,8 +61,8 @@
                                                 <td><?php echo $data['created_by'] ?></td>
                                                 <td>
                                                     <div>
-                                                        <form action="../../Controller/examController.php" method="post">
-                                                            <input type="hidden" name="course_id" value="<?php echo $data['exam_id']; ?>">
+                                                        <form action="../../Controller/exam.php" method="post">
+                                                            <input type="hidden" name="exam_id" value="<?php echo $data['exam_id']; ?>">
                                                             <button type="submit" name="edit_Call" class="btn btn-success btn-sm">Edit</button>
 
                                                             <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
@@ -73,7 +73,7 @@
                                             <?php
                                         }
                                     } else {
-                                        echo "<tr><td colspan='4'>No users found.</td></tr>";
+                                        echo "<tr><td colspan='10'>No data availabe.</td></tr>";
                                     }
                                 ?>
                                 <tr></tr>
