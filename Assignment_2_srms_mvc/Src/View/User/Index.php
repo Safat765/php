@@ -2,6 +2,7 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
+    include '../navbar.php';
     include '../../../Msg/message.php';
     include '../../../Src/Model/user.php';
     const INACTIVE = 0;
@@ -18,7 +19,7 @@
     <link rel="stylesheet" href="../../../Public/CSS/toggle.css">
   </head>
   <body>
-    <div class="mt-5 p-3">
+    <div class="mt-4 p-3">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">

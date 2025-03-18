@@ -12,11 +12,12 @@
 
         function login($username1, $password1){
             $isValid = true;
-            $usernameErrMsg = "";
-            $passwordErrMsg = "";
-            $errMsg = "";
+            $username_error_msg = "";
+            $password_error_msg = "";
+            $_error_msg = "";
             $username = sanitize($username1);
             $password = sanitize($password1);
+            $_error_msg = "";
                 
             $_SESSION['username'] = $username;
             $_SESSION['password'] = $password;
@@ -24,15 +25,15 @@
             // echo $_SESSION['username'] . " " . $_SESSION['password'];
         
             if (empty($username)) {
-                $usernameErrMsg = "username required!";
-                $_SESSION['usernameErrMsg'] = $usernameErrMsg;
+                $username_error_msg = "username required!";
+                $_SESSION['username_error_msg'] = $username_error_msg;
                 $isValid = false;
             } else {
                 $_SESSION['username'] = $username;
             }
             if (empty($password)) {
-                $passwordErrMsg = "Password required!";
-                $_SESSION['passwordErrMsg'] = $passwordErrMsg;
+                $password_error_msg = "Password required!";
+                $_SESSION['password_error_msg'] = $password_error_msg;
                 $isValid = false;
             } else {
                 $_SESSION['password'] = $password;
@@ -43,13 +44,17 @@
                     if (loginModel($username, $password)) {
                         header("Location: ../View/dashboardView.php");
                     } else {
-                        $errMsg = "username or password incorrect";
-                        $_SESSION['errMsg'] = $errMsg;
-                        header("Location: ../View/loginView.php");
+                        $_SESSION['create_dep_msg'] = "username or password incorrect";
+                        $_error_msg = "username or password incorrect";
+                        $_SESSION['error_msg'] = $_error_msg;
+                        header("Location: ../View/login.php");
                         exit;
                     }
                 } else {
-                    header("Location: ../View/loginView.php");
+                    $_SESSION['create_dep_msg'] = "username or password incorrect";
+                    $_error_msg = "username or password incorrect";
+                    $_SESSION['error_msg'] = $_error_msg;
+                    header("Location: ../View/login.php");
                     exit;
                 }
             // } else {
@@ -68,16 +73,13 @@
             $isValid = true;        
             $userExist = null;
 
-            $usernameErrMsg1 = "";
-            $passwordErrMsg1 = "";
-            $emailErrMsg = "";
-            $passwordErrMsg = "";
-            $user_typeErrMsg = "";
-            $statusErrMsg = "";
-            $registration_numberErrMsg = "";
-            $phone_numberErrMsg = "";
-            $errMsg = "";
-            $errMsg1 = "";
+            $username_error_msg1 = "";
+            $password_error_msg1 = "";
+            $email_error_msg = "";
+            $user_type_error_msg = "";
+            $status_error_msg = "";
+            $registration_number_error_msg = "";
+            $phone_number_error_msg = "";
             
             $username = sanitize($username1);
             $email = sanitize($email1);
@@ -91,67 +93,67 @@
             $updated_at = "";
 
             if (empty($username)){
-                $usernameErrMsg1 = "Username required!";
-                $_SESSION['usernameErrMsg1'] = $usernameErrMsg1;
+                $username_error_msg1 = "Username required!";
+                $_SESSION['username_error_msg1'] = $username_error_msg1;
                 $isValid = false;
             }
             else{
-                $_SESSION['usernameErrMsg1'] = "";
+                $_SESSION['username_error_msg1'] = "";
             }
 
             if (empty($email)){
-                $emailErrMsg = "Email required!";
-                $_SESSION['emailErrMsg'] = $emailErrMsg;
+                $email_error_msg = "Email required!";
+                $_SESSION['email_error_msg'] = $email_error_msg;
                 $isValid = false;
             }
             else{
-                $_SESSION['emailErrMsg'] = "";
+                $_SESSION['email_error_msg'] = "";
             }        
 
             if (empty($password)){
-                $passwordErrMsg1 = "Password required!";
-                $_SESSION['passwordErrMsg1'] = $passwordErrMsg1;
+                $password_error_msg1 = "Password required!";
+                $_SESSION['password_error_msg1'] = $password_error_msg1;
                 $isValid = false;
             }
             else{
-                $_SESSION['passwordErrMsg1'] = "";
+                $_SESSION['password_error_msg1'] = "";
             }        
 
             if (empty($user_type)){
-                $user_typeErrMsg = "User type required!";
-                $_SESSION['user_typeErrMsg'] = $user_typeErrMsg;
+                $user_type_error_msg = "User type required!";
+                $_SESSION['user_type_error_msg'] = $user_type_error_msg;
                 $isValid = false;
             }
             else{
-                $_SESSION['user_typeErrMsg'] = "";
+                $_SESSION['user_type_error_msg'] = "";
             }        
 
             if (empty($status)){
-                $statusErrMsg = "Status required!";
-                $_SESSION['statusErrMsg'] = $statusErrMsg;
+                $status_error_msg = "Status required!";
+                $_SESSION['status_error_msg'] = $status_error_msg;
                 $isValid = false;
             }
             else{
-                $_SESSION['statusErrMsg'] = "";
+                $_SESSION['status_error_msg'] = "";
             }
                 
 
             if (empty($registration_number)){
-                $registration_numberErrMsg = "Registration number required!";
-                $_SESSION['registration_numberErrMsg'] = $registration_numberErrMsg;
+                $registration_number_error_msg = "Registration number required!";
+                $_SESSION['registration_number_error_msg'] = $registration_number_error_msg;
                 $isValid = false;
             }
             else{
-                $_SESSION['registration_numberErrMsg'] = "";
+                $_SESSION['registration_number_error_msg'] = "";
             }        
 
             if (empty($phone_number)){
-                $phone_numberErrMsg = "Phone number required!";
-                $_SESSION['phone_numberErrMsg'] = $phone_numberErrMsg;
+                $phone_number_error_msg = "Phone number required!";
+                $_SESSION['phone_number_error_msg'] = $phone_number_error_msg;
                 $isValid = false;
             }
             else{
-                $_SESSION['phone_numberErrMsg'] = "";
+                $_SESSION['phone_number_error_msg'] = "";
             }
 
             if ($isValid === true){          
@@ -194,15 +196,15 @@
             }
         }
         function back_TO_dashboard(){
-            if (isset($_SESSION['usernameErrMsg1']) &&  isset($_SESSION['emailErrMsg']) && isset($_SESSION['passwordErrMsg1']) && isset($_SESSION['user_typeErrMsg']) &&  isset($_SESSION['statusErrMsg']) && isset($_SESSION['registration_numberErrMsg']) &&  isset($_SESSION['phone_numberErrMsg'])) {
+            if (isset($_SESSION['username_error_msg1']) &&  isset($_SESSION['email_error_msg']) && isset($_SESSION['password_error_msg1']) && isset($_SESSION['user_type_error_msg']) &&  isset($_SESSION['status_error_msg']) && isset($_SESSION['registration_number_error_msg']) &&  isset($_SESSION['phone_number_error_msg'])) {
                 
-                unset($_SESSION['usernameErrMsg1']);
-                unset($_SESSION['emailErrMsg']);
-                unset($_SESSION['passwordErrMsg1']);
-                unset($_SESSION['user_typeErrMsg']);
-                unset($_SESSION['statusErrMsg']);
-                unset($_SESSION['registration_numberErrMsg']);
-                unset($_SESSION['phone_numberErrMsg']);
+                unset($_SESSION['username_error_msg1']);
+                unset($_SESSION['email_error_msg']);
+                unset($_SESSION['password_error_msg1']);
+                unset($_SESSION['user_type_error_msg']);
+                unset($_SESSION['status_error_msg']);
+                unset($_SESSION['registration_number_error_msg']);
+                unset($_SESSION['phone_number_error_msg']);
 
                 header ('Location: ../View/dashboardView.php');
                 exit;

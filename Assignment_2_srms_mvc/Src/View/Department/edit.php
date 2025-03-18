@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include '../navbar.php';
     include '../../../Msg/message.php';
     include '../../Model/department.php';
 ?>
@@ -24,7 +25,7 @@
                     </div>
                     <div class="card-body">
                     <?php
-                        $result = update_dep_info($_SESSION['department_id']);
+                        $result = updateDepartmentInfo($_SESSION['department_id']);
 
                             if (mysqli_num_rows($result) > 0) {
                                 foreach ($result as $data) {

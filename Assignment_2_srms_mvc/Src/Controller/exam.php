@@ -21,66 +21,66 @@
             $exam_Exist = null;
 
             if (empty($course_id)) {
-                $_SESSION['course_idErrMsg'] = "Course required!";
+                $_SESSION['course_id_error_msg'] = "Course required!";
                 $isValid = false;
             } else {
-                $_SESSION['course_idErrMsg'] = "";
+                $_SESSION['course_id_error_msg'] = "";
             }
 
             if (empty($exam_title)) {
-                $_SESSION['exam_titleErrMsg'] = "Exam title required!";
+                $_SESSION['exam_title_error_msg'] = "Exam title required!";
                 $isValid = false;
             } else {
-                $_SESSION['exam_titleErrMsg'] = "";
+                $_SESSION['exam_title_error_msg'] = "";
             }
 
             if (empty($department_id)) {
-                $_SESSION['department_idErrMsg'] = "Department required!";
+                $_SESSION['department_id_error_msg'] = "Department required!";
                 $isValid = false;
             } else {
-                $_SESSION['department_idErrMsg'] = "";
+                $_SESSION['department_id_error_msg'] = "";
             }
 
             if (empty($semester)) {
-                $_SESSION['semesterErrMsg'] = "Semester required!";
+                $_SESSION['semester_error_msg'] = "Semester required!";
                 $isValid = false;
             } else {
-                $_SESSION['semesterErrMsg'] = "";
+                $_SESSION['semester_error_msg'] = "";
             }
 
             if (empty($credit)) {
-                $_SESSION['creditErrMsg'] = "Credit required!";
+                $_SESSION['credit_error_msg'] = "Credit required!";
                 $isValid = false;
             } else {
-                $_SESSION['creditErrMsg'] = "";
+                $_SESSION['credit_error_msg'] = "";
             }
 
             if (empty($exam_type)) {
-                $_SESSION['exam_typeErrMsg'] = "Exam type required!";
+                $_SESSION['exam_type_error_msg'] = "Exam type required!";
                 $isValid = false;
             } else {
-                $_SESSION['exam_typeErrMsg'] = "";
+                $_SESSION['exam_type_error_msg'] = "";
             }
             
             if (empty($marks)) {
-                $_SESSION['marksErrMsg'] = "Marks required!";
+                $_SESSION['marks_error_msg'] = "Marks required!";
                 $isValid = false;
             } else {
-                $_SESSION['marksErrMsg'] = "";
+                $_SESSION['marks_error_msg'] = "";
             }            
             
             if (empty($instructor_id)) {
-                $_SESSION['instructor_idErrMsg'] = "instructor required!";
+                $_SESSION['instructor_id_error_msg'] = "instructor required!";
                 $isValid = false;
             } else {
-                $_SESSION['instructor_idErrMsg'] = "";
+                $_SESSION['instructor_id_error_msg'] = "";
             }            
             
             if (empty($created_by)) {
-                $_SESSION['created_byErrMsg'] = "created_by required!";
+                $_SESSION['created_by_error_msg'] = "created_by required!";
                 $isValid = false;
             } else {
-                $_SESSION['created_byErrMsg'] = "";
+                $_SESSION['created_by_error_msg'] = "";
             }
 
             if ($isValid === true) {
@@ -103,17 +103,17 @@
 
         }        
         public static function back_TO_dashboard(){
-            if (isset($_SESSION['course_idErrMsg']) && isset($_SESSION['exam_titleErrMsg']) && isset($_SESSION['department_idErrMsg']) && isset($_SESSION['semesterErrMsg']) && isset($_SESSION['creditErrMsg']) && isset($_SESSION['exam_typeErrMsg']) && isset($_SESSION['marksErrMsg']) && isset($_SESSION['instructor_idErrMsg']) && isset($_SESSION['created_byErrMsg'])) {
+            if (isset($_SESSION['course_id_error_msg']) && isset($_SESSION['exam_title_error_msg']) && isset($_SESSION['department_id_error_msg']) && isset($_SESSION['semester_error_msg']) && isset($_SESSION['credit_error_msg']) && isset($_SESSION['exam_type_error_msg']) && isset($_SESSION['marks_error_msg']) && isset($_SESSION['instructor_id_error_msg']) && isset($_SESSION['created_by_error_msg'])) {
 
-                unset($_SESSION['course_idErrMsg']);
-                unset($_SESSION['exam_titleErrMsg']);
-                unset($_SESSION['department_idErrMsg']);
-                unset($_SESSION['semesterErrMsg']);
-                unset($_SESSION['creditErrMsg']);
-                unset($_SESSION['exam_typeErrMsg']);
-                unset($_SESSION['marksErrMsg']);
-                unset($_SESSION['instructor_idErrMsg']);
-                unset($_SESSION['created_byErrMsg']);
+                unset($_SESSION['course_id_error_msg']);
+                unset($_SESSION['exam_title_error_msg']);
+                unset($_SESSION['department_id_error_msg']);
+                unset($_SESSION['semester_error_msg']);
+                unset($_SESSION['credit_error_msg']);
+                unset($_SESSION['exam_type_error_msg']);
+                unset($_SESSION['marks_error_msg']);
+                unset($_SESSION['instructor_id_error_msg']);
+                unset($_SESSION['created_by_error_msg']);
     
                 header ('Location: ../View/dashboardView.php');
                 exit;
@@ -150,65 +150,65 @@
             $exam_Exist = null;
 
             if (empty($course_id)) {
-                $_SESSION['course_idErrMsg'] = "Course required!";
+                $_SESSION['course_id_error_msg'] = "Course required!";
                 $isValid = false;
             } else {
-                $_SESSION['course_idErrMsg'] = "";
+                $_SESSION['course_id_error_msg'] = "";
             }
 
             if (empty($exam_title)) {
-                $_SESSION['exam_titleErrMsg'] = "Exam title required!";
+                $_SESSION['exam_title_error_msg'] = "Exam title required!";
                 $isValid = false;
             } else {
-                $_SESSION['exam_titleErrMsg'] = "";
+                $_SESSION['exam_title_error_msg'] = "";
             }
 
             if (empty($department_id)) {
-                $_SESSION['department_idErrMsg'] = "Department required!";
+                $_SESSION['department_id_error_msg'] = "Department required!";
                 $isValid = false;
             } else {
-                $_SESSION['department_idErrMsg'] = "";
+                $_SESSION['department_id_error_msg'] = "";
             }
 
             if (empty($semester)) {
-                $_SESSION['semesterErrMsg'] = "Semester required!";
+                $_SESSION['semester_error_msg'] = "Semester required!";
                 $isValid = false;
             } else {
-                $_SESSION['semesterErrMsg'] = "";
+                $_SESSION['semester_error_msg'] = "";
             }
 
             if (empty($credit)) {
-                $_SESSION['creditErrMsg'] = "Credit required!";
+                $_SESSION['credit_error_msg'] = "Credit required!";
                 $isValid = false;
             } else {
-                $_SESSION['creditErrMsg'] = "";
+                $_SESSION['credit_error_msg'] = "";
             }
 
             if (empty($exam_type)) {
-                $_SESSION['exam_typeErrMsg'] = "Exam type required!";
+                $_SESSION['exam_type_error_msg'] = "Exam type required!";
                 $isValid = false;
             } else {
-                $_SESSION['exam_typeErrMsg'] = "";
+                $_SESSION['exam_type_error_msg'] = "";
             }
             
             if (empty($marks)) {
-                $_SESSION['marksErrMsg'] = "Marks required!";
+                $_SESSION['marks_error_msg'] = "Marks required!";
                 $isValid = false;
             } else {
-                $_SESSION['marksErrMsg'] = "";
+                $_SESSION['marks_error_msg'] = "";
             }            
             
             if (empty($instructor_id)) {
-                $_SESSION['instructor_idErrMsg'] = "instructor required!";
+                $_SESSION['instructor_id_error_msg'] = "instructor required!";
                 $isValid = false;
             } else {
-                $_SESSION['instructor_idErrMsg'] = "";
+                $_SESSION['instructor_id_error_msg'] = "";
             }
             if (empty($created_by)) {
-                $_SESSION['created_byErrMsg'] = "created_by required!";
+                $_SESSION['created_by_error_msg'] = "created_by required!";
                 $isValid = false;
             } else {
-                $_SESSION['created_byErrMsg'] = "";
+                $_SESSION['created_by_error_msg'] = "";
             }            
 
             if ($isValid === true) {

@@ -17,14 +17,17 @@
     
             return $con;
         }
-        public static function check_course($course_name){        
+
+        public static function checkCourse($course_name)
+        {        
             $con = self::dbConnection();
             $sql = "SELECT * FROM `course` WHERE `name` = '$course_name'";
             $result = mysqli_query($con, $sql);
     
             return $result->num_rows;
         }
-        public static function create_course_model($course_name, $course_status, $course_credit, $created_by){
+
+        public static function createCourseModel($course_name, $course_status, $course_credit, $created_by){
             $con = self::dbConnection();
             $sql = "INSERT INTO `course`(`name`, `status`, `credit`, `created_by`) VALUES ('$course_name', $course_status, $course_credit, '$created_by')";
             $result = mysqli_query($con, $sql);

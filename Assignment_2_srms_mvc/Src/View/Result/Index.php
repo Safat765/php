@@ -1,7 +1,9 @@
 <?php
-    session_start();
-    include '../../../Msg/message.php';
-    include '../../Model/result.php';
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    } 
+    include '../View/navbar.php';
+    include '../../Msg/message.php';
 ?>
 
 <!doctype html>
@@ -20,7 +22,7 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Result List
-                            <a href="../dashboardView.php" class="btn btn-outline-danger float-end">BACK</a>
+                            <a href="../View/dashboardView.php" class="btn btn-outline-danger float-end">BACK</a>
                         </h4>
                     </div>
                     <div class="card-body table-responsive">
@@ -42,9 +44,9 @@
                             </thead> 
                             <tbody>
                                 <?php
-                                    $result = resultModel::show_List();
+                                    // $result = resultModel::show_List();
 
-                                    if (mysqli_num_rows($result) > 0) {
+                                    // if (mysqli_num_rows($result) > 0) {
                                         foreach ($result as $data) {
                                             ?>
                                             <tr>
@@ -56,10 +58,9 @@
                                                 ?>
                                                 <td>
                                                     <div>
-                                                        <form action="../../Controller/result.php" method="post">
+                                                        <form action="../Controller/result.php" method="post">
+                                                            <input type="hidden" name="_method" value="DELETE">                                                                
                                                             <input type="hidden" name="result_id" value="<?php echo $data['results_id']; ?>">
-                                                            <!-- <button type="submit" name="edit_Call" class="btn btn-success btn-sm">Edit</button> -->
-
                                                             <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
                                                         </form>
                                                     </div>
@@ -70,9 +71,9 @@
                                             </tr>
                                             <?php
                                         }
-                                    } else {
-                                        echo "<tr><td colspan='4'>No users found.</td></tr>";
-                                    }
+                                    // } else {
+                                    //     echo "<tr><td colspan='4'>No users found.</td></tr>";
+                                    // }
                                 ?>
                                 <tr></tr>
                             </tbody>           

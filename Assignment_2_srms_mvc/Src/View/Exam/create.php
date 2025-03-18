@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include '../navbar.php';
     include '../../../Msg/message.php';
     include '../../Model/course.php';
     include '../../Model/user.php';
@@ -49,13 +50,13 @@
                                 ?>
                                 </select>
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['course_idErrMsg']) ? $_SESSION['course_idErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['course_id_error_msg']) ? $_SESSION['course_id_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="exam_title">Title:</label>
                                 <input type="text" id="exam_title" name="exam_title" class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['exam_titleErrMsg']) ? $_SESSION['exam_titleErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['exam_title_error_msg']) ? $_SESSION['exam_title_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="department_id">Department ID:</label>
@@ -63,7 +64,7 @@
                                 <select name='department_id' id='department_id' class='form-select' aria-label='Default select example'>
                                     <option value='' disabled selected>Select department</option>
                                     <?php
-                                        $result = show_dep_List();
+                                        $result = showDepartementList();
                                         if (mysqli_num_rows($result) > 0) {
                                             foreach ($result as $data) {                                           
                                     ?>                                            
@@ -74,19 +75,19 @@
                                     ?>
                                 </select>
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['department_idErrMsg']) ? $_SESSION['department_idErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['department_id_error_msg']) ? $_SESSION['department_id_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="semester">Semester:</label>
                                 <input type="text" id="semester" name="semester" class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['semesterErrMsg']) ? $_SESSION['semesterErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['semester_error_msg']) ? $_SESSION['semester_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="credit">Credit:</label>
                                 <input type="text" id="credit" name="credit" class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['creditErrMsg']) ? $_SESSION['creditErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['credit_error_msg']) ? $_SESSION['credit_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="exam_type">Exam Type:</label>
@@ -98,13 +99,13 @@
                                     <option value="4">Final</option>
                                 </select>
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['exam_typeErrMsg']) ? $_SESSION['exam_typeErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['exam_type_error_msg']) ? $_SESSION['exam_type_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="marks">Marks:</label>
                                 <input type="text" id="marks" name="marks" class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['marksErrMsg']) ? $_SESSION['marksErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['marks_error_msg']) ? $_SESSION['marks_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="instructor_id">Instructor :</label>
@@ -123,13 +124,13 @@
                                 ?>
                                 </select>
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['instructor_idErrMsg']) ? $_SESSION['instructor_idErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['instructor_id_error_msg']) ? $_SESSION['instructor_id_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="course_created_by">Created By:</label>
                                 <input type="text" id="course_created_by" name="course_created_by" class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['course_created_byErrMsg']) ? $_SESSION['course_created_byErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['course_created_by_error_msg']) ? $_SESSION['course_created_by_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <button type="submit" name="create" class="btn btn-primary">CREATE</button>

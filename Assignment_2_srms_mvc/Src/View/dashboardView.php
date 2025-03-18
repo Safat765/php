@@ -193,7 +193,8 @@
           </ul>
         </div>
       </li>
-      <?php 
+      <?php
+        }
         if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 2 || $_SESSION['user_type'] == 3) {
       ?>
       <li class="mb-1">
@@ -204,18 +205,27 @@
         <div class="collapse" id="marks-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
             <?php 
-              if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 2) {
+              if (isset($_SESSION['user_type']) && ($_SESSION['user_type'] === 1 || $_SESSION['user_type'] === 2)) {
             ?>
-            <li><a href="../View/Marks/Create.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Marks</a></li>
+              <li>
+                <form action="../Controller/marks.php" method="get">
+                  <button type="submit" name="createMarks" class="btn btn-light">Add Marks</button>
+                </form>
+              </li>
+              <!-- <li><a href="../View/Marks/Create.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Marks</a></li> -->
             <?php
               }
             ?>
-            <li><a href="../View/Marks/Index.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">View All Marks</a></li>
+            <li>
+              <form action="../Controller/marks.php" method="get">
+                <button type="submit" name="viewAllMarks" class="btn btn-light">View All Marks</button>
+              </form>
+            </li>
+            <!-- <li><a href="../View/Marks/Index.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">View All Marks</a></li> -->
           </ul>
         </div>
       </li>
       <?php
-        }
         }
       ?>
       <?php 
@@ -228,26 +238,41 @@
         </button>
         <div class="collapse" id="result-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <?php 
-              if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 2) {
-            ?>
-            <li><a href="../View/Result/Create.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Result</a></li>
-            <?php
-              }
-            ?>
-            <?php 
-              if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 3) {
-            ?>
-            <li><a href="../View/Result/Index.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">View All Result</a></li>
-            <?php
-              }
-            ?>
+            <li>
+              <?php 
+                if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 2) {
+              ?>
+              <li>
+                <form action="../Controller/result.php" method="get">
+                  <button type="submit" name="createResult" class="btn btn-light">Add result</button>
+                </form>
+              </li>
+                <!-- <li><a href="../View/Result/Create.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Result</a></li> -->
+              <?php
+                }
+              ?>
+            </li>
+            <li>
+              <?php 
+                if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 3) {
+              ?>
+                <li>
+                  <form action="../Controller/result.php" method="get">
+                    <button type="submit" name="viewAllResult" class="btn btn-light">View All Result</button>
+                  </form>
+                </li>
+                <!-- <li><a href="../View/Result/Index.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">View All Result</a></li> -->
+              <?php
+                }
+              ?>
+            </li>
           </ul>
         </div>
       </li>
       <?php
         }
       ?>
+      <hr><hr>
       <?php 
         if ($_SESSION['user_type'] == 1) {
       ?>
@@ -258,17 +283,25 @@
         </button>
         <div class="collapse" id="profile-collapse">
           <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-            <div class="pl-5">
-              <form action="../View/Profile/create.php" method="post">
+            <li>
+              <form action="../Controller/profile.php" method="get">
+                <button type="submit" name="createProfile" class="btn btn-light">Create profile</button>
+              </form>
+              <!-- <form action="../View/Profile/create.php" method="post">
                 <button type="submit" name="add_profile" class="btn btn-light"
                   style=" --bs-btn-font-size: .90rem;">
                   Add Profile
                 </button>
+              </form> -->
+            </li>
+            <li>
+              <form action="../Controller/profile.php" method="get">
+                <button type="submit" name="viewAllProfile" class="btn btn-light">View all profile</button>
               </form>
-            </div>
+            </li>
             
             <!-- <li><a href="../View/Profile/Create.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">Add Profile</a></li> -->
-            <li><a href="../View/Profile/Index.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">View All Profile</a></li>
+            <!-- <li><a href="../View/Profile/Index.php" class="link-body-emphasis d-inline-flex text-decoration-none rounded">View All Profile</a></li> -->
           </ul>
         </div>
       </li>
@@ -295,7 +328,7 @@
     </div> -->
   </aside>
 
-    <main class="col-sm-10 bg-body-tertiary" id="main">
+  <main class="col-sm-10 bg-body-tertiary" id="main">
     <!-- NavBar -->
         <nav class="navbar sticky-top navbar-expand-lg border-bottom bg-body-tertiary">
           <div class="container-fluid">
@@ -315,27 +348,67 @@
             aria-controls="navbarSupportedContent" aria-expanded="true" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
+            <?php
+              if ($_SERVER['REQUEST_METHOD'] == "POST") {
+              ?>
+            <h2><a class="navbar-brand" href="../dashboardView.php">SRMS</a></h2>
+            <?php
+              } elseif ($_SERVER['REQUEST_METHOD'] == "GET") {
+            ?>
             <h2><a class="navbar-brand" href="../View/dashboardView.php">SRMS</a></h2>
+            <?php
+              } else {
+            ?>            
+            <h2><a class="navbar-brand" href="../dashboardView.php">SRMS</a></h2>
+            <?php
+              }
+            ?>
                   <ul class="navbar-nav ms-auto pe-5">
                     <li class="nav-item dropdown">
                         <button class="btn btn-outline-dark dropdown-toggle me-2" data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="bi bi-person-circle"></i> Profile <?php echo $_SESSION['username']; ?>
                         </button>
                         <ul class="dropdown-menu dropdown-menu-light">
-                            <li><a class="dropdown-item" href="../View/Profile/profile.php">View Profile</a></li>
+                          <li>
+                            <form action="../Controller/profile.php" method="get">
+                              <button type="submit" name="showLoggedProfile" class="btn btn-light">Create profile</button>
+                            </form>
+                          </li>
+                            <!-- <li><a class="dropdown-item" href="../View/Profile/profile.php">View Profile</a></li> -->
                             <li><hr class="dropdown-divider"></li>
                             <li>
                             <div class="ps-3">
+                              <?php
+                                if ($_SERVER['REQUEST_METHOD'] == "POST") {
+                              ?>
+                                <form action="../../Controller/userController.php" method="post">
+                                    <button type="submit" name="logout" class="btn btn-danger" >Logout</button>
+                                </form>
+                              <?php
+                                } elseif ($_SERVER['REQUEST_METHOD'] == "GET") {
+                              ?>                                
                                 <form action="../Controller/userController.php" method="post">
                                     <button type="submit" name="logout" class="btn btn-danger" >Logout</button>
                                 </form>
+                              <?php
+                                } else {
+                              ?>
+                                <form action="../../Controller/userController.php" method="post">
+                                    <button type="submit" name="logout" class="btn btn-danger" >Logout</button>
+                                </form>
+                              <?php
+                                }
+                              ?>
+                                <!-- <form action="../Controller/userController.php" method="post">
+                                    <button type="submit" name="logout" class="btn btn-danger" >Logout</button>
+                                </form> -->
                             </div>
                             </li>
                         </ul>
                     </li>
-                </ul>
+                  </ul>
             </div>        
-        </div>
+          </div>
         </nav>
         <!-- NavBar Fin -->
         <br>
@@ -347,6 +420,7 @@
                   echo "Welcome Admin : " . $_SESSION['username'] . "<br>" . "User_id : ". $_SESSION['user_id'] . "<br>";
               } elseif ($_SESSION['user_type'] === 2) {
                   echo "Welcome Student : " . $_SESSION['username'] . "<br>" . "User_id : ". $_SESSION['user_id'] . "<br>";
+                  echo "User Type : " . $_SESSION['user_type'];
               } else {
                   echo "Welcome Instructor : " . $_SESSION['username'] . "<br>" . "User_id : ". $_SESSION['user_id'] . "<br>";
               }

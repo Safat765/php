@@ -5,95 +5,100 @@
     require '../Model/department.php';
     require '../../Data/cleanData.php';
 
-    function department_Create_cntrl($department_name){
-        $department_name = sanitize($department_name);
-        $created_by = $_SESSION['username'];
-        create_Department_Model($department_name, $created_by);
-    }
-    function check_depertment($department_name){
-        $isValid = true;        
-        $userExist = null;
+    class departmentController{
 
-        $d_name = $department_name;        
-
-        if (empty($d_name)){
-            $_SESSION['dep_nameErrMsg'] = "Department Name required!";
-            $isValid = false;
+        static function departmentCreate($department_name){
+            $department_name = sanitize($department_name);
+            $created_by = $_SESSION['username'];
+            createDepartmentModel($department_name, $created_by);
         }
-        else{
-            $_SESSION['dep_nameErrMsg'] = "";
-        }
+        function checkDepertment($department_name){
+            $isValid = true;        
+            $userExist = null;
 
-        if ($isValid === true){ 
+            $d_name = $department_name;        
 
-            $result = check_depertment_model($department_name);
-            if ($result == 0) {
-                department_Create_cntrl($department_name);
-                $_SESSION['create_dep_msg'] = " Depertment Created Successfully";
-                header ('Location: ../View/Department/create.php');
-                exit(0);
-            } else {            
-                $_SESSION['create_dep_msg'] = " This Depertment has already been Created before";
-                header ('Location: ../View/Department/create.php');
-                exit(0);
+            if (empty($d_name)){
+                $_SESSION['dep_name_error_msg'] = "Department Name required!";
+                $isValid = false;
             }
-        } else {
-            $_SESSION['create_dep_msg'] = " Fill up the field first";
-            header ('Location: ../View/Department/create.php');
-            exit;
+            else{
+                $_SESSION['dep_name_error_msg'] = "";
+            }
+
+            if ($isValid === true){ 
+
+                $result = checkDepertmentModel($department_name);
+                if ($result == 0) {
+                    self::departmentCreate($department_name);
+                    $_SESSION['create_dep_msg'] = " Depertment Created Successfully";
+                    header ('Location: ../View/Department/create.php');
+                    exit(0);
+                } else {            
+                    $_SESSION['create_dep_msg'] = " This Depertment has already been Created before";
+                    header ('Location: ../View/Department/create.php');
+                    exit(0);
+                }
+            } else {
+                $_SESSION['create_dep_msg'] = " Fill up the field first";
+                header ('Location: ../View/Department/create.php');
+                exit;
+            }
         }
-    }
-    function editView_Call(){
-        header ('Location: ../View/Department/edit.php');
-        exit(0);
-    }
-    function update_depertment($department_name, $created_by){
-        $result = check_depertment_model($department_name);
-        if ($result == 0) {     
-            $dID = $_SESSION['department_id'];       
-            update($dID, $department_name, $created_by);
-            unset($_SESSION['department_id']);
-            $_SESSION['create_dep_msg'] = "Edited Successfully";
-            header ('Location: ../View/Department/Index.php');
-            exit(0);
-        } else {            
-            $_SESSION['create_dep_msg'] = "This Depertment has already exist";
+        function editViewCall(){
             header ('Location: ../View/Department/edit.php');
             exit(0);
         }
-        
-    }
-    function back_TO_dashboard(){
-        if (isset($_SESSION['dep_nameErrMsg'])) {
+        function updateDepertment($department_name, $created_by){
+            $result = checkDepertmentModel($department_name);
+            if ($result == 0) {     
+                $dID = $_SESSION['department_id'];       
+                update($dID, $department_name, $created_by);
+                unset($_SESSION['department_id']);
+                $_SESSION['create_dep_msg'] = "Edited Successfully";
+                header ('Location: ../View/Department/Index.php');
+                exit(0);
+            } else {            
+                $_SESSION['create_dep_msg'] = "This Depertment has already exist";
+                header ('Location: ../View/Department/edit.php');
+                exit(0);
+            }
             
-            unset($_SESSION['dep_nameErrMsg']);
+        }
+        function backToDashboard(){
+            if (isset($_SESSION['dep_name_error_msg'])) {
+                
+                unset($_SESSION['dep_name_error_msg']);
 
-            header ('Location: ../View/dashboardView.php');
-            exit;
-        } else {            
-            header ('Location: ../View/dashboardView.php');
-            exit;
+                header ('Location: ../View/dashboardView.php');
+                exit;
+            } else {            
+                header ('Location: ../View/dashboardView.php');
+                exit;
+            }
         }
     }
 
 
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
+        $obj = new departmentController();
+
         if (isset($_POST['create'])) {
-            check_depertment($_POST['dep_name']);
+            $obj->checkDepertment($_POST['dep_name']);
         }
         if (isset($_POST['edit_Call'])) {
             $_SESSION['department_id'] = $_POST['department_id'];
-            editView_Call();
+            $obj->editViewCall();
         }
         if (isset($_POST['edit'])) {
-            update_depertment($_POST['dep_name'], $_POST['dep_created_by']);
+            $obj->updateDepertment($_POST['dep_name'], $_POST['dep_created_by']);
         }
         if (isset($_POST['delete'])) {
-            delete_dep($_POST['department_id']);
+            deleteDepartment($_POST['department_id']);
         }
         if (isset($_POST['back_dashboard'])) {
-            back_TO_dashboard();
+            $obj->backToDashboard();
         }
     } else{
         echo "File is not working in post";

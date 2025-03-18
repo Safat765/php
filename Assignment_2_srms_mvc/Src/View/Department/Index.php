@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include '../navbar.php';
     include '../../../Msg/message.php';
     include '../../Model/department.php';
 ?>
@@ -36,7 +37,7 @@
                             </thead> 
                             <tbody>
                                 <?php
-                                    $result = show_List();
+                                    $result = showFullDepartmentList();
 
                                     if (mysqli_num_rows($result) > 0) {
                                         foreach ($result as $data) {

@@ -2,6 +2,7 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
+    include '../View/navbar.php';
     include_once '../.././Msg/message.php';
     // include '../../Model/profile.php';
     include_once '../Controller/profile.php'
@@ -23,7 +24,10 @@
                 <div class="card">
                     <div class="card-header">
                         <h4>Edit Profile
-                            <a href="../View/Profile/Index.php" class="btn btn-danger float-end">BACK</a>
+                            <form action="../Controller/profile.php" method="get">
+                                <button class="btn btn-danger float-end" name="back">BACK</button>
+                            </form>
+                            <!-- <a href="../View/Profile/Index.php" class="btn btn-danger float-end">BACK</a> -->
                         </h4>
                     </div>
                     <div class="card-body">
@@ -31,6 +35,7 @@
                         foreach ($result as $data) {
                             ?>
                                 <form action="../Controller/profile.php" method="post">
+                                    <input type="hidden" name="_method" value="PUT">
                                     <div class="mb-3">
                                         <input type="hidden" id="user_id" name="user_id" value="<?php echo $data['user_id']; ?>">
                                     </div>
@@ -59,7 +64,8 @@
                                         </select>
                                     </div>
                                     <div class="mb-3">
-                                        <button type="submit" name="confirmUpdate" class="btn btn-primary">Confirm Edit</button>
+                                            <button type="submit" name="confirmUpdate" class="btn btn-primary">Confirm Edit</button>
+                                        <!-- <button type="submit" name="confirmUpdate" class="btn btn-primary">Confirm Edit</button> -->
                                     </div>
                                 </form>
                             <?php

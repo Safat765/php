@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include '../navbar.php';
     include '../../../Msg/message.php';
 ?>
 
@@ -33,7 +34,7 @@
                                 <label for="dep_name">Department Name:</label>
                                 <input type="text" id="dep_name" name="dep_name" class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['dep_nameErrMsg']) ? $_SESSION['dep_nameErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['dep_name_error_msg']) ? $_SESSION['dep_name_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <button type="submit" name="create" class="btn btn-primary">CREATE</button>

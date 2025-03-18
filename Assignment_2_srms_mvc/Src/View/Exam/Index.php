@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include '../navbar.php';
     include '../../../Msg/message.php';
     include '../../Model/exam.php';
 ?>

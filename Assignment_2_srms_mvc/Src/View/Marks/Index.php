@@ -1,7 +1,9 @@
 <?php
-    session_start();
-    include '../../../Msg/message.php';
-    include '../../Model/marks.php';
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    } 
+    include '../View/navbar.php';
+    include '../../Msg/message.php';
 ?>
 
 <!doctype html>
@@ -14,13 +16,13 @@
     
 </head>
   <body>
-  <div class="mt-5 p-3">
+  <div class="mt-1 p-3">
         <div class="row">
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
                         <h4>Marks List
-                            <a href="../dashboardView.php" class="btn btn-outline-danger float-end">BACK</a>
+                            <a href="../View/dashboardView.php" class="btn btn-outline-danger float-end">BACK</a>
                         </h4>
                     </div>
                     <div class="card-body table-responsive">
@@ -46,9 +48,9 @@
                             </thead> 
                             <tbody>
                                 <?php
-                                    $result = MarksModel::show_List();
+                                    // $result = MarksModel::show_List();
 
-                                    if (mysqli_num_rows($result) > 0) {
+                                    // if (mysqli_num_rows($result) > 0) {
                                         foreach ($result as $data) {
                                             ?>
                                             <tr>
@@ -63,13 +65,22 @@
                                                     if ($_SESSION['user_type'] == 1) {
                                                 ?>
                                                 <td>
-                                                    <div>
-                                                        <form action="../../Controller/marks.php" method="post">
-                                                            <input type="hidden" name="marks_id" value="<?php echo $data['marks_id']; ?>">
-                                                            <button type="submit" name="edit_Call" class="btn btn-success btn-sm">Edit</button>
-
-                                                            <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
-                                                        </form>
+                                                    <div class="form-group d-flex">
+                                                        <div class="p-1">
+                                                            <form action="../Controller/marks.php" method="post">
+                                                                <input type="hidden" name="marks_id" value="<?php echo $data['marks_id']; ?>">
+                                                                <button type="submit" name="editCall" class="btn btn-success btn-sm">Edit</button>
+                                                            </form>
+                                                        </div>
+                                                        <div class="p-1">
+                                                            <form action="../Controller/marks.php" method="post">
+                                                                <input type="hidden" name="_method" value="PUT">
+                                                                <input type="hidden" name="marks_id" value="<?php echo $data['marks_id']; ?>">
+                                                                <input type="hidden" name="student_id" value="<?php echo $data['student_id']; ?>">
+                                                                <input type="hidden" name="_method" value="DELETE">
+                                                                <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
+                                                            </form>
+                                                        </div>
                                                     </div>
                                                 </td>
                                                 <?php
@@ -78,9 +89,9 @@
                                             </tr>
                                             <?php
                                         }
-                                    } else {
-                                        echo "<tr><td colspan='7'>No users found.</td></tr>";
-                                    }
+                                    // } else {
+                                    //     echo "<tr><td colspan='7'>No users found.</td></tr>";
+                                    // }
                                 ?>
                                 <tr></tr>
                             </tbody>           

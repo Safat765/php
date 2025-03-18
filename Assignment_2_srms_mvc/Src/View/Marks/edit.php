@@ -2,7 +2,8 @@
     if (session_status() == PHP_SESSION_NONE) {
         session_start();
     }
-    include '../../Msg/message.php';
+    include '../View/navbar.php';
+    include_once '../.././Msg/message.php';
     include_once '../Controller/marks.php'
 ?>
 
@@ -21,8 +22,11 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h4>User add
-                            <a href="../view/Marks/Index.php" class="btn btn-danger float-end">BACK</a>
+                        <h4>Edit Marks
+                            <form action="../Controller/marks.php" method="get">
+                                <button class="btn btn-danger float-end" name="backFromEdit">BACK</button>
+                            </form>
+                            <!-- <a href="../view/Marks/Index.php" class="btn btn-danger float-end">BACK</a> -->
                         </h4>
                     </div>
                     <div class="card-body">
@@ -30,6 +34,7 @@
                                 foreach ($result as $data) {
                                     ?>
                                         <form action="../Controller/marks.php" method="post">
+                                        <input type="hidden" name="_method" value="PUT">
 
                                             <div class="mb-3">
                                                 <input type="hidden" id="marks_id" name="marks_id" value="<?php echo $data['marks_id']; ?>">

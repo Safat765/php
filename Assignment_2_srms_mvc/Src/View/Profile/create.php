@@ -1,7 +1,9 @@
 <?php
-    session_start();
-    include '../../../Msg/message.php';
-    include '../../Model/profile.php';
+    if (session_status() == PHP_SESSION_NONE) {
+        session_start();
+    }
+    include '../View/navbar.php';
+    include '../../Msg/message.php';
 ?>
 
 <!doctype html>
@@ -20,32 +22,32 @@
                     <div class="card-header">
                         <h4>Add Profile
                             <div>
-                                <form action="../../Controller/profile.php" method="post">
+                                <form action="../Controller/profile.php" method="post">
                                     <button type="submit" name="back_dashboard" class="btn btn-danger float-end">BACK</button>
                                 </form>
                             </div>
                         </h4>
                     </div>
                     <div class="card-body">
-                        <form action="../../Controller/profile.php" method="post">
+                        <form action="../Controller/profile.php" method="post">
                             
                             <div class="mb-3">
                                 <label for="first_name">First Name:</label>
                                 <input type="text" id="first_name" name="first_name" class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['first_nameErrMsg']) ? $_SESSION['first_nameErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['first_name_error_msg']) ? $_SESSION['first_name_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="middle_name">Middle Name:</label>
                                 <input type="text" id="middle_name" name="middle_name" class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['middle_nameErrMsg']) ? $_SESSION['middle_nameErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['middle_name_error_msg']) ? $_SESSION['middle_name_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="last_name">Last Name:</label>
                                 <input type="text" id="last_name" name="last_name" class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['last_nameErrMsg']) ? $_SESSION['last_nameErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['last_name_error_msg']) ? $_SESSION['last_name_error_msg'] : ""; ?></p>
                             </div>
                             <br>
                             <div class="mb-3">
@@ -54,18 +56,18 @@
                                 <select name='department' id='department' class='form-select' aria-label='Default select example'>
                                     <option value='' selected>Select Department</option>
                                     <?php
-                                        $result = profileModel::show_dep_list();
-                                        if (mysqli_num_rows($result) > 0) {
+                                        // $result = profileModel::show_dep_list();
+                                        // if (mysqli_num_rows($result) > 0) {
                                             foreach ($result as $data) {                                           
                                     ?>                                            
                                                 <option value="<?php echo $data['name'];?>"><?php echo $data['name'];?></option>                                            
                                     <?php
                                             }
-                                        }
+                                        // }
                                     ?>
                                 </select>
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['departmentErrMsg']) ? $_SESSION['departmentErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['department_error_msg']) ? $_SESSION['department_error_msg'] : ""; ?></p>
                             </div>
                                 <?php
                                         // $result = profileModel::show_user();
@@ -77,7 +79,7 @@
                                                     <label for="session">Session:</label>
                                                     <input type="text" id="session" name="session" class="form-control">
                                                     <br>
-                                                    <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['sessionErrMsg']) ? $_SESSION['sessionErrMsg'] : ""; ?></p>
+                                                    <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['session_error_msg']) ? $_SESSION['session_error_msg'] : ""; ?></p>
                                                 </div>
                                     <?php
                                         //         }
@@ -91,18 +93,18 @@
                                     <option value='' selected>Select the user</option>
                                     <?php
                                         $userType = [1 => "Admin", 2 => "Instructor", 3 => "Student"];
-                                        $result = profileModel::show_user();
-                                        if (mysqli_num_rows($result) > 0) {
-                                            foreach ($result as $data) {                                         
+                                        // $result = profileModel::show_user();
+                                        // if (mysqli_num_rows($result1) > 0) {
+                                            foreach ($result1 as $data) {                                         
                                     ?>                                            
                                                 <option value="<?php echo $data['user_id'];?>"><?php echo $data['username'] . " - " . $userType[$data['user_type']];?></option>                                            
                                     <?php
                                             }
-                                        }
+                                        // }
                                     ?>
                                 </select>
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['user_idErrMsg']) ? $_SESSION['user_idErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['user_id_error_msg']) ? $_SESSION['user_id_error_msg'] : ""; ?></p>
                             </div>
                             <br>
                             <div class="mb-3">

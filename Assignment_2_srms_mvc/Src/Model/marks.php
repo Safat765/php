@@ -32,21 +32,21 @@
             
             return $row;
         }
-        public static function create($student_id, $exam_id, $course_id, $marks, $semester, $gpa) {
+        public function create($student_id, $exam_id, $course_id, $marks, $semester, $gpa) {
             $con = self::dbConnection();
             $sql = "INSERT INTO `marks`(`student_id`, `exam_id`, `course_id`, `marks`, `semester`, `gpa`) VALUES ('$student_id', '$exam_id', '$course_id', '$marks', '$semester', '$gpa')";
             $result = mysqli_query($con, $sql);
             
             return $result;
         }
-        public static function delete($marks_id) {
+        public function delete($marks_id) {
             $con = self::dbConnection();
             $sql = "DELETE FROM `marks` WHERE `marks_id` = '$marks_id'";
             $result = mysqli_query($con, $sql);
             
             return $result;
         }
-        public static function showUpdateUserDate($marks_id) {
+        public function showUpdateUserDate($marks_id) {
             $con = self::dbConnection();
             $sql = "SELECT * FROM `marks` WHERE `marks_id` = '$marks_id'";
             $result = mysqli_query($con, $sql);
@@ -65,6 +65,14 @@
             $sql = "SELECT c.course_id, c.name, e.semester
                     FROM `course` c
                     JOIN `exam` e ON c.course_id = e.course_id";
+            $result = mysqli_query($con, $sql);
+            
+            return $result;
+        }
+        public function deleteResult($student_id) 
+        {
+            $con = self::dbConnection();
+            $sql = "DELETE FROM `results` WHERE `student_id` = $student_id";
             $result = mysqli_query($con, $sql);
             
             return $result;

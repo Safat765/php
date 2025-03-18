@@ -1,5 +1,6 @@
 <?php
     session_start();
+    include '../navbar.php';
     include '../../../Msg/message.php';
 ?>
 
@@ -33,19 +34,19 @@
                                 <label for="username">Username:</label>
                                 <input type="text" id="username" name="username"  class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['usernameErrMsg1']) ? $_SESSION['usernameErrMsg1'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['username_error_msg1']) ? $_SESSION['username_error_msg1'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="email">Email:</label>
                                 <input type="text" id="email" name="email"  class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['emailErrMsg']) ? $_SESSION['emailErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['email_error_msg']) ? $_SESSION['email_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="password">Password:</label>
                                 <input type="text" id="password" name="password"  class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['passwordErrMsg1']) ? $_SESSION['passwordErrMsg1'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['password_error_msg1']) ? $_SESSION['password_error_msg1'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="user_type">User Type:</label>
@@ -56,7 +57,7 @@
                                     <option value="3">Student</option>
                                 </select>
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['user_typeErrMsg']) ? $_SESSION['user_typeErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['user_type_error_msg']) ? $_SESSION['user_type_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">   
                                 <label for="status">Status:</label>             
@@ -66,28 +67,25 @@
                                     <option value="active">Active</option>
                                 </select>
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['statusErrMsg']) ? $_SESSION['statusErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['status_error_msg']) ? $_SESSION['status_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="registration_number">Registration Number:</label>
                                 <input type="text" id="registration_number" name="registration_number"  class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['registration_numberErrMsg']) ? $_SESSION['registration_numberErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['registration_number_error_msg']) ? $_SESSION['registration_number_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <label for="phone_number">Phone Number:</label>
                                 <input type="text" id="phone_number" name="phone_number"  class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['phone_numberErrMsg']) ? $_SESSION['phone_numberErrMsg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['phone_number_error_msg']) ? $_SESSION['phone_number_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <button type="submit" name="createUser" class="btn btn-primary">Create</button>
                             </div>
                             
                         </form>
-                        <p class="error-pnl">
-                        <?php  echo isset($_SESSION['errMsg1']) ? $_SESSION['errMsg1'] : ""; ?>
-                        </p>
                     </div>
                 </div>
             </div>

@@ -21,7 +21,7 @@
 
     // Depertment
 
-    function check_depertment_model($department_name){        
+    function checkDepertmentModel($department_name){        
         $con = dbConnection();
         $sql = "SELECT * FROM `department` WHERE `name` = '$department_name'";
         $result = mysqli_query($con, $sql);
@@ -29,13 +29,13 @@
         return $result->num_rows;
     }
 
-    function create_Department_Model($department_name, $created_by){
+    function createDepartmentModel($department_name, $created_by){
         $con = dbConnection();
         $sql = "INSERT INTO `department`(`name`, `created_by`) VALUES ('$department_name','$created_by')";
         $result = mysqli_query($con, $sql);
     }
 
-    function show_List() {
+    function showFullDepartmentList() {
         $con = dbConnection();
         $sql = "SELECT * FROM `department`";
         $result = mysqli_query($con, $sql);
@@ -43,7 +43,7 @@
         return $result;
     }
 
-    function delete_dep($dID){
+    function deleteDepartment($dID){
         $con = dbConnection();
         $sql = "DELETE FROM `department` WHERE `department_id` = $dID";
 
@@ -55,7 +55,7 @@
             exit;
         }
     }
-    function update_dep_info($dID){
+    function updateDepartmentInfo($dID){
         $con = dbConnection();
         $sql = "SELECT * FROM `department` WHERE `department_id` = $dID";
         $result = mysqli_query($con, $sql);
@@ -67,7 +67,7 @@
         $sql = "UPDATE `department` SET `name`='$department_name',`created_by`='$created_by' WHERE `department_id` = $dID";
         $result = mysqli_query($con, $sql);
     }    
-    function show_dep_List(){
+    function showDepartementList(){
         $con = dbConnection();
         $sql = "SELECT * FROM `department`";
         $result = mysqli_query($con, $sql);

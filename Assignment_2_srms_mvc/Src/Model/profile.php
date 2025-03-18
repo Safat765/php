@@ -3,7 +3,7 @@
         session_start();
     }
     class profileModel {
-        public static function dbConnection(){
+        public function dbConnection(){
             $servername = "localhost";
             $username = "root";
             $password = "";
@@ -17,30 +17,30 @@
     
             return $con;
         }
-        public static function show_dep_list() {
-            $con = self::dbConnection();
+        public function show_dep_list() {
+            $con = $this->dbConnection();
             $sql = "SELECT `name` FROM `department`";
             $result = mysqli_query($con, $sql);
             
             return $result;
         }
-        public static function show_user() {
-            $con = self::dbConnection();
+        public function show_user() {
+            $con = $this->dbConnection();
             $sql = "SELECT `user_id`, `username`, `registration_number`, `user_type` FROM `users`";
             $result = mysqli_query($con, $sql);
 
             return $result;
         }
         
-        public static function fatch_reg_num($user_id) {
-            $con = self::dbConnection();
+        public function fatch_reg_num($user_id) {
+            $con = $this->dbConnection();
             $sql = "SELECT `registration_number` FROM `users` WHERE `user_id` = $user_id";
             $result = mysqli_query($con, $sql);
             $row = mysqli_fetch_assoc($result);
             return $row['registration_number'];            
         }
-        public static function check_user($user_id) {
-            $con = self::dbConnection();
+        public function check_user($user_id) {
+            $con = $this->dbConnection();
             $sql = "SELECT * FROM `profile` WHERE `user_id` = $user_id";
             $result = mysqli_query($con, $sql);
 
@@ -50,8 +50,15 @@
                 return false;
             }
         }
-        public static function creat_profile($firstname, $middlename, $lastname, $department, $session, $user_id) {
-            $con = self::dbConnection();            
+        public function checkUserType($user_id) {
+            $con = $this->dbConnection();
+            $sql = "SELECT `user_type` FROM `users` WHERE `user_id` = $user_id";
+            $result = mysqli_query($con, $sql);
+            $row = mysqli_fetch_assoc($result);
+            return $row['user_type'];  
+        }
+        public function creat_profile($firstname, $middlename, $lastname, $department, $session, $user_id) {
+            $con = $this->dbConnection();           
             if (isset($user_id)){
                 $registration_number = self::fatch_reg_num($user_id);
             }
@@ -61,33 +68,33 @@
             $sql = "INSERT INTO `profile`(`first_name`, `middle_name`, `last_name`, `registration_number`, `department`, `session`, `user_id`) VALUES ('$firstname','$middlename','$lastname','$registration_number', '$department','$session','$user_id')";
             $result = mysqli_query($con, $sql);
         }
-        public static function show_List() {
-            $con = self::dbConnection();
+        public function show_List() {
+            $con = $this->dbConnection();
             $sql = "SELECT * FROM `profile`";
             $result = mysqli_query($con, $sql);
             return $result;
         }
-        public static function update_profile($first_name, $middle_name, $last_name, $user_id){
-            $con = self::dbConnection();
+        public function update_profile($first_name, $middle_name, $last_name, $user_id){
+            $con = $this->dbConnection();
             $sql = "UPDATE `profile` SET `first_name`='$first_name',`middle_name`='$middle_name',`last_name`='$last_name' WHERE `user_id`='$user_id'";
             $result = mysqli_query($con, $sql);
         }
-        public static function showUpdateUserDate($user_id) {
-            $con = self::dbConnection();
+        public function showUpdateUserDate($user_id) {
+            $con = $this->dbConnection();
             $sql = "SELECT * FROM `profile` WHERE `user_id` = $user_id";
             $result = mysqli_query($con, $sql);
 
             return $result;
         }
-        public static function delete($user_id) {
-            $con = self::dbConnection();
+        public function delete($user_id) {
+            $con = $this->dbConnection();
             $sql = "DELETE FROM `profile` WHERE `user_id` = '$user_id'";
             $result = mysqli_query($con, $sql);
     
             return $result;
         }
-        public static function show_List_profile($user_id) {
-            $con = self::dbConnection();
+        public function show_List_profile($user_id) {
+            $con = $this->dbConnection();
             $sql = "SELECT * FROM `profile` WHERE `user_id` = $user_id";
             $result = mysqli_query($con, $sql);
             return $result;

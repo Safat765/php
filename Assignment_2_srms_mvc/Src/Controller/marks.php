@@ -6,9 +6,12 @@
     require '../../Data/cleanData.php';
     require '../Model/user.php';
     require '../Model/course.php';
+    require '../Model/exam.php';
 
-    class MarksController {
-        public static function gpa($marks) {
+    class MarksController 
+    {
+        public static function gpa($marks) 
+        {
             if ($marks >=90 && $marks <= 100) {
                 $gpa = 4.00;
             } elseif ($marks >= 85 && $marks <= 89) {
@@ -30,7 +33,8 @@
             }
             return $gpa;
         }
-        public static function create_marks($student_id, $exam_id, $course_id, $marks, $semester) {
+        public function create_marks($student_id, $exam_id, $course_id, $marks, $semester) 
+        {
             $student_id = sanitize($student_id);
             $exam_id = sanitize($exam_id);
             $course_id = sanitize($course_id);
@@ -38,78 +42,81 @@
             $semester = sanitize($semester);
             $gpa = self::gpa($marks);
             $isValid = true;
-            $marks_Exist = null;
-            
+            $marks_Exist = null;            
 
             if (empty($student_id)) {
-                $_SESSION['student_idErrMsg'] = "Student is required";
+                $_SESSION['student_id_error_msg'] = "Student is required";
                 $isValid = false;
             } else {
-                $_SESSION['student_idErrMsg'] = "";
+                $_SESSION['student_id_error_msg'] = "";
             }
 
             if (empty($exam_id)) {
-                $_SESSION['exam_idErrMsg'] = "Exam Semester is required";
+                $_SESSION['exam_id_error_msg'] = "Exam Semester is required";
                 $isValid = false;
             } else {
-                $_SESSION['exam_idErrMsg'] = "";
+                $_SESSION['exam_id_error_msg'] = "";
             }
 
             if (empty($course_id)) {
-                $_SESSION['course_idErrMsg'] = "Course is required";
+                $_SESSION['course_id_error_msg'] = "Course is required";
                 $isValid = false;
             } else {
-                $_SESSION['course_idErrMsg'] = "";
+                $_SESSION['course_id_error_msg'] = "";
             }
 
             if (empty($marks)) {
-                $_SESSION['marksErrMsg'] = "Marks is required";
+                $_SESSION['marks_error_msg'] = "Marks is required";
                 $isValid = false;
             } else {
-                $_SESSION['marksErrMsg'] = "";
+                $_SESSION['marks_error_msg'] = "";
             }
 
             if (empty($semester)) {
-                $_SESSION['semesterErrMsg'] = "semester is required";
+                $_SESSION['semester_error_msg'] = "semester is required";
                 $isValid = false;
             } else {
-                $_SESSION['semesterErrMsg'] = "";
+                $_SESSION['semester_error_msg'] = "";
             }
 
             if (empty($gpa)) {
-                $_SESSION['gpaErrMsg'] = "gpa is required";
+                $_SESSION['gpa_error_msg'] = "gpa is required";
                 $isValid = false;
             } else {
-                $_SESSION['gpaErrMsg'] = "";
+                $_SESSION['gpa_error_msg'] = "";
             }
-
+            $model = new MarksModel();
             if ($isValid === true) {
-                $marks_Exist = MarksModel::check_marks_exist($student_id, $exam_id, $course_id);
+                $marks_Exist = $model->check_marks_exist($student_id, $exam_id, $course_id);
                 if ($marks_Exist == 0) {
-                    $result = MarksModel::create($student_id, $exam_id, $course_id, $marks, $semester, $gpa);
+                    $result = $model->create($student_id, $exam_id, $course_id, $marks, $semester, $gpa);
                     if ($result) {
                         $_SESSION['create_dep_msg'] = "Marks added successfully";
-                        header('Location: ../View/Marks/create.php');
+                        $this->showAllMarks();
+                        // header('Location: ../View/Marks/create.php');
                     } else {
                         $_SESSION['create_dep_msg'] = "Marks already exist";
-                        header('Location: ../View/Marks/create.php');
+                        $this->showAllMarks();
+                        // header('Location: ../View/Marks/create.php');
                     }
 
                 } else {
                     $_SESSION['create_dep_msg'] = " Fill up the field first";
-                    header('Location: ../View/Marks/create.php');
+                    $this->showAllMarks();
+                    // header('Location: ../View/Marks/create.php');
                 }
             }
         }
-        public static function back_TO_dashboard() {
-            if (isset($_SESSION['student_idErrMsg']) && isset($_SESSION['exam_idErrMsg']) && isset($_SESSION['course_idErrMsg']) && isset($_SESSION['marksErrMsg']) && isset($_SESSION['semesterErrMsg']) && isset($_SESSION['gpaErrMsg'])) {
+        public static function back_TO_dashboard() 
+        {
+            if (isset($_SESSION['student_id_error_msg']) && isset($_SESSION['exam_id_error_msg']) && isset($_SESSION['course_id_error_msg']) && isset($_SESSION['marks_error_msg']) && isset($_SESSION['semester_error_msg']) && isset($_SESSION['gpa_error_msg'])) {
 
-                unset($_SESSION['student_idErrMsg']);
-                unset($_SESSION['exam_idErrMsg']);
-                unset($_SESSION['course_idErrMsg']);
-                unset($_SESSION['marksErrMsg']);
-                unset($_SESSION['semesterErrMsg']);
-                unset($_SESSION['gpaErrMsg']);
+                unset($_SESSION['student_id_error_msg']);
+                unset($_SESSION['exam_id_error_msg']);
+                unset($_SESSION['course_id_error_msg']);
+                unset($_SESSION['marks_error_msg']);
+                unset($_SESSION['semester_error_msg']);
+                unset($_SESSION['gpa_error_msg']);
 
                 header('Location: ../View/dashboardView.php');
             } else {            
@@ -117,19 +124,28 @@
                 exit(0);
             }
         }
-        public static function delete_marks($marks_id) {
+        public function deleteMarks($marks_id, $student_id) 
+        {
             $marks_id = sanitize($marks_id);
-            $result = MarksModel::delete($marks_id);
+            $student_id = sanitize($student_id);
+            $model = new MarksModel();
+            $result = $model->delete($marks_id);
             if ($result) {
+                $model->deleteResult($student_id);
                 $_SESSION['create_dep_msg'] = "Marks deleted successfully";
-                header('Location: ../View/Exam/Index.php');
+                $this->showAllMarks();
+                // header('Location: ../View/Exam/Index.php');
             } else {
                 $_SESSION['create_dep_msg'] = "Marks not deleted";
-                header('Location: ../View/Exam/Index.php');
+                $this->showAllMarks();
+                // header('Location: ../View/Exam/Index.php');
             }
         }
-        public static function edit_Call($marks_id) {
-            $result = MarksModel::showUpdateUserDate($marks_id);
+        public function showEditMarks($marks_id) 
+        {
+            $model = new MarksModel();
+            $courseModel = new CourseModel();
+            $result = $model->showUpdateUserDate($marks_id);
             $result1 = show_instructor_list(3);
             $result2 = CourseModel::show_List();
             if (mysqli_num_rows($result) > 0) {
@@ -142,7 +158,10 @@
             // header ('Location: ../View/Marks/edit.php');
             // exit(0);
         }
-        public static function update_marks($marks_id, $student_id, $exam_id, $course_id, $marks, $semester){
+        public function updateMarks($marks_id, $student_id, $exam_id, $course_id, $marks, $semester)
+        {
+            $model = new MarksModel();
+
             $marks_id = sanitize($marks_id);
             $student_id = sanitize($student_id);
             $exam_id = sanitize($exam_id);
@@ -151,20 +170,46 @@
             $semester = sanitize($semester);
             $gpa = self::gpa($marks);
 
-            $result = MarksModel::update($marks_id, $student_id, $exam_id, $course_id, $marks, $semester, $gpa);
+            $result = $model->update($marks_id, $student_id, $exam_id, $course_id, $marks, $semester, $gpa);
             if ($result) {
-                $_SESSION['create_dep_msg'] = "Marks added successfully";
-                header('Location: ../View/Marks/Index.php');
-                exit(0);
+                $_SESSION['create_dep_msg'] = "Marks updated successfully";
+                $this->showAllMarks();
+                // header('Location: ../View/Marks/Index.php');
+                // exit(0);
             } else {
                 $_SESSION['create_dep_msg'] = "Marks already exist";
-                header('Location: ../View/Marks/Index.php');
-                exit(0);
+                $this->showAllMarks();
+                // header('Location: ../View/Marks/Index.php');
+                // exit(0);
+            }
+        }
+        public function showAllMarks()
+        {
+            $model = new MarksModel();
+            $result = $model->show_List();
+            if (mysqli_num_rows($result) > 0) {
+                include '../View/Marks/Index.php';
+            } else {
+                echo "<tr><td colspan='8'>No users found.</td></tr>";
+            }
+        }
+        public function showCreatePage()
+        {
+            $result = show_instructor_list(3);
+            $result2 = examModel::show_List();
+            $result3 = MarksModel::exam_course();
+            if (mysqli_num_rows($result) > 0) {
+                if (mysqli_num_rows($result2) > 0) {
+                    if (mysqli_num_rows($result3) > 0) {
+                        include '../View/Marks/create.php';
+                    }
+                }
             }
         }
     }
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $obj = new MarksController();
         if (isset($_POST['create'])) {
             $student_id = isset($_POST['student_id']) ? $_POST['student_id'] : null;
             $exam_id = isset($_POST['exam_id']) ? $_POST['exam_id'] : null;
@@ -172,30 +217,60 @@
             $marks = isset($_POST['marks']) ? $_POST['marks'] : null;
             $semester = isset($_POST['semester']) ? $_POST['semester'] : null;
 
-            MarksController::create_marks($student_id, $exam_id, $course_id, $marks, $semester);
+            $obj->create_marks($student_id, $exam_id, $course_id, $marks, $semester);
         }
         if (isset($_POST['back_dashboard'])) {
             MarksController::back_TO_dashboard();
         }
-        if (isset($_POST['delete'])){
-            MarksController::delete_marks($_POST['marks_id']);
-        }
-        if (isset($_POST['edit_Call'])) {
-            $marks_id = $_POST['marks_id'];
-            MarksController::edit_Call($marks_id);
-        }
-        if (isset($_POST['confirmUpdate'])) {
-            $marks_id = isset($_POST['marks_id']) ? $_POST['marks_id'] : null;
-            $student_id = isset($_POST['student_id']) ? $_POST['student_id'] : null;
-            $exam_id = isset($_POST['exam_id']) ? $_POST['exam_id'] : null;
-            $course_id = isset($_POST['course_id']) ? $_POST['course_id'] : null;
-            $marks = isset($_POST['marks']) ? $_POST['marks'] : null;
-            $semester = isset($_POST['semester']) ? $_POST['semester'] : null;
+        // if (isset($_POST['delete'])){
+        //     MarksController::delete_marks($_POST['marks_id']);
+        // }
+        // if (isset($_POST['edit_Call'])) {
+        //     $marks_id = $_POST['marks_id'];
+        //     MarksController::edit_Call($marks_id);
+        // }
+        // if (isset($_POST['confirmUpdate'])) {
+        //     $marks_id = isset($_POST['marks_id']) ? $_POST['marks_id'] : null;
+        //     $student_id = isset($_POST['student_id']) ? $_POST['student_id'] : null;
+        //     $exam_id = isset($_POST['exam_id']) ? $_POST['exam_id'] : null;
+        //     $course_id = isset($_POST['course_id']) ? $_POST['course_id'] : null;
+        //     $marks = isset($_POST['marks']) ? $_POST['marks'] : null;
+        //     $semester = isset($_POST['semester']) ? $_POST['semester'] : null;
 
-            MarksController::update_marks($marks_id, $student_id, $exam_id, $course_id, $marks, $semester);
+        //     MarksController::update_marks($marks_id, $student_id, $exam_id, $course_id, $marks, $semester);
+        // }
+        if (isset($_POST['editCall'])) {
+            $obj->showEditMarks($_POST['marks_id']);
         }
-    } else {
-        echo "Post not working";
+        if (isset($_POST['_method'])) {
+            if ($_POST['_method'] === "PUT") {
+                $marks_id = isset($_POST['marks_id']) ? $_POST['marks_id'] : null;
+                $student_id = isset($_POST['student_id']) ? $_POST['student_id'] : null;
+                $exam_id = isset($_POST['exam_id']) ? $_POST['exam_id'] : null;
+                $course_id = isset($_POST['course_id']) ? $_POST['course_id'] : null;
+                $marks = isset($_POST['marks']) ? $_POST['marks'] : null;
+                $semester = isset($_POST['semester']) ? $_POST['semester'] : null;
+
+                $obj->updateMarks($marks_id, $student_id, $exam_id, $course_id, $marks, $semester);
+            }
+            elseif ($_POST['_method'] === "DELETE") {
+                $obj->deleteMarks($_POST['marks_id'], $_POST['student_id']);
+            }
+        }
+    } elseif ($_SERVER['REQUEST_METHOD'] === "GET") {
+        $obj = new MarksController();
+        if (isset($_GET['viewAllMarks'])) {
+            $obj->showAllMarks();
+        }
+        if (isset($_GET['backFromEdit'])) {
+            $obj->showAllMarks();
+        }
+        if (isset($_GET['createMarks'])) {
+            $obj->showCreatePage();
+        }
+        // if (isset($_GET['showLoggedProfile'])) {
+        //     $obj->showLoggedProfile($_SESSION['user_id']);
+        // }
     }
 
 
