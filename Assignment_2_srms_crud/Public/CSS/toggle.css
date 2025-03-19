@@ -1,0 +1,20 @@
+/* Button Styling for Active and Inactive States */
+.toggle-btn {
+    padding: 4px 6px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+    width: 80px;
+    text-align: center;
+}
+
+.active-btn {
+    background-color: #28a745; /* Green for Active */
+}
+
+.inactive-btn {
+    background-color: #dc3545; /* Red for Inactive */
+}
