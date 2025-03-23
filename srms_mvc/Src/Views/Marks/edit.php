@@ -3,7 +3,7 @@
         session_start();
     }
     include '../Views/sideBar.php';
-    include_once '../.././Msg/message.php';
+    include_once '../../Msg/message.php';
     include_once '../Controllers/marksController.php'
 ?>
 

@@ -4,7 +4,7 @@
     }
 
     include '../Views/sideBar.php';
-    include_once '../.././Msg/message.php';
+    include_once '../../Msg/message.php';
 ?>
 <!doctype html>
 <html lang="en">

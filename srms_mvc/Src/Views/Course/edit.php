@@ -7,7 +7,6 @@
     include '../../Msg/message.php';
 ?>
 
-
 <!doctype html>
 <html lang="en">
   <head>

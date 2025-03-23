@@ -31,8 +31,7 @@
                     </div>
                     <div class="card-body">
 
-                        <form action="../Controllers/examController.php" method="post">
-                            
+                        <form action="../Controllers/examController.php" method="post">                            
                             <div class="mb-3">
                             <label for="course_id">Course:</label>
                             <br>
