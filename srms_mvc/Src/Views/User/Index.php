@@ -32,7 +32,6 @@
                                 <tr>
                                     <th>Username</th>
                                     <th>Email</th>
-                                    <th>Password</th>
                                     <th>User Type</th>
                                     <th>Registration Number</th>
                                     <th>Phone Number</th>
@@ -46,7 +45,6 @@
                                         <tr>
                                             <td><?php echo $user['username']; ?></td>
                                             <td><?php echo $user['email']; ?></td>
-                                            <td><?php echo $user['password']; ?></td>
                                             <td>
                                                 <?php
                                                     $data = $user['user_type'];

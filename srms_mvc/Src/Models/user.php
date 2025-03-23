@@ -5,8 +5,8 @@
 
     class user
     {        
-        const INACTIVE = 0;
-        const ACTIVE = 1;
+        const STATUS_INACTIVE = 0;
+        const STATUS_ACTIVE = 1;
         public function dbConnection()
         {
             $servername = "localhost";
@@ -14,11 +14,14 @@
             $password = "";
             $database = "assignment_srms";
             $con = mysqli_connect($servername, $username, $password, $database);
-            if (!$con){
+            
+            if (!$con) {
                 die("Error detected ". mysqli_connect_error(). "<br>");
             }
+
             return $con;
         }
+
         public function loginModel($username, $password)
         {
             $con = $this->dbConnection();
@@ -123,6 +126,21 @@
             $con = $this->dbConnection();
             $sql = "SELECT `user_id` FROM `users` WHERE `username` = '$username'";
             $result = mysqli_query($con, $sql);                       
+            return $result;
+        }
+        public function checkPassword($userID)
+        {
+            $con = $this->dbConnection();
+            $sql = "SELECT `password` FROM `users` WHERE `user_id` = $userID";
+            $result = mysqli_query($con, $sql);
+            $row = mysqli_fetch_assoc($result);
+            return $row['password'];
+        }
+        public function updatePassword($userID, $password)
+        {
+            $con = $this->dbConnection();
+            $sql = "UPDATE `users` SET `password`= '$password' WHERE `user_id` = $userID";
+            $result = mysqli_query($con, $sql);
             return $result;
         }
     }    

@@ -85,10 +85,10 @@
             $sql = "UPDATE `profile` SET `first_name`='$first_name',`middle_name`='$middle_name',`last_name`='$last_name' WHERE `user_id`='$user_id'";
             $result = mysqli_query($con, $sql);
         }
-        public function showUpdateUserDate($user_id) 
+        public function showUpdateUserDate($id) 
         {
             $con = $this->dbConnection();
-            $sql = "SELECT * FROM `profile` WHERE `user_id` = $user_id";
+            $sql = "SELECT * FROM `profile` WHERE `user_id` = $id";
             $result = mysqli_query($con, $sql);
             return $result;
         }

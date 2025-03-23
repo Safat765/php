@@ -406,6 +406,7 @@
             }
         }
     }
+    
     if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
         $obj = new UserController();

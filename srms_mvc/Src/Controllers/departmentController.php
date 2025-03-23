@@ -14,18 +14,17 @@
             $isValid = true;
             $d_name = $department_name;
 
-            if (empty($d_name)){
+            if (empty($d_name)) {
                 $_SESSION['dep_name_error_msg'] = "Department Name required!";
                 $isValid = false;
-            }
-            else{
+            } else {
                 $_SESSION['dep_name_error_msg'] = "";
             }
 
             $created_by = $_SESSION['user_id'];
             $objDepartment = new department();
 
-            if ($isValid === true){ 
+            if ($isValid === true) { 
                 $result = $objDepartment->checkDepertmentModel($department_name);
                 if ($result == 0) {
                     $objDepartment->createDepartmentModel($department_name, $created_by);
@@ -45,8 +44,7 @@
             $objDepartment = new department();
             $objDepartment->update($dep_id, $department_name);
             $_SESSION['create_dep_msg'] = "Edited Successfully";
-            $this->showAllDepartment();
-            
+            $this->showAllDepartment();            
         }
         function backToDashboard()
         {

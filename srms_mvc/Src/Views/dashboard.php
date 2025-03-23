@@ -342,6 +342,11 @@
                       <button type="submit" name="showLoggedProfile" class="btn btn-light">Edit profile</button>
                     </form>
                   </li>
+                  <li>
+                    <form action="../Controllers/profileController.php" method="post">
+                      <button type="submit" name="changePassword" class="btn btn-light">Change password</button>
+                    </form>
+                  </li>
                   <li><hr class="dropdown-divider"></li>
                     <li>
                       <div class="ps-3">
