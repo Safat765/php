@@ -63,7 +63,7 @@
         public function examCourse()
         {
             $con = $this->dbConnection();
-            $sql = "SELECT c.course_id, c.name, e.semester, c.assigned_to
+            $sql = "SELECT c.course_id, c.name, e.semester, c.assigned_to, e.exam_title
                     FROM `course` c
                     JOIN `exam` e ON c.course_id = e.course_id";
             $result = mysqli_query($con, $sql);            

@@ -112,9 +112,9 @@
                                     <option value='' disabled selected>Select the Course</option>
                                     <?php
                                         foreach ($result3 as $data) {
-                                            if (($_SESSION['username'] === $data['assigned_to']) || $_SESSION['user_type'] == 1) {
+                                            if (($_SESSION['username'] == $data['assigned_to']) || $_SESSION['user_type'] == 1) {
                                     ?>                                      
-                                            <option value="<?php echo $data['course_id'];?>"><?php echo $data['name'];?></option>                                            
+                                            <option value="<?php echo $data['course_id'];?>"><?php echo $data['name'] . " --  ". $data['exam_title'];?></option>                                            
                                     <?php
                                             }
                                         }
