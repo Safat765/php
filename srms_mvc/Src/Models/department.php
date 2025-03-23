@@ -5,7 +5,7 @@
 
     class department
     {
-        function dbConnection()
+        public function dbConnection()
         {
             $servername = "localhost";
             $username = "root";
@@ -17,7 +17,7 @@
             }
             return $con;
         }
-        function checkDepertmentModel($department_name)
+        public function checkDepertmentModel($department_name)
         {        
             $con = $this->dbConnection();
             $sql = "SELECT * FROM `department` WHERE `name` = '$department_name'";
@@ -25,14 +25,14 @@
             return $result->num_rows;
         }
 
-        function createDepartmentModel($department_name, $created_by)
+        public function createDepartmentModel($department_name, $created_by)
         {
             $con = $this->dbConnection();
             $sql = "INSERT INTO `department`(`name`, `created_by`) VALUES ('$department_name','$created_by')";
             $result = mysqli_query($con, $sql);
         }
 
-        function showFullDepartmentList() 
+        public function showFullDepartmentList() 
         {
             $con = $this->dbConnection();
             $sql = "SELECT * FROM `department`";
@@ -40,26 +40,26 @@
             return $result;
         }
 
-        function deleteDepartment($dID)
+        public function deleteDepartment($dID)
         {
             $con = $this->dbConnection();
             $sql = "DELETE FROM `department` WHERE `department_id` = $dID";
             $result = mysqli_query($con, $sql);
         }
-        function updateDepartmentInfo($dID)
+        public function updateDepartmentInfo($dID)
         {
             $con = $this->dbConnection();
             $sql = "SELECT * FROM `department` WHERE `department_id` = $dID";
             $result = mysqli_query($con, $sql);            
             return $result;
         }
-        function update($dID, $department_name)
+        public function update($dID, $department_name)
         {
             $con = $this->dbConnection();
             $sql = "UPDATE `department` SET `name`='$department_name' WHERE `department_id` = $dID";
             $result = mysqli_query($con, $sql);
         }    
-        function showDepartementList()
+        public function showDepartementList()
         {
             $con = $this->dbConnection();
             $sql = "SELECT * FROM `department`";
