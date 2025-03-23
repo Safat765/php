@@ -10,31 +10,31 @@
 
     class profile
     {
-        public function createProfile($firstname1, $middlename1, $lastname1, $department1, $session1, $user_id1) 
+        public function create($firstname1, $middlename1, $lastname1, $department1, $session1, $userId1) 
         {
-            $first_name = sanitize($firstname1);
-            $middle_name = sanitize($middlename1);
-            $last_name = sanitize($lastname1);
+            $firstName = sanitize($firstname1);
+            $middleName = sanitize($middlename1);
+            $lastName = sanitize($lastname1);
             $department = sanitize($department1);
             $session = sanitize($session1);
-            $user_id = sanitize($user_id1);
+            $userId = sanitize($userId1);
             $isValid = true;
 
-            if (empty($first_name)) {
+            if (empty($firstName)) {
                 $_SESSION['first_name_error_msg'] = "First name is required";
                 $isValid = false;
             } else {
                 $_SESSION['first_name_error_msg'] = "";
             }
 
-            if (empty($middle_name)) {
+            if (empty($middleName)) {
                 $_SESSION['middle_name_error_msg'] = "Middle name is required";
                 $isValid = false;
             } else {
                 $_SESSION['middle_name_error_msg'] = "";
             }
 
-            if (empty($last_name)) {
+            if (empty($lastName)) {
                 $_SESSION['last_name_error_msg'] = "Last name is required";
                 $isValid = false;
             } else {
@@ -48,28 +48,29 @@
                 $_SESSION['department_error_msg'] = "";
             }
 
-            if (empty($user_id)) {
+            if (empty($userId)) {
                 $_SESSION['user_id_error_msg'] = "User ID is required";
                 $isValid = false;
             } else {
                 $_SESSION['user_id_error_msg'] = "";
             }   
 
-            $objProfile = new profileModel();
+            $objProfile = new ProfileModel();
 
             if ($isValid === true){
 
-                $chekUserExist = $objProfile->checkUser($user_id);
+                $chekUserExist = $objProfile->checkUser($userId);
 
                 if ($chekUserExist == true) {
-                    $userType = $objProfile->checkUserType($user_id);                    
+                    $userType = $objProfile->checkUserType($userId);                    
+                    
                     if ($userType == 2 || $userType == 1) {
                         $session = '';
-                        $objProfile->creatProfile($first_name, $middle_name, $last_name, $department, $session, $user_id);
+                        $objProfile->creatProfile($firstName, $middleName, $lastName, $department, $session, $userId);
                         $_SESSION['create_dep_msg'] = "Profile added successfully";
                         $this->showCreatePage();
                     } else {
-                        $objProfile->creatProfile($first_name, $middle_name, $last_name, $department, $session, $user_id);
+                        $objProfile->creatProfile($firstName, $middleName, $lastName, $department, $session, $userId);
                         $_SESSION['create_dep_msg'] = "Profile added successfully";
                         $this->showCreatePage();
                     }
@@ -83,6 +84,7 @@
             }
 
         } 
+
         public function backToDashboard()
         {
             if (isset($_SESSION['first_name_error_msg']) &&  isset($_SESSION['middle_name_error_msg']) && isset($_SESSION['last_name_error_msg']) && isset($_SESSION['department_error_msg']) &&  isset($_SESSION['session_error_msg']) && isset($_SESSION['user_id_error_msg'])) {
@@ -107,9 +109,10 @@
                 exit;
             }
         }
+        
         public function editCall($id)
         {
-            $objProfile = new profileModel();
+            $objProfile = new ProfileModel();
             $result = $objProfile->showUpdateUserDate($id);
             $result1 = $objProfile->showDepList();
 
@@ -123,18 +126,19 @@
                 echo "<h3> No id found </h3>";
             }
         }
-        public function confirmUpdate($user_id, $first_name, $middle_name, $last_name)
+
+        public function confirmUpdate($userId, $firstName, $middleName, $lastName)
         {
-            $first_name = sanitize($first_name);
-            $middle_name = sanitize($middle_name);
-            $last_name = sanitize($last_name);
-            $user_id = sanitize($user_id);
+            $firstName = sanitize($firstName);
+            $middleName = sanitize($middleName);
+            $lastName = sanitize($lastName);
+            $userId = sanitize($userId);
             
-            $objProfile = new profileModel();            
-            $chekUserExist = $objProfile->checkUser($user_id);
+            $objProfile = new ProfileModel();            
+            $chekUserExist = $objProfile->checkUser($userId);
 
             if ($chekUserExist !== 0) {
-                $objProfile->updateProfile($first_name, $middle_name, $last_name, $user_id);
+                $objProfile->update($firstName, $middleName, $lastName, $userId);
                 $_SESSION['create_dep_msg'] = "Profile edited successfully";
                 $this->showLoggedProfile($_SESSION['userID']);
             } else {
@@ -142,9 +146,10 @@
                 $this->editCall($_SESSION['userID']);
             }
         }
+
         public function showCreatePage() 
         {
-            $objProfile = new profileModel();
+            $objProfile = new ProfileModel();
             $result = $objProfile->showDepList();
             $result1 = $objProfile->showUser();
 
@@ -154,10 +159,11 @@
                 }
             }
         }
-        public function showLoggedProfile($user_id)
+
+        public function showLoggedProfile($userId)
         {
-            $objProfile = new profileModel();
-            $result = $objProfile->showListProfile($user_id);
+            $objProfile = new ProfileModel();
+            $result = $objProfile->showListProfile($userId);
 
             if (mysqli_num_rows($result) > 0) {
                 include '../Views/Profile/profile.php';
@@ -165,10 +171,11 @@
                 echo "<tr><td colspan='8'>No users found.</td></tr>";
             }
         }
-        public function showLoggedEditProfile($user_id) 
+
+        public function showLoggedEditProfile($userId) 
         {
-            $objProfile = new profileModel();
-            $result = $objProfile->showListProfile($user_id);
+            $objProfile = new ProfileModel();
+            $result = $objProfile->showListProfile($userId);
 
             if (mysqli_num_rows($result) > 0) {
                 include '../Views/Profile/edit.php';
@@ -176,9 +183,11 @@
                 echo "<h3> No id found </h3>";
             }
         }
+
         public function changePasswordPage(){
             include '../Views/Profile/changePassword.php';
         }
+        
         public function confirmChangePassword($id, $oldPassword, $newPassword, $confirmPassword, $checkBoxValue) 
         {
             $oldPassword = sanitize($oldPassword);
@@ -209,9 +218,10 @@
             }
 
             if ($isValid === true) {
+                
                 if ($newPassword === $confirmPassword) {
 
-                    $objUser = new user();
+                    $objUser = new UserModel();
                     $currentPassword = $objUser->checkPassword($id);
 
                     if (!password_verify($oldPassword, $newPassword)) {
@@ -248,7 +258,7 @@
         $objProfile = new profile();
 
         if (isset($_POST['create'])) {
-            $objProfile->createProfile($_POST['first_name'], $_POST['middle_name'], $_POST['last_name'], $_POST['department'], $_POST['session'], $_POST['user_id']);
+            $objProfile->create($_POST['first_name'], $_POST['middle_name'], $_POST['last_name'], $_POST['department'], $_POST['session'], $_POST['user_id']);
         }
 
         if (isset($_POST['back_dashboard'])) {
@@ -274,7 +284,9 @@
                 $objProfile->confirmUpdate($_POST['user_id'], $_POST['first_name'], $_POST['middle_name'], $_POST['last_name']);
             }
         }
+        
         if (isset($_POST['_putMethod'])) {
+            
             if ($_POST['_putMethod'] === "PUT") {
                 $objProfile->confirmChangePassword($_POST['user_id'], $_POST['oldPassword'], $_POST['newPassword'], $_POST['confirmPassword'], $_POST['myCheckbox']);
             }

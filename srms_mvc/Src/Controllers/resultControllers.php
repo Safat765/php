@@ -27,7 +27,7 @@
         
         public function deleteResult($result_id) 
         {
-            $model = new resultModel();
+            $model = new ResultModel();
             $id = sanitize($result_id);
             $result = $model->delete($id);
             
@@ -39,22 +39,25 @@
                 $this->showAllResult();
             }
         }
+
         public function showCreateResult() 
         {
-            $objResult = new resultModel();
+            $objResult = new ResultModel();
             $result = $objResult->showStudents();
 
             if (mysqli_num_rows($result) > 0) {
                 include '../Views/Result/create.php';
             }
         }
+
         public function showAllResult()
         {
-            $objResult = new resultModel();
+            $objResult = new ResultModel();
             $result = $objResult->showResultList();
             $result1 = $objResult->showUsernameRegNumber();
 
             if (mysqli_num_rows($result) > 0) {
+                
                 if (mysqli_num_rows($result1) > 0) {
                     include '../Views/Result/Index.php';
                 }
@@ -62,15 +65,18 @@
                 echo "<tr><td colspan='4'>No users found.</td></tr>";
             }
         }
+
         public function viewDropDownResult($student_id)
         {
-            $objResult = new resultModel();
+            $objResult = new ResultModel();
             $result0 = $objResult->showDropDownResult($student_id);
             $result = $objResult->showSingleStudentResult($student_id);
             $result1 = $objResult->showCourseNameExamTitle();
             
             if (mysqli_num_rows($result0) > 0) {
+                
                 if (mysqli_num_rows($result) > 0) {
+                  
                     if (mysqli_num_rows($result1) > 0) {
                         include '../Views/Result/dropDownResult.php';
                     }
@@ -90,6 +96,7 @@
         }
 
         if (isset($_POST['_method'])) {
+            
             if ($_POST['_method'] === "DELETE") {
                 $objResult->deleteResult($_POST['result_id']);
             }

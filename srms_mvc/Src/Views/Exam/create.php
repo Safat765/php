@@ -116,22 +116,6 @@
                                 <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['marks_error_msg']) ? $_SESSION['marks_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
-                                <label for="instructor_id">Instructor :</label>
-                                <br>
-                                <select name='instructor_id' id='instructor_id' class='form-select' aria-label='Default select example'>
-                                    <option value='' disabled selected>Select Instructor</option>
-                                <?php
-                                    foreach ($result3 as $data) {                                           
-                                ?>                                            
-                                        <option value="<?php echo $data['user_id'];?>"><?php echo $data['username'];?></option>                                            
-                                <?php
-                                    }
-                                ?>
-                                </select>
-                                <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['instructor_id_error_msg']) ? $_SESSION['instructor_id_error_msg'] : ""; ?></p>
-                            </div>
-                            <div class="mb-3">
                                 <button type="submit" name="create" class="btn btn-primary">CREATE</button>
                             </div>
                         </form>

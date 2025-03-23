@@ -36,7 +36,7 @@
                                     <th>Semester</th>
                                     <th>GPA</th>
                                     <?php 
-                                        if ($_SESSION['user_type'] == 1) {
+                                        if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 2) {
                                     ?>
                                     <th>Action</th>
                                     <?php
@@ -47,7 +47,7 @@
                             <tbody>
                                 <?php
                                     foreach ($result as $data) {
-                                        if (($_SESSION['user_id'] == $data['student_id']) || $_SESSION['user_type'] == 1) {
+                                        if (($_SESSION['user_id'] == $data['student_id']) || $_SESSION['user_type'] == 1 || $_SESSION['username'] == $data['assigned_to']) {
                                 ?>
                                             <tr>
                                                 <td>
@@ -126,16 +126,33 @@
                                                 </td>
                                                 <td><?php echo $data['gpa'] ?></td>
                                                 <?php 
-                                                    if ($_SESSION['user_type'] == 1) {
+                                                    if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 2) {
                                                 ?>
                                                 <td>
                                                     <div class="form-group d-flex">
+                                                    <?php 
+                                                        if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 2) {
+                                                            if ($_SESSION['user_type'] == 2) {
+                                                    ?>
                                                         <div class="p-1">
                                                             <form action="../Controllers/marksController.php" method="post">
                                                                 <input type="hidden" name="marks_id" value="<?php echo $data['marks_id']; ?>">
                                                                 <button type="submit" name="editCall" class="btn btn-success btn-sm">Edit</button>
                                                             </form>
                                                         </div>
+                                                    <?php
+                                                            }
+                                                            if ($_SESSION['user_type'] == 1) {
+                                                    ?>
+                                                            <div class="p-1">
+                                                                <form action="../Controllers/marksController.php" method="post">
+                                                                    <input type="hidden" name="marks_id" value="<?php echo $data['marks_id']; ?>">
+                                                                    <button type="submit" name="editCall" class="btn btn-primary btn-sm">View</button>
+                                                                </form>
+                                                            </div>
+                                                    <?php
+                                                            }
+                                                    ?>
                                                         <div class="p-1">
                                                             <form action="../Controllers/marksController.php" method="post">
                                                                 <input type="hidden" name="_method" value="PUT">
@@ -148,6 +165,7 @@
                                                     </div>
                                                 </td>
                                                 <?php
+                                                        }
                                                     }
                                                 ?>
                                             </tr>

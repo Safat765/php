@@ -53,9 +53,9 @@
                                 <label for="user_type">User Type:</label>
                                 <select name="user_type" id="user_type" class="form-select" aria-label="Default select example">
                                     <option value="" disabled selected>Select the user type</option>
-                                    <option value="1">Admin</option>
-                                    <option value="2">Instructor</option>
-                                    <option value="3">Student</option>
+                                    <option value=<?php echo $admin;?> >Admin</option>
+                                    <option value=<?php echo $instructor;?> >Instructor</option>
+                                    <option value=<?php echo $student;?> >Student</option>
                                 </select>
                                 <br>
                                 <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['user_type_error_msg']) ? $_SESSION['user_type_error_msg'] : ""; ?></p>

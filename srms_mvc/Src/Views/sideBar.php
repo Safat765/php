@@ -245,7 +245,7 @@
               </li>
             <?php
               }
-              if ((isset($_SESSION['user_type']) && $_SESSION['user_type'] === 3) || $_SESSION['user_type'] === 1) {
+              if ((isset($_SESSION['user_type']) && $_SESSION['user_type'] === 3) || $_SESSION['user_type'] === 1 || $_SESSION['user_type'] === 2) {
             ?>
             <li>
               <form action="../Controllers/marksController.php" method="get">

@@ -36,7 +36,7 @@
                                     <input type="hidden" id="exam_id" name="exam_id" value="<?php echo $data['exam_id']; ?>">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="course_id">Course ID:</label>
+                                    <label for="course_id">Course:</label>
                                     <input type="text" id="course_id" name="course_id" class="form-control" value="<?php 
                                                                                                                         foreach ($result1 as $data1) {
                                                                                                                             if ($data['course_id'] == $data1['course_id']) {
@@ -49,13 +49,13 @@
                                     <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['course_idErrMsg']) ? $_SESSION['course_idErrMsg'] : ""; ?></p>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exam_title">Title:</label>
+                                    <label for="exam_title">Title:</label><span style="color: red; font-weight: bold;"> *</span>
                                     <input type="text" id="exam_title" name="exam_title" class="form-control" value="<?php echo $data['exam_title']?>">
                                     <br>
                                     <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['exam_titleErrMsg']) ? $_SESSION['exam_titleErrMsg'] : ""; ?></p>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="department_id">Department ID:</label>
+                                    <label for="department_id">Department Name:</label>
                                     <input type="text" id="department_id" name="department_id" class="form-control" value="<?php 
                                                                                                                                 foreach ($result1 as $data1) {
                                                                                                                                     if ($data['department_id'] == $data1['department_id']) {
@@ -63,7 +63,7 @@
                                                                                                                                         break;
                                                                                                                                     }
                                                                                                                                 }
-                                                                                                                            ?>">
+                                                                                                                            ?>" readonly>
                                     <br>
                                     <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['department_idErrMsg']) ? $_SESSION['department_idErrMsg'] : ""; ?></p>
                                 </div>
@@ -114,13 +114,13 @@
                                     <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['semesterErrMsg']) ? $_SESSION['semesterErrMsg'] : ""; ?></p>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="credit">Credit:</label>
+                                    <label for="credit">Credit:</label><span style="color: red; font-weight: bold;"> *</span>
                                     <input type="text" id="credit" name="credit" class="form-control"value="<?php echo $data['credit']?>">
                                     <br>
                                     <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['creditErrMsg']) ? $_SESSION['creditErrMsg'] : ""; ?></p>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exam_type">Exam Type:</label>
+                                    <label for="exam_type">Exam Type:</label><span style="color: red; font-weight: bold;"> *</span>
                                     <select name="exam_type" id="exam_type" class="form-select" aria-label="Default select example">
                                         <option value="1" <?php echo ($data['exam_type'] == 1) ? 'selected' : ''; ?>>Mid</option>
                                         <option value="2" <?php echo ($data['exam_type'] == 2) ? 'selected' : ''; ?>>Quiz</option>
@@ -131,7 +131,7 @@
                                     <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['exam_typeErrMsg']) ? $_SESSION['exam_typeErrMsg'] : ""; ?></p>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="marks">Marks:</label>
+                                    <label for="marks">Marks:</label><span style="color: red; font-weight: bold;"> *</span>
                                     <input type="text" id="marks" name="marks" class="form-control"value="<?php echo $data['marks']?>">
                                     <br>
                                     <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['marksErrMsg']) ? $_SESSION['marksErrMsg'] : ""; ?></p>

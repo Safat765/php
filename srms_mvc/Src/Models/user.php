@@ -3,10 +3,13 @@
         session_start();
     }
 
-    class user
+    class UserModel
     {        
         const STATUS_INACTIVE = 0;
         const STATUS_ACTIVE = 1;
+        const USER_TYPE_ADMIN = 1;
+        const USER_TYPE_INSTRUCTOR = 2;
+        const USER_TYPE_STUDENT = 3;
         public function dbConnection()
         {
             $servername = "localhost";
@@ -20,9 +23,9 @@
             }
 
             return $con;
-        }
+        }        
 
-        public function loginModel($username, $password)
+        public function login($username, $password)
         {
             $con = $this->dbConnection();
             $sql = "SELECT * FROM `users` WHERE `username` = ? AND `password` = ?";
@@ -30,16 +33,20 @@
             $stmt->bind_param("ss", $username, $password);
             $stmt->execute();
             $result = $stmt->get_result();
+
             return $result;
         }
+
         public function getPassword($username)
         {
             $con = $this->dbConnection();
             $sql = "SELECT `password` FROM `users` WHERE `username` = '$username'";
             $result = mysqli_query($con, $sql);
             $row = mysqli_fetch_assoc($result);
+
             return $row['password'];
         }
+
         public function UserExistOrNot($username, $registration_number)
         {
             $con = $this->dbConnection();
@@ -47,14 +54,17 @@
             $stmt = $con->prepare($sql);
             $stmt->bind_param("si", $username, $registration_number);
             $stmt->execute();
-            $result = $stmt->get_result();            
+            $result = $stmt->get_result();     
+
             if ($result->num_rows == 1){
                 $row = $result->fetch_assoc();
+
                 return $row['user_id'];
             } else {            
                 return false;
             }
         }
+
         public function addUser($username, $email, $password, $user_type, $status, $registration_number, $phone_number, $created_at, $updated_at)
         {
             $con = $this->dbConnection();
@@ -67,6 +77,7 @@
             $stmt->close();
             $con->close();
         }
+
         public function showAll()
         {
             $con = $this->dbConnection();
@@ -74,12 +85,14 @@
             $stmt = $con->prepare($sql);
             $stmt->execute();
             $result = $stmt->get_result();
+
             if ($result->num_rows > 0) {
                 return $result; 
             } else {
                 return null;  
             }
         }   
+        
         public function showUpdateUserDate($id) 
         {
             $con = $this->dbConnection();
@@ -87,16 +100,20 @@
             $stmt = $con->prepare($sql);
             $stmt->bind_param("i", $id);
             $stmt->execute();            
+
             return $stmt->get_result();
         } 
+
         public function updateUser($user_id, $email, $password, $phone_number, $updated_at)
         {
             $con = $this->dbConnection();
             $sql = "UPDATE `users` SET `email`= '$email',`password`= '$password',`phone_number`= '$phone_number',`updated_at`= '$updated_at' WHERE `user_id` = $user_id";
             $result = mysqli_query($con, $sql);
+
             return $result; 
         }
-        public function statusUpdate($status, $user_id) 
+
+        public function update($status, $user_id) 
         {
             $con = $this->dbConnection();
             $sql = "UPDATE `users` SET `status`= ? WHERE `user_id` = $user_id";
@@ -107,40 +124,50 @@
             $stmt->close();
             $con->close();
         }
+
         public function remove($uID)
         {
             $con = $this->dbConnection();
             $sql = "DELETE FROM `users` WHERE `user_id` = $uID";
             $result = mysqli_query($con, $sql);
+
             return $result;
-        }        
+        }      
+
         public function showInstructorList($id)
         {
             $con = $this->dbConnection();
             $sql = "SELECT * FROM `users` WHERE `user_type` = $id";
-            $result = mysqli_query($con, $sql);                       
+            $result = mysqli_query($con, $sql);     
+
             return $result;
-        }        
+        } 
+
         public function getUserID($username)
         {
             $con = $this->dbConnection();
             $sql = "SELECT `user_id` FROM `users` WHERE `username` = '$username'";
-            $result = mysqli_query($con, $sql);                       
+            $result = mysqli_query($con, $sql); 
+
             return $result;
         }
+
         public function checkPassword($userID)
         {
             $con = $this->dbConnection();
             $sql = "SELECT `password` FROM `users` WHERE `user_id` = $userID";
             $result = mysqli_query($con, $sql);
             $row = mysqli_fetch_assoc($result);
+
             return $row['password'];
         }
+        
         public function updatePassword($userID, $password)
         {
             $con = $this->dbConnection();
             $sql = "UPDATE `users` SET `password`= '$password' WHERE `user_id` = $userID";
             $result = mysqli_query($con, $sql);
+            
             return $result;
         }
     }    

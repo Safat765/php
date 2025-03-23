@@ -92,11 +92,13 @@
                                     <tbody>
                                         <?php
                                             foreach ($result as $data) {
+                                                
                                                 if ($data0['semester'] === $data['semester']) {
                                         ?>
                                                 <tr>
                                                     <td><?php
                                                         foreach ($result1 as $data1) {
+                                                           
                                                             if ($data1['course_id'] === $data['course_id']) {
                                                                 echo $data1['name'];
                                                             }
@@ -104,6 +106,7 @@
                                                     ?></td>
                                                     <td><?php
                                                         foreach ($result1 as $data1) {
+                                                           
                                                             if ($data1['exam_id'] === $data['exam_id']) {
                                                                 echo $data1['exam_title'];
                                                             }

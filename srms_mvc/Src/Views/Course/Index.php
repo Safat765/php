@@ -45,6 +45,7 @@
                             <tbody>
                                 <?php
                                     foreach ($result as $data) {
+                                        
                                         if (($_SESSION['username'] === $data['assigned_to']) || $_SESSION['user_type'] === 1) {
                                 ?>
                                             <tr>

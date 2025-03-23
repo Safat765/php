@@ -65,7 +65,7 @@
                                                                                                                     ?>" readonly>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="course_id">Course ID:</label>
+                                    <label for="course_id">Course Name:</label>
                                     <br>
                                     <select name='course_id' id='course_id' class='form-select' aria-label='Default select example'>
                                         <option value='' disabled selected>Select the Course</option>
@@ -103,9 +103,15 @@
                                             <option value="12" <?php echo ($data['semester'] === "12") ? 'selected' : ''; ?>>4th Year 3rd Semester</option>
                                         </select>
                                 </div>
+                                <?php
+                                    if ($_SESSION['user_type'] == 2) {
+                                ?>
                                 <div class="mb-3">
                                     <button type="submit" name="confirmUpdate" class="btn btn-primary">Confirm Edit</button>
                                 </div>
+                                <?php
+                                    }
+                                ?>
                             </form>
                         <?php
                             }

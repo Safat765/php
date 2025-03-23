@@ -6,47 +6,49 @@
     require '../Models/department.php';
     require '../../Data/cleanData.php';
 
-    class departmentController
+    class DepartmentController
     {
-        function departmentCreate($dep_name)
+        public function create($name1)
         {
-            $department_name = sanitize($dep_name);
+            $name = sanitize($name1);
             $isValid = true;
-            $d_name = $department_name;
 
-            if (empty($d_name)) {
+            if (empty($name)) {
                 $_SESSION['dep_name_error_msg'] = "Department Name required!";
                 $isValid = false;
             } else {
                 $_SESSION['dep_name_error_msg'] = "";
             }
 
-            $created_by = $_SESSION['user_id'];
-            $objDepartment = new department();
+            $createdBy = $_SESSION['user_id'];
+            $objDepartment = new Department();
 
             if ($isValid === true) { 
-                $result = $objDepartment->checkDepertmentModel($department_name);
+                $result = $objDepartment->checkDepertment($name);
+                
                 if ($result == 0) {
-                    $objDepartment->createDepartmentModel($department_name, $created_by);
+                    $objDepartment->create($name, $createdBy);
                     $_SESSION['create_dep_msg'] = " Depertment Created Successfully";
-                    $this->showAllDepartment();
+                    $this->showAll();
                 } else {            
                     $_SESSION['create_dep_msg'] = " This Depertment has already been Created before";
-                    $this->showAllDepartment();
+                    $this->showAll();
                 }
             } else {
                 $_SESSION['create_dep_msg'] = " Fill up the field first";
-                $this->showAllDepartment();
+                $this->showCreatePage();
             }
         }
-        function updateDepertment($dep_id, $department_name)
+
+        public function update($ID, $name)
         {            
-            $objDepartment = new department();
-            $objDepartment->update($dep_id, $department_name);
+            $objDepartment = new Department();
+            $objDepartment->update($ID, $name);
             $_SESSION['create_dep_msg'] = "Edited Successfully";
-            $this->showAllDepartment();            
+            $this->showAll();            
         }
-        function backToDashboard()
+
+        public function backToDashboard()
         {
             if (isset($_SESSION['dep_name_error_msg'])) {                
                 unset($_SESSION['dep_name_error_msg']);
@@ -60,32 +62,38 @@
                 exit;
             }
         }
+
         public function showCreatePage()
         {
             include '../Views/Department/create.php';
         }
-        public function showAllDepartment() 
+
+        public function showAll() 
         {
-            $objDepartment = new department();
-            $result = $objDepartment->showFullDepartmentList();
+            $objDepartment = new Department();
+            $result = $objDepartment->showFullList();
+            
             if (mysqli_num_rows($result) > 0) {
                 include '../Views/Department/Index.php';
             } else {
                 echo "<tr><td colspan='4'>No users found.</td></tr>";
             }
         }
-        public function delete($dep_id)
+
+        public function delete($ID)
         {
-            $departmentID = sanitize($dep_id);
-            $objDepartment = new department();
-            $objDepartment->deleteDepartment($departmentID);
-            $this->showAllDepartment();
+            $departmentID = sanitize($ID);
+            $objDepartment = new Department();
+            $objDepartment->delete($departmentID);
+            $this->showAll();
             $_SESSION['create_dep_msg'] =" ". $departmentID . " number department Deleted Successfully";
         }
-        function editViewCall($department_id)
+
+        public function editViewCall($ID)
         {
-            $objDepartment = new department();
-            $result = $objDepartment->updateDepartmentInfo($department_id);
+            $objDepartment = new Department();
+            $result = $objDepartment->updateDepartmentInfo($ID);
+            
             if (mysqli_num_rows($result) > 0) {
                 include '../Views/Department/edit.php';
             } else {
@@ -96,14 +104,14 @@
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
-        $objDepartment = new departmentController();
+        $objDepartment = new DepartmentController();
 
         if (isset($_POST['createDepartment'])) {
             $objDepartment->showCreatePage();
         }
 
         if (isset($_POST['create'])) {
-            $objDepartment->departmentCreate($_POST['dep_name']);
+            $objDepartment->create($_POST['dep_name']);
         }
 
         if (isset($_POST['editCall'])) {
@@ -116,7 +124,7 @@
 
         if (isset($_POST['_method'])) {
             if ($_POST['_method'] === "PUT") {
-                $objDepartment->updateDepertment($_POST['department_id'], $_POST['dep_name']);
+                $objDepartment->update($_POST['department_id'], $_POST['dep_name']);
             }
             elseif ($_POST['_method'] === "DELETE") {
                 $objDepartment->delete($_POST['department_id']);
@@ -125,14 +133,14 @@
     }
     if ($_SERVER['REQUEST_METHOD'] === "GET") {
 
-        $objDepartment = new departmentController();
+        $objDepartment = new DepartmentController();
 
         if (isset($_GET['viewAllDepartment'])) {
-            $objDepartment->showAllDepartment();
+            $objDepartment->showAll();
         }
         
         if (isset($_GET['backFromEdit'])) {
-            $objDepartment->showAllDepartment();
+            $objDepartment->showAll();
         }
     }
 ?>
