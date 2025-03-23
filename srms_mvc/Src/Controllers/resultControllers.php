@@ -4,7 +4,6 @@
     }   
     ob_start();
     
-    // include '../../Src/Views/navbar.php';
     require '../Models/result.php';
     require '../Models/course.php';
     require '../../Data/cleanData.php';
@@ -31,6 +30,7 @@
             $model = new resultModel();
             $id = sanitize($result_id);
             $result = $model->delete($id);
+            
             if ($result) {
                 $_SESSION['create_dep_msg'] = "Result deleted successfully";
                 $this->showAllResult();

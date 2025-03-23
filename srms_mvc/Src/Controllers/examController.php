@@ -256,6 +256,7 @@
             $result = $courseModel->showList();
             $result1 = $objDepartment->showDepartementList();
             $result3 = $objUser->showInstructorList(2);
+
             if (mysqli_num_rows($result) > 0) {
                 if (mysqli_num_rows($result1) > 0) {
                     if (mysqli_num_rows($result3) > 0) {
@@ -272,6 +273,7 @@
             $result1 = $objExam->showCourseName();
             $result2 = $depModel->showFullDepartmentList();
             $result3 = $objExam->showUserName();
+            
             if (mysqli_num_rows($result) > 0) {
                 if (mysqli_num_rows($result1) > 0) {
                     if (mysqli_num_rows($result2) > 0) {

@@ -191,6 +191,7 @@
             $objMarks = new MarksModel();
             $result = $objMarks->showList();
             $result1 = $objMarks->showMarksListAllName();
+
             if (mysqli_num_rows($result) > 0) {
                 if (mysqli_num_rows($result1) > 0) {
                     include '../Views/Marks/Index.php';
@@ -231,7 +232,6 @@
             $course_id = isset($_POST['course_id']) ? $_POST['course_id'] : null;
             $marks = isset($_POST['marks']) ? $_POST['marks'] : null;
             $semester = isset($_POST['semester']) ? $_POST['semester'] : null;
-
             $obj->create_marks($student_id, $exam_id, $course_id, $marks, $semester);
         }
 
@@ -251,7 +251,6 @@
                 $course_id = isset($_POST['course_id']) ? $_POST['course_id'] : null;
                 $marks = isset($_POST['marks']) ? $_POST['marks'] : null;
                 $semester = isset($_POST['semester']) ? $_POST['semester'] : null;
-
                 $obj->updateMarks($marks_id, $student_id, $exam_id, $course_id, $marks, $semester);
             }
 
