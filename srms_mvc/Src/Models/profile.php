@@ -32,7 +32,7 @@
             return $result;
         }
         
-        public function fatch_reg_num($user_id) 
+        public function fatchRegNum($user_id) 
         {
             $con = $this->dbConnection();
             $sql = "SELECT `registration_number` FROM `users` WHERE `user_id` = $user_id";
@@ -60,12 +60,12 @@
             $row = mysqli_fetch_assoc($result);
             return $row['user_type'];  
         }
-        public function creat_profile($firstname, $middlename, $lastname, $department, $session, $user_id) 
+        public function creatProfile($firstname, $middlename, $lastname, $department, $session, $user_id) 
         {
             $con = $this->dbConnection();   
 
             if (isset($user_id)){
-                $registration_number = $this->fatch_reg_num($user_id);
+                $registration_number = $this->fatchRegNum($user_id);
             } else {
                 $registration_number = '';
             }
@@ -106,11 +106,5 @@
             $result = mysqli_query($con, $sql);
             return $result;
         }
-
     }
-
-
-
-
-
 ?>

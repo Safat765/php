@@ -235,9 +235,9 @@
                         $userType = $objProfile->checkUserType($user_id);
                         if ($userType == 2 || $userType == 1) {
                             $session = '';
-                            $objProfile->creat_profile($first_name, $middle_name, $last_name, $department, $session, $user_id);
+                            $objProfile->creatProfile($first_name, $middle_name, $last_name, $department, $session, $user_id);
                         } else {
-                            $objProfile->creat_profile($first_name, $middle_name, $last_name, $department, $session, $user_id);
+                            $objProfile->creatProfile($first_name, $middle_name, $last_name, $department, $session, $user_id);
                         }                        
                         $_SESSION['create_dep_msg'] = " User added successfully";
                         $this->showAllUsers();
