@@ -228,7 +228,8 @@
 
                     if (!password_verify($oldPassword, $newPassword)) {
 
-                        $objUser ->updatePassword($id, $confirmPassword);
+                        $hashedPassword = password_hash($confirmPassword, PASSWORD_DEFAULT);
+                        $objUser ->updatePassword($id, $hashedPassword);
                         $_SESSION['create_dep_msg'] = " This password has been updated";
 
                         if ($checkBoxValue == "1") {
