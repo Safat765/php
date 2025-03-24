@@ -384,22 +384,22 @@
 
             $objUser = new UserModel();
 
-            $status_change = ($_POST['status_change'] == UserModel::STATUS_ACTIVE) ? UserModel::STATUS_INACTIVE : UserModel::STATUS_ACTIVE;
+            $statusChange = ($_POST['status_change'] == UserModel::STATUS_ACTIVE) ? UserModel::STATUS_INACTIVE : UserModel::STATUS_ACTIVE;
             $user_id = $_POST['user_id'];
-            $status_change = $_POST['status_change'];
+            $statusChange = $_POST['status_change'];
 
-            if ($status_change == UserModel::STATUS_ACTIVE) {
+            if ($statusChange == UserModel::STATUS_ACTIVE) {
                 $status = 0;
                 $objUser->update($status, $user_id);
-                $status_change = UserModel::STATUS_INACTIVE;
+                $statusChange = UserModel::STATUS_INACTIVE;
                 $_SESSION['create_dep_msg'] = "User inactivate successfully";
                 $obj->showAll();
             } 
             
-            elseif ($status_change == UserModel::STATUS_INACTIVE) {
+            elseif ($statusChange == UserModel::STATUS_INACTIVE) {
                 $status = 1;
                 $objUser->update($status, $user_id);
-                $status_change = UserModel::STATUS_INACTIVE;
+                $statusChange = UserModel::STATUS_INACTIVE;
                 $_SESSION['create_dep_msg'] = "User activate successfully";
                 $obj->showAll();
             }

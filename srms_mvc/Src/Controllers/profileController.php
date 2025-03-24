@@ -117,6 +117,7 @@
             $result1 = $objProfile->showDepList();
 
             if (mysqli_num_rows($result) > 0) {
+                
                 if (mysqli_num_rows($result1) > 0) {
                     include '../Views/Profile/edit.php';
                 }  else {
@@ -154,6 +155,7 @@
             $result1 = $objProfile->showUser();
 
             if (mysqli_num_rows($result) > 0) {
+                
                 if (mysqli_num_rows($result1) > 0) {
                     include '../Views/Profile/create.php';
                 }

@@ -143,10 +143,10 @@
         $obj = new CourseController();
 
         if (isset($_POST['create'])) {
-            $created_by = $_SESSION['user_id'];
+            $createdBy = $_SESSION['user_id'];
             $status = 1;
             $assignedTo = isset($_POST['assigned_to']) ? $_POST['assigned_to'] : null;
-            $obj->create($_POST['course_name'], $status, $_POST['course_credit'], $assignedTo, $created_by);            
+            $obj->create($_POST['course_name'], $status, $_POST['course_credit'], $assignedTo, $createdBy);            
         }
 
         if (isset($_POST['back_dashboard'])) {

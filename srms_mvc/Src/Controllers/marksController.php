@@ -42,9 +42,9 @@
             $marks = sanitize($marks);
             $semester = sanitize($semester);
             $gpa = self::gpa($marks);
-            $assigned_to = $_SESSION['username'];
+            $assignedTo = $_SESSION['username'];
             $isValid = true;
-            $marks_Exist = null;
+            $marksExist = null;
 
             if (empty($studentId)) {
                 $_SESSION['student_id_error_msg'] = "Student is required";
@@ -92,10 +92,10 @@
             $objResult = new ResultModel();
 
             if ($isValid === true) {
-                $marks_Exist = $model->checkMarksExist($studentId, $examId, $courseId);
+                $marksExist = $model->checkMarksExist($studentId, $examId, $courseId);
                 
-                if ($marks_Exist == 0) {
-                    $result = $model->create($studentId, $examId, $courseId, $marks, $semester, $assigned_to, $gpa);
+                if ($marksExist == 0) {
+                    $result = $model->create($studentId, $examId, $courseId, $marks, $semester, $assignedTo, $gpa);
                     $cgpa = $objResult->getAvgMarks($studentId);
                     $objResult->createCGPA($studentId, $cgpa);
                     

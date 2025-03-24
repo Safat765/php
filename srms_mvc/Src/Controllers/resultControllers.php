@@ -66,11 +66,11 @@
             }
         }
 
-        public function viewDropDownResult($student_id)
+        public function viewDropDownResult($studentId)
         {
             $objResult = new ResultModel();
-            $result0 = $objResult->showDropDownResult($student_id);
-            $result = $objResult->showSingleStudentResult($student_id);
+            $result0 = $objResult->showDropDownResult($studentId);
+            $result = $objResult->showSingleStudentResult($studentId);
             $result1 = $objResult->showCourseNameExamTitle();
             
             if (mysqli_num_rows($result0) > 0) {
@@ -121,5 +121,4 @@
             $objResult->viewDropDownResult($_GET['student_id']);
         }
     }
-
 ?>
