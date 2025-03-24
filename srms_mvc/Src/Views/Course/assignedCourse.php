@@ -32,21 +32,12 @@
                                     <th>Name</th>
                                     <th>Status</th>
                                     <th>Credit</th>
-                                    <?php 
-                                        if ($_SESSION['user_type'] == 1) {
-                                    ?>
-                                    <th>Action</th>
-                                    <?php
-                                        }
-                                    ?> 
                                 </tr>
                             </thead> 
                             <tbody>
                                 <?php
                                     foreach ($result as $data) {
-                                        
-                                        if ($_SESSION['user_type'] === 1) {
-                                ?>
+                                 ?>
                                             <tr>
                                                 <td><?php echo $data['name'] ?></td>
                                                 <td>
@@ -59,31 +50,6 @@
                                                     ?>
                                                 </td>
                                                 <td><?php echo $data['credit'] ?></td>
-                                                <?php 
-                                                    if ($_SESSION['user_type'] == 1) {
-                                                ?>
-                                                <td>
-                                                    <div class="form-group d-flex">
-                                                        <div class="p-1">
-                                                            <form action="../Controllers/courseController.php" method="post">
-                                                                <input type="hidden" name="course_id" value="<?php echo $data['course_id']; ?>">
-                                                                <button type="submit" name="editCall" class="btn btn-success btn-sm">Edit</button>
-                                                            </form>
-                                                        </div>
-                                                        <div class="p-1">
-                                                            <form action="../Controllers/courseController.php" method="post">
-                                                                <input type="hidden" name="_method" value="DELETE">
-                                                                <input type="hidden" name="course_id" value="<?php echo $data['course_id']; ?>">
-                                                                <input type="hidden" name="_method" value="DELETE">
-                                                                <button type="submit" name="delete" class="btn btn-danger btn-sm">Delete</button>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </td>                                          
-                                        <?php
-                                                    }
-                                            }
-                                        ?> 
                                             </tr>
                                 <?php
                                     }

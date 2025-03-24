@@ -53,15 +53,6 @@
                                 <br>
                                 <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['confirmPassword_error_msg']) ? $_SESSION['confirmPassword_error_msg'] : ""; ?></p>
                             </div>
-                            <div class="mb-3">
-                                <input type="hidden" name="myCheckbox" value="0">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="1" id="flexCheckChecked" name="myCheckbox">
-                                    <label class="form-check-label" for="flexCheckChecked">
-                                        <b style="color: red;"> Stay login ?</b>
-                                    </label>
-                                </div>
-                            </div>
                             <br>
                             <div class="mb-3">
                                 <button type="submit" name="confirm" class="btn btn-primary">Confirm Password</button>

@@ -45,21 +45,6 @@
                                     <input type="text" id="credit" name="credit" class="form-control" value="<?php echo $data['credit']?>">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="assigned_to">Assigned To:</label>
-                                    <select name="assigned_to" id="assigned_to" class="form-select" aria-label="Default select example">
-                                        <option value="" disabled selected>Select the course status</option>
-                                        <?php
-                                            foreach ($result1 as $data1) {                                           
-                                        ?> 
-                                                <option value="<?php echo $data1['username'];?>" <?php echo ($data1['username'] == $data['assigned_to']) ? 'selected' : ''; ?>>
-                                                    <?php echo $data1['username']; ?>
-                                                </option> 
-                                        <?php
-                                            }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class="mb-3">
                                     <button type="submit" name="confirmUpdate" class="btn btn-primary">Confirm Edit</button>
                                 </div>
                             </form>

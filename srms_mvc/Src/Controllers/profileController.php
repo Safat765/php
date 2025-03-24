@@ -190,13 +190,12 @@
             include '../Views/Profile/changePassword.php';
         }
         
-        public function confirmChangePassword($id, $oldPassword, $newPassword, $confirmPassword, $checkBoxValue) 
+        public function confirmChangePassword($id, $oldPassword, $newPassword, $confirmPassword) 
         {
             $oldPassword = sanitize($oldPassword);
             $newPassword = sanitize($newPassword);
             $confirmPassword = sanitize($confirmPassword);
             $isValid = true;
-            $checkBoxValue;
 
             if (empty($oldPassword)) {
                 $_SESSION['oldPassword_error_msg'] = "Current password is required";
@@ -226,19 +225,11 @@
                     $objUser = new UserModel();
                     $currentPassword = $objUser->checkPassword($id);
 
-                    if (!password_verify($oldPassword, $newPassword)) {
-
+                    if ($oldPassword !== $newPassword) {
                         $hashedPassword = password_hash($confirmPassword, PASSWORD_DEFAULT);
                         $objUser ->updatePassword($id, $hashedPassword);
                         $_SESSION['create_dep_msg'] = " This password has been updated";
-
-                        if ($checkBoxValue == "1") {
-                            $this->showLoggedProfile($id);
-                        } else {
-                            session_destroy();
-                            header('Location: http://localhost/dashboard/1_Office/srms_mvc/Src/Views/login.php');
-                            exit;
-                        }
+                        $this->changePasswordPage();
                     } elseif (password_verify($oldPassword, $currentPassword)) {
                         $_SESSION['create_dep_msg'] = " This password is use before give a new password hash";
                         $this->changePasswordPage();
@@ -291,7 +282,7 @@
         if (isset($_POST['_putMethod'])) {
             
             if ($_POST['_putMethod'] === "PUT") {
-                $objProfile->confirmChangePassword($_POST['user_id'], $_POST['oldPassword'], $_POST['newPassword'], $_POST['confirmPassword'], $_POST['myCheckbox']);
+                $objProfile->confirmChangePassword($_POST['user_id'], $_POST['oldPassword'], $_POST['newPassword'], $_POST['confirmPassword']);
             }
         }
 

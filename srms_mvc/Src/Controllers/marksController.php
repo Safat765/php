@@ -34,6 +34,7 @@
             }
             return $gpa;
         }
+
         public function create($studentId, $examId, $courseId, $marks, $semester) 
         {
             $studentId = sanitize($studentId);
@@ -42,7 +43,6 @@
             $marks = sanitize($marks);
             $semester = sanitize($semester);
             $gpa = self::gpa($marks);
-            $assignedTo = $_SESSION['username'];
             $isValid = true;
             $marksExist = null;
 
@@ -95,10 +95,9 @@
                 $marksExist = $model->checkMarksExist($studentId, $examId, $courseId);
                 
                 if ($marksExist == 0) {
-                    $result = $model->create($studentId, $examId, $courseId, $marks, $semester, $assignedTo, $gpa);
-                    $cgpa = $objResult->getAvgMarks($studentId);
-                    $objResult->createCGPA($studentId, $cgpa);
-                    
+                    $result = $model->create($studentId, $examId, $courseId, $marks, $semester, $gpa);
+                    $this->createResult();
+                                        
                     if ($result) {
                         $_SESSION['create_dep_msg'] = "Marks added successfully";
                         $this->showAll();
@@ -112,6 +111,26 @@
                 }
             }
         }
+
+        
+        public function createResult()
+        {
+            $objResult = new ResultModel();
+            $result = $objResult->showResultList();
+            
+            foreach ($result as $date) {
+                $row = $objResult->checkStudent($date['student_id']);
+                $studentID = $date['student_id'];
+                $CGPA = $date['final_cgpa'];
+                
+                if (mysqli_num_rows($row) == 0) {
+                    $objResult->createCGPA($studentID, $CGPA);
+                } else {
+                    $objResult->update($studentID, $CGPA);
+                }
+            }
+        }
+
         public function backToDashboard() 
         {
             if (isset($_SESSION['student_id_error_msg']) && isset($_SESSION['exam_id_error_msg']) && isset($_SESSION['course_id_error_msg']) && isset($_SESSION['marks_error_msg']) && isset($_SESSION['semester_error_msg']) && isset($_SESSION['gpa_error_msg'])) {
@@ -133,6 +152,7 @@
                 exit(0);
             }
         }
+        
         public function delete($marksId, $studentId) 
         {
             $marksId = sanitize($marksId);
@@ -149,6 +169,7 @@
                 $this->showAll();
             }
         }
+
         public function showEdit($marksId) 
         {
             $objMarks = new MarksModel();
@@ -173,6 +194,7 @@
                 }
             }
         }
+
         public function update($marksId, $studentId, $courseId, $marks, $semester)
         {
             $model = new MarksModel();
@@ -193,6 +215,7 @@
                 $this->showAll();
             }
         }
+
         public function showAll()
         {
             $objMarks = new MarksModel();
@@ -208,6 +231,7 @@
                 echo "<tr><td colspan='8'>No users found.</td></tr>";
             }
         }
+        
         public function showCreatePage()
         {
             $objUser = new UserModel();

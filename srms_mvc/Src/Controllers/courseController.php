@@ -8,10 +8,9 @@
 
     class CourseController
     {
-        public function create($courseName, $status1, $courseCredit, $assignedToInstructur, $createdBy1)
+        public function create($courseName, $status1, $courseCredit, $createdBy1)
         {
             $name = sanitize($courseName);
-            $assignedTo = sanitize($assignedToInstructur);
             $credit = sanitize($courseCredit);
             $createdBy = $createdBy1;
             $status = $status1;
@@ -23,13 +22,6 @@
                 $isValid = false;
             } else {
                 $_SESSION['course_name_error_msg'] = "";
-            }
-
-            if (empty($assignedTo)) {
-                $_SESSION['assigned_to_error_msg'] = "Assigned to required!";
-                $isValid = false;
-            } else {
-                $_SESSION['assigned_to_error_msg'] = "";
             }
 
             if (empty($credit)) {
@@ -45,7 +37,7 @@
                 $courseExist = $objCourse->checkCourse($name);
 
                 if ($courseExist == 0) {
-                    $objCourse->createCourse($name, $status, $credit, $assignedTo, $createdBy);
+                    $objCourse->createCourse($name, $status, $credit, $createdBy);
                     $_SESSION['create_dep_msg'] = "Course added successfully";
                     $this->showAll();
                 } else {
@@ -60,15 +52,13 @@
 
         public function backToDashboard()
         {
-            if (isset($_SESSION['course_name_error_msg']) && isset($_SESSION['assigned_to_error_msg']) && isset($_SESSION['course_credit_error_msg'])) {
+            if (isset($_SESSION['course_name_error_msg']) && isset($_SESSION['course_credit_error_msg'])) {
                 unset($_SESSION['course_name_error_msg']);
-                unset($_SESSION['assigned_to_error_msg']);
                 unset($_SESSION['course_credit_error_msg']);    
                 header ('Location: ../Views/dashboard.php');
                 exit;
             } else {    
                 unset($_SESSION['course_name_error_msg']);
-                unset($_SESSION['assigned_to_error_msg']);
                 unset($_SESSION['course_credit_error_msg']);        
                 header ('Location: ../Views/dashboard.php');
                 exit;
@@ -93,15 +83,14 @@
             }
         }
 
-        public function update($id, $name, $credit, $cAssignedTo)
+        public function update($id, $name, $credit)
         {
             $ID = sanitize($id);
             $Name = sanitize($name);
-            $assignedTo = sanitize($cAssignedTo);
             $credit = sanitize($credit);
 
             $objCourse = new CourseModel(); 
-            $objCourse->update($ID, $Name, $credit, $assignedTo);
+            $objCourse->update($ID, $Name, $credit);
             $_SESSION['create_dep_msg'] = "Course edited Successfully";
             $this->showAll();       
         }
@@ -136,6 +125,17 @@
             $this->showAll();
         }
 
+        public function assignedCourse($instructorID)
+        {
+            $objCourse = new CourseModel();
+            $result = $objCourse->assignedCourse($instructorID);
+            
+            if (mysqli_num_rows($result) > 0) {
+                include '../Views/Course/assignedCourse.php';
+            } else {
+                echo "<tr><td colspan='5'>No users found.</td></tr>";
+            }
+        }
     }
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -145,8 +145,7 @@
         if (isset($_POST['create'])) {
             $createdBy = $_SESSION['user_id'];
             $status = 1;
-            $assignedTo = isset($_POST['assigned_to']) ? $_POST['assigned_to'] : null;
-            $obj->create($_POST['course_name'], $status, $_POST['course_credit'], $assignedTo, $createdBy);            
+            $obj->create($_POST['course_name'], $status, $_POST['course_credit'], $createdBy);            
         }
 
         if (isset($_POST['back_dashboard'])) {
@@ -160,7 +159,7 @@
         if (isset($_POST['_method'])) {
             
             if ($_POST['_method'] === "PUT") {
-                $obj->update($_POST['course_id'], $_POST['name'], $_POST['credit'], $_POST['assigned_to']);
+                $obj->update($_POST['course_id'], $_POST['name'], $_POST['credit']);
             }
             
             elseif ($_POST['_method'] === "DELETE") {
@@ -181,6 +180,10 @@
         
         if (isset($_GET['backToIndexFromEdit'])) {
             $obj->showAll();
+        }
+
+        if (isset($_GET['assignedCourse'])) {
+            $obj->assignedCourse($_SESSION['user_id']);
         }
     }
 ?>

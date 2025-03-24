@@ -78,7 +78,7 @@
                                                                             }
                                                                         ?>    
                                                                     <input type="hidden" name="status_change" value="<?php echo $status_change; ?>">
-                                                                    <button type="submit" name="toggle_status" class="btn btn-warning" style="height: 32px; display: flex; justify-content: center; align-items: center;">
+                                                                    <button type="submit" name="toggle_status" class="btn <?php echo ($status_change == $ACTIVE) ? 'btn-warning' : 'btn-danger'; ?>" style="height: 32px; display: flex; justify-content: center; align-items: center;">
                                                                         <?php 
                                                                             $status_change == $INACTIVE;
                                                                             if ($user['status'] == 1) {

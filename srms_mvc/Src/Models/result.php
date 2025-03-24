@@ -19,26 +19,6 @@
             return $con;
         }
         
-        public function getAvgMarks($student_id)
-        {
-            $con = $this->dbConnection();
-            $sql = "SELECT AVG(`gpa`) as avg_gpa FROM `marks` WHERE `student_id` = $student_id";
-            $result = mysqli_query($con, $sql); 
-            $data = mysqli_fetch_array($result);
-        
-            return $data['avg_gpa'];
-        }
-        
-        public function checkStudentID($student_id)
-        {
-            $con = $this->dbConnection();
-            $sql = "SELECT * FROM `results` WHERE `student_id` = $student_id";
-            $result = mysqli_query($con, $sql);
-            $count = mysqli_num_rows($result);
-        
-            return $count;
-        }
-        
         public function createCGPA($student_id, $avg_CGPA)
         {
             $con = $this->dbConnection();
@@ -49,7 +29,10 @@
         public function showResultList()
         {
             $con = $this->dbConnection();
-            $sql = "SELECT * FROM `results`";
+            $sql = "SELECT marks.student_id, AVG(marks.gpa) AS final_cgpa, users.user_id, users.username, users.registration_number
+                    FROM marks
+                    JOIN users ON marks.student_id = users.user_id
+                    GROUP BY marks.student_id, users.user_id, users.username, users.registration_number";
             $result = mysqli_query($con, $sql);
         
             return $result;
@@ -108,6 +91,35 @@
         {
             $con = $this->dbConnection();
             $sql = "SELECT DISTINCT `semester` FROM marks WHERE `student_id` = $student_id";
+            $result = mysqli_query($con, $sql);
+        
+            return $result;
+        }
+
+        public function checkStudent($ID)
+        {
+            $con = $this->dbConnection();
+            $sql = "SELECT `student_id` FROM `results` WHERE `student_id`= $ID";
+            $result = mysqli_query($con, $sql);
+        
+            return $result;
+        }
+
+        public function update($ID, $CGPA)
+        {
+            $con = $this->dbConnection();
+            $sql = "UPDATE `results` SET `final_cgpa`='$CGPA' WHERE `student_id`='$ID'";
+            $result = mysqli_query($con, $sql);
+        
+            return $result;
+        }
+
+        public function showResult()
+        {
+            $con = $this->dbConnection();
+            $sql = "SELECT results.results_id, results.student_id, results.final_cgpa, users.user_id, users.username, users.registration_number
+                    FROM results
+                    JOIN users ON results.student_id = users.user_id";
             $result = mysqli_query($con, $sql);
         
             return $result;

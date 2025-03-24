@@ -106,13 +106,13 @@
                                 <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['exam_id_error_msg']) ? $_SESSION['exam_id_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
-                                <label for="course_id">Course:</label>
+                                <label for="course_id">Exam :</label>
                                 <br>
                                 <select name='course_id' id='course_id' class='form-select' aria-label='Default select example'>
-                                    <option value='' disabled selected>Select the Course</option>
+                                    <option value='' disabled selected>Select the Exam</option>
                                     <?php
                                         foreach ($result3 as $data) {
-                                            if (($_SESSION['username'] == $data['assigned_to']) || $_SESSION['user_type'] == 1) {
+                                            if (($_SESSION['username'] == $data['username']) || $_SESSION['user_type'] == 1) {
                                     ?>                                      
                                             <option value="<?php echo $data['course_id'];?>"><?php echo $data['name'] . " --  ". $data['exam_title'];?></option>                                            
                                     <?php

@@ -101,6 +101,7 @@
                                                            
                                                             if ($data1['course_id'] === $data['course_id']) {
                                                                 echo $data1['name'];
+                                                                break;
                                                             }
                                                         }
                                                     ?></td>
@@ -109,6 +110,7 @@
                                                            
                                                             if ($data1['exam_id'] === $data['exam_id']) {
                                                                 echo $data1['exam_title'];
+                                                                break;
                                                             }
                                                         }
                                                     ?></td>

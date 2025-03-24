@@ -44,22 +44,6 @@
                                 <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['course_credit_error_msg']) ? $_SESSION['course_credit_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
-                                <label for="assigned_to">Assigned To: </label>
-                                <br>
-                                <select name="assigned_to" id="assigned_to" class="form-select" aria-label="Default select example">
-                                    <option value="" disabled selected>Select the instructor for course</option>
-                                    <?php
-                                        foreach ($result as $data) {                                           
-                                    ?> 
-                                        <option value="<?php echo $data['username'];?>"><?php echo $data['username'];?></option>
-                                    <?php
-                                        }
-                                    ?>
-                                </select>
-                                <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['assigned_to_error_msg']) ? $_SESSION['assigned_to_error_msg'] : ""; ?></p>
-                            </div>
-                            <div class="mb-3">
                                 <button type="submit" name="create" class="btn btn-primary">CREATE</button>
                             </div>
                         </form>

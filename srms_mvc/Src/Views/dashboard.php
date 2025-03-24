@@ -189,7 +189,7 @@
               }
             ?>
             <?php 
-              if ($_SESSION['user_type'] == 1 || $_SESSION['user_type'] == 2) {
+              if ($_SESSION['user_type'] == 1) {
             ?>
             <li>
               <form action="../Controllers/courseController.php" method="get">
@@ -199,7 +199,16 @@
             <?php
               }
               }
+              if ($_SESSION['user_type'] == 2) {
             ?> 
+            <li>
+              <form action="../Controllers/courseController.php" method="get">
+                <button type="submit" name="assignedCourse" class="btn btn-light" style="font-size: 14px;">Assigned Course</button>
+              </form>
+            </li>
+            <?php
+              }
+            ?>
           </ul>
         </div>
       </li>

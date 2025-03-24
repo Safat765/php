@@ -21,6 +21,7 @@
             $examType = sanitize($examType);
             $marks = sanitize($marks);
             $createdBy = sanitize($createdBy);
+            $instructorID = sanitize($instructorID);
             $isValid = true;
             $examExist = null;
 
@@ -74,18 +75,23 @@
             }                 
             
             if (empty($createdBy)) {
-                $_SESSION['created_by_error_msg'] = "created_by required!";
+                $_SESSION['created_by_error_msg'] = "Created by required!";
                 $isValid = false;
             } else {
                 $_SESSION['created_by_error_msg'] = "";
+            }           
+            
+            if (empty($instructorID)) {
+                $_SESSION['instructor_id_error_msg'] = "Instructor id required!";
+                $isValid = false;
+            } else {
+                $_SESSION['instructor_id_error_msg'] = "";
             }
 
             $objExam = new ExamModel();
 
             if ($isValid === true) {
-                $objCourse = new CourseModel();
-                $instructorID = $objCourse->assignedToInstructor($ID);
-                $examExist = $objExam->checkExam($ID, $semester, $examType);
+                $examExist = $objExam->checkExam($ID, $semester, $examType);                
                 
                 if ($examExist == 0) {
                     $objExam->create($ID, $examTitle, $departmentID, $semester, $credit, $examType, $marks, $instructorID, $createdBy);
@@ -218,13 +224,13 @@
             $objUser = new UserModel();
             $result = $courseModel->showList();
             $result1 = $objDepartment->showFullList();
-            $result3 = $objUser->showInstructorList(2);
+            $result2 = $objUser->showInstructorList(2);
 
             if (mysqli_num_rows($result) > 0) {
                
                 if (mysqli_num_rows($result1) > 0) {
                     
-                    if (mysqli_num_rows($result3) > 0) {
+                    if (mysqli_num_rows($result2) > 0) {
                         include '../Views/Exam/create.php';
                     }
                 }
@@ -262,7 +268,6 @@
         $objExam = new ExamComtroller();
 
         if (isset($_POST['create'])) {
-            $instructorID = "";
             $createdBy = $_SESSION['user_id'];
             $ID = isset($_POST['course_id']) ? $_POST['course_id'] : null;            
             $examTitle = isset($_POST['exam_title']) ? $_POST['exam_title'] : null;            
@@ -271,6 +276,7 @@
             $credit = isset($_POST['credit']) ? $_POST['credit'] : null;            
             $examType = isset($_POST['exam_type']) ? $_POST['exam_type'] : null;            
             $marks = isset($_POST['marks']) ? $_POST['marks'] : null;
+            $instructorID = isset($_POST['instructor_id']) ? $_POST['instructor_id'] : null;
 
             $objExam->create($ID, $examTitle, $departmentID, $semester, $credit, $examType, $marks, $instructorID, $createdBy);
         }

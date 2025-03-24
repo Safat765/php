@@ -48,17 +48,8 @@
                                         if (($_SESSION['user_id'] == $data['student_id']) || $_SESSION['user_type'] == 1) {
                                 ?>
                                             <tr>
-                                                <?php                                                    
-                                                    foreach ($result1 as $data1) {
-                                                        
-                                                        if ($data['student_id'] === $data1['user_id']) {
-                                                ?>
-                                                <td><?php echo $data1['username'] ?></td>
-                                                <td><?php echo $data1['registration_number'] ?></td>
-                                                <?php
-                                                        }
-                                                    }
-                                                ?>
+                                                <td><?php echo $data['username'] ?></td>
+                                                <td><?php echo $data['registration_number'] ?></td>>
                                                 <td><?php echo $data['final_cgpa'] ?></td>
                                                 <td>
                                                     <div class="form-group d-flex justify-content-center">

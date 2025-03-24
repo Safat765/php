@@ -7,9 +7,11 @@
     {        
         const STATUS_INACTIVE = 0;
         const STATUS_ACTIVE = 1;
+
         const USER_TYPE_ADMIN = 1;
         const USER_TYPE_INSTRUCTOR = 2;
         const USER_TYPE_STUDENT = 3;
+        
         public function dbConnection()
         {
             $servername = "localhost";
@@ -102,15 +104,6 @@
             $stmt->execute();            
 
             return $stmt->get_result();
-        } 
-
-        public function updateUser($user_id, $email, $password, $phone_number, $updated_at)
-        {
-            $con = $this->dbConnection();
-            $sql = "UPDATE `users` SET `email`= '$email',`password`= '$password',`phone_number`= '$phone_number',`updated_at`= '$updated_at' WHERE `user_id` = $user_id";
-            $result = mysqli_query($con, $sql);
-
-            return $result; 
         }
 
         public function update($status, $user_id) 

@@ -47,7 +47,7 @@
                             <tbody>
                                 <?php
                                     foreach ($result as $data) {
-                                        if (($_SESSION['user_id'] == $data['student_id']) || $_SESSION['user_type'] == 1 || $_SESSION['username'] == $data['assigned_to']) {
+                                        if (($_SESSION['user_id'] == $data['student_id']) || $_SESSION['user_type'] == 1 || $_SESSION['username'] == $data['username']) {
                                 ?>
                                             <tr>
                                                 <td>

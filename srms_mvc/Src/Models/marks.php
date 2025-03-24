@@ -23,7 +23,10 @@
         public function showList() 
         {
             $con = $this->dbConnection();
-            $sql = "SELECT * FROM `marks`";
+            $sql = "SELECT marks.marks_id, marks.student_id, marks.exam_id, marks.course_id, marks.marks, marks.semester, marks.gpa, exam.exam_id, exam.instructor_id, users.username
+                    FROM marks
+                    JOIN exam ON exam.exam_id = marks.exam_id
+                    JOIN users ON exam.instructor_id = users.user_id";
             $result = mysqli_query($con, $sql);            
             
             return $result;
@@ -39,10 +42,10 @@
             return $row;
         }
 
-        public function create($student_id, $exam_id, $course_id, $marks, $semester, $assigned_to, $gpa) 
+        public function create($student_id, $exam_id, $course_id, $marks, $semester, $gpa) 
         {
             $con = $this->dbConnection();
-            $sql = "INSERT INTO `marks`(`student_id`, `exam_id`, `course_id`, `marks`, `semester`, `assigned_to`, `gpa`) VALUES ('$student_id', '$exam_id', '$course_id', '$marks', '$semester', '$assigned_to', '$gpa')";
+            $sql = "INSERT INTO `marks`(`student_id`, `exam_id`, `course_id`, `marks`, `semester`, `gpa`) VALUES ('$student_id', '$exam_id', '$course_id', '$marks', '$semester', '$gpa')";
             $result = mysqli_query($con, $sql);            
             
             return $result;
@@ -78,9 +81,10 @@
         public function examCourse()
         {
             $con = $this->dbConnection();
-            $sql = "SELECT c.course_id, c.name, e.semester, c.assigned_to, e.exam_title
-                    FROM `course` c
-                    JOIN `exam` e ON c.course_id = e.course_id";
+            $sql = "SELECT DISTINCT exam.instructor_id, course.course_id, course.name, course.status, course.credit, course.created_by, exam.course_id, exam.exam_title, users.user_id, users.username
+                    FROM `exam`
+                    JOIN course ON exam.course_id = course.course_id
+                    JOIN users ON users.user_id = exam.instructor_id";
             $result = mysqli_query($con, $sql);            
             
             return $result;

@@ -10,7 +10,7 @@
 
     class ResultController
     {
-        public static function backToDashboard() 
+        public function backToDashboard() 
         {
             if (isset($_SESSION['student_id_error_msg'])) {
                 unset($_SESSION['student_id_error_msg']);
@@ -53,14 +53,10 @@
         public function showAllResult()
         {
             $objResult = new ResultModel();
-            $result = $objResult->showResultList();
-            $result1 = $objResult->showUsernameRegNumber();
+            $result = $objResult->showResult();
 
             if (mysqli_num_rows($result) > 0) {
-                
-                if (mysqli_num_rows($result1) > 0) {
-                    include '../Views/Result/Index.php';
-                }
+                include '../Views/Result/Index.php';
             } else {
                 echo "<tr><td colspan='4'>No users found.</td></tr>";
             }

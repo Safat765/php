@@ -29,10 +29,10 @@
             return $result->num_rows;
         }
 
-        public function createCourse($course_name, $course_status, $course_credit, $assigned_to, $created_by)
+        public function createCourse($course_name, $course_status, $course_credit, $created_by)
         {
             $con = $this->dbConnection();
-            $sql = "INSERT INTO `course`(`name`, `status`, `credit`, `assigned_to`, `created_by`) VALUES ('$course_name',$course_status,$course_credit,'$assigned_to','$created_by')";
+            $sql = "INSERT INTO `course`(`name`, `status`, `credit`, `created_by`) VALUES ('$course_name',$course_status,$course_credit,'$created_by')";
             $result = mysqli_query($con, $sql);
         }
 
@@ -61,10 +61,10 @@
             return $result;
         }
 
-        public function update($course_id, $course_name, $credit, $assigned_to)
+        public function update($course_id, $course_name, $credit)
         {
             $con = $this->dbConnection();
-            $sql = "UPDATE `course` SET `name`='$course_name', `credit`='$credit', `assigned_to`='$assigned_to' WHERE `course_id` = '$course_id'";
+            $sql = "UPDATE `course` SET `name`='$course_name', `credit`='$credit' WHERE `course_id` = '$course_id'";
             $result = mysqli_query($con, $sql);
         }
 
@@ -88,6 +88,18 @@
             $row = mysqli_fetch_assoc($result);
             
             return $row['user_id'];  
+        }
+        
+        public function assignedCourse($instructorID)
+        {
+            $con = $this->dbConnection();
+            $sql = "SELECT DISTINCT exam.course_id, course.name, exam.instructor_id, course.credit, course.status
+                    FROM `exam`
+                    JOIN course ON course.course_id = exam.course_id
+                    WHERE exam.instructor_id = $instructorID";
+            $result = mysqli_query($con, $sql);    
+            
+            return $result;
         }
     }
 ?>
