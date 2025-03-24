@@ -8,7 +8,7 @@
     include_once '../Models/course.php';
     include_once '../Models/user.php';
 
-    class profile
+    class ProfileController
     {
         public function create($firstname1, $middlename1, $lastname1, $department1, $session1, $userId1) 
         {
@@ -255,7 +255,7 @@
     }    
 
     if ($_SERVER['REQUEST_METHOD'] === "POST") {
-        $objProfile = new profile();
+        $objProfile = new ProfileController();
 
         if (isset($_POST['create'])) {
             $objProfile->create($_POST['first_name'], $_POST['middle_name'], $_POST['last_name'], $_POST['department'], $_POST['session'], $_POST['user_id']);
@@ -297,7 +297,7 @@
         }
     } elseif ($_SERVER['REQUEST_METHOD'] === "GET") {
         
-        $objProfile = new profile();
+        $objProfile = new ProfileController();
         
         if (isset($_GET['back'])) {
             $objProfile->showLoggedProfile($_SESSION['user_id']);

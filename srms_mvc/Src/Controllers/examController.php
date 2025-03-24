@@ -214,7 +214,7 @@
         public function showCreatePage()
         {
             $courseModel = new CourseModel();
-            $objDepartment = new Department();
+            $objDepartment = new DepartmentModel();
             $objUser = new UserModel();
             $result = $courseModel->showList();
             $result1 = $objDepartment->showFullList();
@@ -234,7 +234,7 @@
         public function showIndex()
         {
             $objExam = new ExamModel();
-            $depModel = new Department();
+            $depModel = new DepartmentModel();
             $result = $objExam->showList();
             $result1 = $objExam->showCourseName();
             $result2 = $depModel->showFullList();

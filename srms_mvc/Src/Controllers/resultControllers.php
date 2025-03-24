@@ -8,7 +8,7 @@
     require '../Models/course.php';
     require '../../Data/cleanData.php';
 
-    class result
+    class ResultController
     {
         public static function backToDashboard() 
         {
@@ -89,7 +89,7 @@
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-        $objResult = new result();
+        $objResult = new ResultController();
 
         if (isset($_POST['back_dashboard'])) {
             $objResult->backToDashboard();
@@ -107,7 +107,7 @@
         }
     } elseif ($_SERVER['REQUEST_METHOD'] === "GET") {
 
-        $objResult = new result();
+        $objResult = new ResultController();
 
         if (isset($_GET['createResult'])) {
             $objResult->showCreateResult();

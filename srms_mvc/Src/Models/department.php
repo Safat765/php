@@ -3,7 +3,7 @@
         session_start();
     }
 
-    class Department
+    class DepartmentModel
     {
         public function dbConnection()
         {

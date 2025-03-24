@@ -21,7 +21,7 @@
             }
 
             $createdBy = $_SESSION['user_id'];
-            $objDepartment = new Department();
+            $objDepartment = new DepartmentModel();
 
             if ($isValid === true) { 
                 $result = $objDepartment->checkDepertment($name);
@@ -42,7 +42,7 @@
 
         public function update($ID, $name)
         {            
-            $objDepartment = new Department();
+            $objDepartment = new DepartmentModel();
             $objDepartment->update($ID, $name);
             $_SESSION['create_dep_msg'] = "Edited Successfully";
             $this->showAll();            
@@ -70,7 +70,7 @@
 
         public function showAll() 
         {
-            $objDepartment = new Department();
+            $objDepartment = new DepartmentModel();
             $result = $objDepartment->showFullList();
             
             if (mysqli_num_rows($result) > 0) {
@@ -83,7 +83,7 @@
         public function delete($ID)
         {
             $departmentID = sanitize($ID);
-            $objDepartment = new Department();
+            $objDepartment = new DepartmentModel();
             $objDepartment->delete($departmentID);
             $this->showAll();
             $_SESSION['create_dep_msg'] =" ". $departmentID . " number department Deleted Successfully";
@@ -91,7 +91,7 @@
 
         public function editViewCall($ID)
         {
-            $objDepartment = new Department();
+            $objDepartment = new DepartmentModel();
             $result = $objDepartment->updateDepartmentInfo($ID);
             
             if (mysqli_num_rows($result) > 0) {

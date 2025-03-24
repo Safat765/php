@@ -6,7 +6,7 @@
     require '../Models/course.php';
     require '../../Data/cleanData.php';
 
-    class Course
+    class CourseController
     {
         public function create($courseName, $status1, $courseCredit, $assignedToInstructur, $createdBy1)
         {
@@ -140,7 +140,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         
-        $obj = new Course();
+        $obj = new CourseController();
 
         if (isset($_POST['create'])) {
             $created_by = $_SESSION['user_id'];
@@ -169,7 +169,7 @@
         }
     } elseif ($_SERVER['REQUEST_METHOD'] === "GET") {
 
-        $obj = new Course();
+        $obj = new CourseController();
         
         if (isset($_GET['viewAllCourse'])) {
             $obj->showAll();
