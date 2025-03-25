@@ -118,10 +118,10 @@
             $con->close();
         }
 
-        public function remove($uID)
+        public function remove($userId)
         {
             $con = $this->dbConnection();
-            $sql = "DELETE FROM `users` WHERE `user_id` = $uID";
+            $sql = "DELETE FROM `users` WHERE `user_id` = $userId";
             $result = mysqli_query($con, $sql);
 
             return $result;

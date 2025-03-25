@@ -67,19 +67,19 @@
                     if ($userType == 2 || $userType == 1) {
                         $session = '';
                         $objProfile->creatProfile($firstName, $middleName, $lastName, $department, $session, $userId);
-                        $_SESSION['create_dep_msg'] = "Profile added successfully";
+                        $_SESSION['create_dept_msg'] = "Profile added successfully";
                         $this->showCreatePage();
                     } else {
                         $objProfile->creatProfile($firstName, $middleName, $lastName, $department, $session, $userId);
-                        $_SESSION['create_dep_msg'] = "Profile added successfully";
+                        $_SESSION['create_dept_msg'] = "Profile added successfully";
                         $this->showCreatePage();
                     }
                 } else {
-                    $_SESSION['create_dep_msg'] = " This Profile already exists";
+                    $_SESSION['create_dept_msg'] = " This Profile already exists";
                     $this->showCreatePage();
                 }
             } else {
-                $_SESSION['create_dep_msg'] = " Fill up all the field first";
+                $_SESSION['create_dept_msg'] = " Fill up all the field first";
                 $this->showCreatePage();
             }
 
@@ -94,7 +94,7 @@
                 unset($_SESSION['department_error_msg']);
                 unset($_SESSION['session_error_msg']);
                 unset($_SESSION['user_id_error_msg']);
-                unset($_SESSION['create_dep_msg']);
+                unset($_SESSION['create_dept_msg']);
                 header ('Location: ../Views/dashboard.php');
                 exit;
             } else {    
@@ -104,7 +104,7 @@
                 unset($_SESSION['department_error_msg']);
                 unset($_SESSION['session_error_msg']);
                 unset($_SESSION['user_id_error_msg']);
-                unset($_SESSION['create_dep_msg']);
+                unset($_SESSION['create_dept_msg']);
                 header ('Location: ../Views/dashboard.php');
                 exit;
             }
@@ -140,10 +140,10 @@
 
             if ($chekUserExist !== 0) {
                 $objProfile->update($firstName, $middleName, $lastName, $userId);
-                $_SESSION['create_dep_msg'] = "Profile edited successfully";
+                $_SESSION['create_dept_msg'] = "Profile edited successfully";
                 $this->showLoggedProfile($_SESSION['userID']);
             } else {
-                $_SESSION['create_dep_msg'] = " This Profile is not exists";
+                $_SESSION['create_dept_msg'] = " This Profile is not exists";
                 $this->editCall($_SESSION['userID']);
             }
         }
@@ -228,21 +228,21 @@
                     if ($oldPassword !== $newPassword) {
                         $hashedPassword = password_hash($confirmPassword, PASSWORD_DEFAULT);
                         $objUser ->updatePassword($id, $hashedPassword);
-                        $_SESSION['create_dep_msg'] = " This password has been updated";
+                        $_SESSION['create_dept_msg'] = " This password has been updated";
                         $this->changePasswordPage();
                     } elseif (password_verify($oldPassword, $currentPassword)) {
-                        $_SESSION['create_dep_msg'] = " This password is use before give a new password hash";
+                        $_SESSION['create_dept_msg'] = " This password is use before give a new password hash";
                         $this->changePasswordPage();
                     } else {
-                        $_SESSION['create_dep_msg'] = " This password is use before give a new password";
+                        $_SESSION['create_dept_msg'] = " This password is use before give a new password";
                         $this->changePasswordPage();
                     }
                 }  else {
-                    $_SESSION['create_dep_msg'] = " New password and confirm password doesn't match";
+                    $_SESSION['create_dept_msg'] = " New password and confirm password doesn't match";
                     $this->changePasswordPage();
                 }
             } else {
-                $_SESSION['create_dep_msg'] = " Fill up all the field";
+                $_SESSION['create_dept_msg'] = " Fill up all the field";
                 $this->changePasswordPage();
             }
         }

@@ -95,14 +95,14 @@
                 
                 if ($examExist == 0) {
                     $objExam->create($ID, $examTitle, $departmentID, $semester, $credit, $examType, $marks, $instructorID, $createdBy);
-                    $_SESSION['create_dep_msg'] = "Exam added successfully";
+                    $_SESSION['create_dept_msg'] = "Exam added successfully";
                     $this->showIndex();
                 } else {
-                    $_SESSION['create_dep_msg'] = " This Exam already exists on $semester semester and $examType type";
+                    $_SESSION['create_dept_msg'] = " This Exam already exists on $semester semester and $examType type";
                     $this->showIndex();
                 }
             } else {
-                $_SESSION['create_dep_msg'] = " Fill up the field first";
+                $_SESSION['create_dept_msg'] = " Fill up the field first";
                 $this->showCreatePage();
             }
         }        
@@ -196,14 +196,14 @@
                 
                 if ($examExist == 0) {
                     $model->update($ID,  $examTitle, $credit, $examType, $marks);
-                    $_SESSION['create_dep_msg'] = "Exam edited successfully";
+                    $_SESSION['create_dept_msg'] = "Exam edited successfully";
                     $this->showIndex();
                 } else {
-                    $_SESSION['create_dep_msg'] = " Failed to update the exam";
+                    $_SESSION['create_dept_msg'] = " Failed to update the exam";
                     $this->showIndex();
                 }
             } else {
-                $_SESSION['create_dep_msg'] = " Fill up the field first";
+                $_SESSION['create_dept_msg'] = " Fill up the field first";
                 $this->showIndex();
             }
         }
@@ -213,7 +213,7 @@
             $model = new ExamModel();
             $ID = sanitize($ID);
             $model->delete($ID);
-            $_SESSION['create_dep_msg'] = "Exam deleted successfully";
+            $_SESSION['create_dept_msg'] = "Exam deleted successfully";
             $this->showIndex();
         }
 

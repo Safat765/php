@@ -38,14 +38,14 @@
 
                 if ($courseExist == 0) {
                     $objCourse->createCourse($name, $status, $credit, $createdBy);
-                    $_SESSION['create_dep_msg'] = "Course added successfully";
+                    $_SESSION['create_dept_msg'] = "Course added successfully";
                     $this->showAll();
                 } else {
-                    $_SESSION['create_dep_msg'] = " This Course already exists";
+                    $_SESSION['create_dept_msg'] = " This Course already exists";
                     $this->showAll();
                 }
             } else {
-                $_SESSION['create_dep_msg'] = " Fill up the field first";
+                $_SESSION['create_dept_msg'] = " Fill up the field first";
                 $this->showCreatePage();
             }
         }
@@ -91,7 +91,7 @@
 
             $objCourse = new CourseModel(); 
             $objCourse->update($ID, $Name, $credit);
-            $_SESSION['create_dep_msg'] = "Course edited Successfully";
+            $_SESSION['create_dept_msg'] = "Course edited Successfully";
             $this->showAll();       
         }
 
@@ -121,7 +121,7 @@
         {
             $objCourse = new CourseModel();
             $objCourse->delete($id);
-            $_SESSION['create_dep_msg'] =" ". $id . " number course Deleted Successfully";
+            $_SESSION['create_dept_msg'] =" ". $id . " number course Deleted Successfully";
             $this->showAll();
         }
 

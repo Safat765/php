@@ -99,14 +99,14 @@
                     $this->createResult();
                                         
                     if ($result) {
-                        $_SESSION['create_dep_msg'] = "Marks added successfully";
+                        $_SESSION['create_dept_msg'] = "Marks added successfully";
                         $this->showAll();
                     } else {
-                        $_SESSION['create_dep_msg'] = "Marks added to fail";
+                        $_SESSION['create_dept_msg'] = "Marks added to fail";
                         $this->showAll();
                     }
                 } else {
-                    $_SESSION['create_dep_msg'] = "Marks already exist";
+                    $_SESSION['create_dept_msg'] = "Marks already exist";
                     $this->showAll();
                 }
             }
@@ -162,10 +162,10 @@
 
             if ($result) {
                 $objMarks->deleteResult($studentId);
-                $_SESSION['create_dep_msg'] = "Marks deleted successfully";
+                $_SESSION['create_dept_msg'] = "Marks deleted successfully";
                 $this->showAll();
             } else {
-                $_SESSION['create_dep_msg'] = "Marks not deleted";
+                $_SESSION['create_dept_msg'] = "Marks not deleted";
                 $this->showAll();
             }
         }
@@ -208,10 +208,10 @@
             $result = $model->update($marksId, $studentId, $courseId, $marks, $semester, $gpa);
             
             if ($result) {
-                $_SESSION['create_dep_msg'] = "Marks updated successfully";
+                $_SESSION['create_dept_msg'] = "Marks updated successfully";
                 $this->showAll();
             } else {
-                $_SESSION['create_dep_msg'] = "Marks already exist";
+                $_SESSION['create_dept_msg'] = "Marks already exist";
                 $this->showAll();
             }
         }

@@ -32,10 +32,10 @@
                     <div class="card-body">
                         <form action="../Controllers/departmentController.php" method="post">                            
                             <div class="mb-3">
-                                <label for="dep_name">Department Name:</label>
-                                <input type="text" id="dep_name" name="dep_name" class="form-control">
+                                <label for="dept_name">Department Name:</label>
+                                <input type="text" id="dept_name" name="dept_name" class="form-control">
                                 <br>
-                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['dep_name_error_msg']) ? $_SESSION['dep_name_error_msg'] : ""; ?></p>
+                                <p style="color: red; font-weight: bold;"><?php  echo isset($_SESSION['dept_name_error_msg']) ? $_SESSION['dept_name_error_msg'] : ""; ?></p>
                             </div>
                             <div class="mb-3">
                                 <button type="submit" name="create" class="btn btn-primary">CREATE</button>

@@ -14,12 +14,12 @@
         {
             if (isset($_SESSION['student_id_error_msg'])) {
                 unset($_SESSION['student_id_error_msg']);
-                unset($_SESSION['create_dep_msg']);
+                unset($_SESSION['create_dept_msg']);
                 header('Location: ../Views/dashboard.php');
                 exit(0);
             } else {                
                 unset($_SESSION['student_id_error_msg']);
-                unset($_SESSION['create_dep_msg']);
+                unset($_SESSION['create_dept_msg']);
                 header ('Location: ../Views/dashboard.php');
                 exit(0);
             }
@@ -32,10 +32,10 @@
             $result = $model->delete($id);
             
             if ($result) {
-                $_SESSION['create_dep_msg'] = "Result deleted successfully";
+                $_SESSION['create_dept_msg'] = "Result deleted successfully";
                 $this->showAllResult();
             } else {
-                $_SESSION['create_dep_msg'] = "Result not deleted";
+                $_SESSION['create_dept_msg'] = "Result not deleted";
                 $this->showAllResult();
             }
         }
@@ -69,10 +69,8 @@
             $result = $objResult->showSingleStudentResult($studentId);
             $result1 = $objResult->showCourseNameExamTitle();
             
-            if (mysqli_num_rows($result0) > 0) {
-                
+            if (mysqli_num_rows($result0) > 0) {                
                 if (mysqli_num_rows($result) > 0) {
-                  
                     if (mysqli_num_rows($result1) > 0) {
                         include '../Views/Result/dropDownResult.php';
                     }

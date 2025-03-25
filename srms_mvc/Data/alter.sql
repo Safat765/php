@@ -14,3 +14,6 @@ MODIFY COLUMN registration_number VARCHAR(20)
 
 ALTER TABLE exam 
 MODIFY COLUMN semester tinyint
+
+ALTER TABLE users
+MODIFY COLUMN username VARCHAR(255) UNIQUE;

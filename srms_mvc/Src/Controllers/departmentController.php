@@ -14,10 +14,10 @@
             $isValid = true;
 
             if (empty($name)) {
-                $_SESSION['dep_name_error_msg'] = "Department Name required!";
+                $_SESSION['dept_name_error_msg'] = "Department Name required!";
                 $isValid = false;
             } else {
-                $_SESSION['dep_name_error_msg'] = "";
+                $_SESSION['dept_name_error_msg'] = "";
             }
 
             $createdBy = $_SESSION['user_id'];
@@ -28,14 +28,14 @@
                 
                 if ($result == 0) {
                     $objDepartment->create($name, $createdBy);
-                    $_SESSION['create_dep_msg'] = " Depertment Created Successfully";
+                    $_SESSION['create_dept_msg'] = " Depertment Created Successfully";
                     $this->showAll();
                 } else {            
-                    $_SESSION['create_dep_msg'] = " This Depertment has already been Created before";
+                    $_SESSION['create_dept_msg'] = " This Depertment has already been Created before";
                     $this->showAll();
                 }
             } else {
-                $_SESSION['create_dep_msg'] = " Fill up the field first";
+                $_SESSION['create_dept_msg'] = " Fill up the field first";
                 $this->showCreatePage();
             }
         }
@@ -44,20 +44,20 @@
         {            
             $objDepartment = new DepartmentModel();
             $objDepartment->update($ID, $name);
-            $_SESSION['create_dep_msg'] = "Edited Successfully";
+            $_SESSION['create_dept_msg'] = "Edited Successfully";
             $this->showAll();            
         }
 
         public function backToDashboard()
         {
-            if (isset($_SESSION['dep_name_error_msg'])) {                
-                unset($_SESSION['dep_name_error_msg']);
-                unset($_SESSION['create_dep_msg']);
+            if (isset($_SESSION['dept_name_error_msg'])) {                
+                unset($_SESSION['dept_name_error_msg']);
+                unset($_SESSION['create_dept_msg']);
                 header ('Location: ../Views/dashboard.php');
                 exit;
             } else {            
-                unset($_SESSION['dep_name_error_msg']);
-                unset($_SESSION['create_dep_msg']);
+                unset($_SESSION['dept_name_error_msg']);
+                unset($_SESSION['create_dept_msg']);
                 header ('Location: ../Views/dashboard.php');
                 exit;
             }
@@ -86,7 +86,7 @@
             $objDepartment = new DepartmentModel();
             $objDepartment->delete($departmentID);
             $this->showAll();
-            $_SESSION['create_dep_msg'] =" ". $departmentID . " number department Deleted Successfully";
+            $_SESSION['create_dept_msg'] =" ". $departmentID . " number department Deleted Successfully";
         }
 
         public function editViewCall($ID)
@@ -111,7 +111,7 @@
         }
 
         if (isset($_POST['create'])) {
-            $objDepartment->create($_POST['dep_name']);
+            $objDepartment->create($_POST['dept_name']);
         }
 
         if (isset($_POST['editCall'])) {
@@ -124,7 +124,7 @@
 
         if (isset($_POST['_method'])) {
             if ($_POST['_method'] === "PUT") {
-                $objDepartment->update($_POST['department_id'], $_POST['dep_name']);
+                $objDepartment->update($_POST['department_id'], $_POST['dept_name']);
             }
             elseif ($_POST['_method'] === "DELETE") {
                 $objDepartment->delete($_POST['department_id']);

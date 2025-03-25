@@ -52,7 +52,7 @@
                         header("Location: ../Views/dashboard.php");
                         unset($_SESSION['error_msg']);
                     } else {
-                        $_SESSION['create_dep_msg'] = "username or password incorrect";
+                        $_SESSION['create_dept_msg'] = "username or password incorrect";
                         $_SESSION['error_msg'] = "username or password incorrect";
                         header("Location: ../Views/login.php");
                         exit;
@@ -77,19 +77,19 @@
                         header("Location: ../Views/dashboard.php");
                         unset($_SESSION['error_msg']);
                     } else {
-                        $_SESSION['create_dep_msg'] = "username or password incorrect";
+                        $_SESSION['create_dept_msg'] = "username or password incorrect";
                         $_SESSION['error_msg'] = "username or password incorrect";
                         header("Location: ../Views/login.php");
                         exit;
                     }
                 } else {
-                    $_SESSION['create_dep_msg'] = "Password incorrect";
+                    $_SESSION['create_dept_msg'] = "Password incorrect";
                     $_SESSION['error_msg'] = "username or password incorrect";
                     header("Location: ../Views/login.php");
                     exit;
                 }
             } else {
-                $_SESSION['create_dep_msg'] = "username or password incorrect";
+                $_SESSION['create_dept_msg'] = "username or password incorrect";
                 $_SESSION['error_msg'] = "username or password incorrect";
                 header("Location: ../Views/login.php");
                 exit;
@@ -222,15 +222,15 @@
                         } else {
                             $objProfile->creatProfile($firstName, $middleName, $lastName, $department, $session, $userID);
                         }                        
-                        $_SESSION['create_dep_msg'] = " User added successfully";
+                        $_SESSION['create_dept_msg'] = " User added successfully";
                         $this->showAll();
                     }
                 } else {
-                    $_SESSION['create_dep_msg'] = " Username and registration number already exist";
+                    $_SESSION['create_dept_msg'] = " Username and registration number already exist";
                     $this->showAll();
                 }
             } else {
-                $_SESSION['create_dep_msg'] = " Fill up all the field first";
+                $_SESSION['create_dept_msg'] = " Fill up all the field first";
                 $this->showCreatePage();
             }
         }
@@ -247,7 +247,7 @@
             $updatedAT = date("Y-m-d H:i:sa");
 
             $objUser->update($userID, $email, $password, $phoneNumber, $updatedAT);
-            $_SESSION['create_dep_msg'] = "Edited Successfully";
+            $_SESSION['create_dept_msg'] = "Edited Successfully";
             $this->showAll();
         }
 
@@ -261,7 +261,7 @@
                 unset($_SESSION['status_error_msg']);
                 unset($_SESSION['registration_number_error_msg']);
                 unset($_SESSION['phone_number_error_msg']);
-                unset($_SESSION['create_dep_msg']);
+                unset($_SESSION['create_dept_msg']);
                 header ('Location: ../Views/dashboard.php');
                 exit;
             } else {                
@@ -272,7 +272,7 @@
                 unset($_SESSION['status_error_msg']);
                 unset($_SESSION['registration_number_error_msg']);
                 unset($_SESSION['phone_number_error_msg']);
-                unset($_SESSION['create_dep_msg']);
+                unset($_SESSION['create_dept_msg']);
                 header ('Location: ../Views/dashboard.php');
                 exit;
             }
@@ -291,18 +291,18 @@
             }
         }
 
-        public function delete($uID) 
+        public function delete($userId) 
         {
             $objUser = new UserModel();
 
-            $uID = sanitize($uID);
-            $result = $objUser->remove($uID);
+            $userId = sanitize($userId);
+            $result = $objUser->remove($userId);
 
             if ($result == true) {
-                $_SESSION['create_dep_msg'] = "Deleted Successfully";
+                $_SESSION['create_dept_msg'] = "Deleted Successfully";
                 $this->showAll();
             } else {
-                $_SESSION['create_dep_msg'] = "Deleted failed";
+                $_SESSION['create_dept_msg'] = "Deleted failed";
                 $this->showAll();
             }
         }   
@@ -392,7 +392,7 @@
                 $status = 0;
                 $objUser->update($status, $user_id);
                 $statusChange = UserModel::STATUS_INACTIVE;
-                $_SESSION['create_dep_msg'] = "User inactivate successfully";
+                $_SESSION['create_dept_msg'] = "User inactivate successfully";
                 $obj->showAll();
             } 
             
@@ -400,7 +400,7 @@
                 $status = 1;
                 $objUser->update($status, $user_id);
                 $statusChange = UserModel::STATUS_INACTIVE;
-                $_SESSION['create_dep_msg'] = "User activate successfully";
+                $_SESSION['create_dept_msg'] = "User activate successfully";
                 $obj->showAll();
             }
         }

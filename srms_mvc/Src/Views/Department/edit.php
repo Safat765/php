@@ -36,12 +36,12 @@
                                         <input type="hidden" id="department_id" name="department_id" value="<?php echo $data['department_id']; ?>">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="dep_name">Department Name:</label>
-                                        <input type="text" id="dep_name" name="dep_name" class="form-control" value="<?php echo $data['name']?>">
+                                        <label for="dept_name">Department Name:</label>
+                                        <input type="text" id="dept_name" name="dept_name" class="form-control" value="<?php echo $data['name']?>">
                                     </div>
                                     <div class="mb-3">
-                                        <label for="dep_created_by">Created By:</label>
-                                        <input type="text" id="dep_created_by" name="dep_created_by" class="form-control" value="Admin" readonly>
+                                        <label for="dept_created_by">Created By:</label>
+                                        <input type="text" id="dept_created_by" name="dept_created_by" class="form-control" value="Admin" readonly>
                                     </div>
                                     <div class="mb-3">
                                         <button type="submit" name="confirmUpdate" class="btn btn-primary">Confirm Edit</button>
